@@ -1,0 +1,47 @@
+@import 'variables';
+
+// 提示框样式 - 用于 MD 中的提示块
+// 使用方法：{: .prompt-tip }、{: .prompt-warning }、{: .prompt-error }
+
+.prompt {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  border-left: 4px solid;
+  margin: $spacing-md 0;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.prompt-tip {
+  background-color: var(--color-tip-bg);
+  border-color: var(--color-link);
+  color: var(--color-text-primary);
+  
+  &::before {
+    content: "💡 ";
+  }
+}
+
+.prompt-warning {
+  background-color: var(--color-warning-bg);
+  border-color: #f59e0b;
+  color: var(--color-text-primary);
+  
+  &::before {
+    content: "⚠️ ";
+  }
+}
+
+.prompt-error {
+  background-color: var(--color-error-bg);
+  border-color: #ef4444;
+  color: var(--color-text-primary);
+  
+  &::before {
+    content: "❌ ";
+  }
+}

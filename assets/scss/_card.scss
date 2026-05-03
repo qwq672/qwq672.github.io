@@ -1,0 +1,65 @@
+@import 'variables';
+
+// 卡片样式 - 温润简约，浅底色+极微弱阴影
+.post-card {
+  background: var(--color-bg-card);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  transition: all $transition-normal;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-md;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-hover;
+  }
+
+  &__image-link {
+    display: block;
+    line-height: 0;
+  }
+  &__image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+  }
+  &__content {
+    padding: $spacing-sm 0;
+  }
+  &__title {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-xs;
+    a { 
+      color: var(--color-text-primary); 
+      &:hover { 
+        color: var(--color-link-hover); 
+      }
+    }
+  }
+  &__summary {
+    color: var(--color-text-secondary);
+    font-size: $font-size-base;
+    margin-bottom: $spacing-sm;
+  }
+  &__meta {
+    font-size: $font-size-sm;
+    color: var(--color-text-tertiary);
+    border-top: 1px solid var(--color-border);
+    padding-top: $spacing-sm;
+    margin-top: $spacing-sm;
+  }
+}
+
+// 网格布局（列表页）
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-md;
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

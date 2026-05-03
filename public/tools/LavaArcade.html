@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>LavaArcade — 离线多人小游戏 · 智能AI框架</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --lava-bg: var(--color-bg-primary);
+            --lava-surface: var(--color-bg-secondary);
+            --lava-card: var(--color-bg-card);
+            --lava-border: var(--color-border);
+            --lava-text: var(--color-text-primary);
+            --lava-text-secondary: var(--color-text-secondary);
+            --lava-accent: #c25b1a;
+            --lava-accent-hover: #d4681f;
+            --lava-btn-primary-bg: #2d2a24;
+            --lava-btn-primary-text: #fef5ec;
+            --lava-btn-outline-border: #cfbfae;
+            --lava-btn-outline-text: #4a3b2c;
+            --lava-badge-bg: #efe4d8;
+            --lava-badge-text: #6b4c2c;
+            --lava-warning-bg: #fff5eb;
+            --lava-warning-border: #c25b1a;
+            --lava-warning-text: #5a4a38;
+            --lava-mem-bg: #f3ede7;
+            --lava-mem-text: #6b5a48;
+            --lava-section-border: #efe4dc;
+            --lava-section-alt-bg: #fefaf6;
+            --lava-card-hover-border: #d9c2b0;
+            --lava-pre-bg: #f3ede7;
+            --lava-pre-text: #5e4e3c;
+            --lava-footer-bg: #f9f4ef;
+            --lava-footer-border: #e6d9cf;
+            --lava-footer-text: #7f6e5c;
+            --lava-hr: #e6d9cf;
+            --lava-input-bg: #fbf7f2;
+            --lava-input-border: #ede0d6;
+            --lava-placeholder-bg: #fefaf5;
+            --lava-placeholder-border: #e6d9cf;
+            --lava-placeholder-text: #9b876f;
+            --lava-feature-card-shadow: rgba(0, 0, 0, 0.02);
+            --lava-feature-card-hover-shadow: rgba(0, 0, 0, 0.08);
+            --lava-badge-secondary-bg: #e9e0d8;
+            --lava-badge-secondary-text: #7a5a3e;
+            --lava-icon-color: #c25b1a;
+        }
+
+        [data-theme="dark"] {
+            --lava-bg: #1a1816;
+            --lava-surface: #252220;
+            --lava-card: #252220;
+            --lava-border: rgba(255,255,255,0.08);
+            --lava-text: #f0ebe6;
+            --lava-text-secondary: #c4bdb5;
+            --lava-accent: #d4a574;
+            --lava-accent-hover: #e8c49a;
+            --lava-btn-primary-bg: #d4a574;
+            --lava-btn-primary-text: #1a1816;
+            --lava-btn-outline-border: #5a504a;
+            --lava-btn-outline-text: #c4bdb5;
+            --lava-badge-bg: #3a3028;
+            --lava-badge-text: #d4a574;
+            --lava-warning-bg: #2a2018;
+            --lava-warning-border: #d4a574;
+            --lava-warning-text: #c4bdb5;
+            --lava-mem-bg: #2a2520;
+            --lava-mem-text: #a09080;
+            --lava-section-border: rgba(255,255,255,0.06);
+            --lava-section-alt-bg: #1e1c1a;
+            --lava-card-hover-border: #5a504a;
+            --lava-pre-bg: #2a2520;
+            --lava-pre-text: #b0a090;
+            --lava-footer-bg: #1e1c1a;
+            --lava-footer-border: rgba(255,255,255,0.06);
+            --lava-footer-text: #8a8078;
+            --lava-hr: rgba(255,255,255,0.08);
+            --lava-input-bg: #2a2520;
+            --lava-input-border: #3a3028;
+            --lava-placeholder-bg: #252220;
+            --lava-placeholder-border: #3a3028;
+            --lava-placeholder-text: #6a6058;
+            --lava-feature-card-shadow: rgba(0, 0, 0, 0.2);
+            --lava-feature-card-hover-shadow: rgba(0, 0, 0, 0.4);
+            --lava-badge-secondary-bg: #3a3028;
+            --lava-badge-secondary-text: #a09080;
+            --lava-icon-color: #d4a574;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', var(--font-family);
+            background: var(--lava-bg);
+            color: var(--lava-text);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 40%, rgba(230, 140, 60, 0.03) 2%, transparent 2.5%),
+                              radial-gradient(circle at 80% 70%, rgba(190, 100, 40, 0.02) 1.5%, transparent 2%);
+            background-size: 48px 48px, 36px 36px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .navbar {
+            background: var(--lava-surface);
+            border-bottom: 1px solid var(--lava-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+            color: var(--lava-accent);
+        }
+
+        .nav-logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--lava-text);
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--lava-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--lava-accent);
+        }
+
+        .theme-toggle {
+            background: var(--lava-badge-bg);
+            border: 1px solid var(--lava-border);
+            color: var(--lava-text-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--lava-card);
+            border-color: var(--lava-accent);
+            color: var(--lava-text);
+        }
+
+        .github-btn {
+            background: none;
+            border: 1px solid var(--lava-btn-outline-border);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: var(--lava-btn-outline-text);
+        }
+
+        .github-btn:hover {
+            background: var(--lava-btn-primary-bg);
+            border-color: var(--lava-btn-primary-bg);
+            color: var(--lava-btn-primary-text) !important;
+        }
+
+        .btn-primary {
+            background: var(--lava-btn-primary-bg);
+            color: var(--lava-btn-primary-text);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 48px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 2px 6px var(--lava-feature-card-shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--lava-accent);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(194, 91, 26, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--lava-btn-outline-border);
+            padding: 12px 28px;
+            border-radius: 48px;
+            font-weight: 500;
+            color: var(--lava-btn-outline-text);
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--lava-accent);
+            color: var(--lava-accent);
+            background: rgba(194, 91, 26, 0.03);
+        }
+
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--lava-text);
+            margin-bottom: 24px;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subhead {
+            font-size: 1.2rem;
+            max-width: 720px;
+            margin: 0 auto 32px;
+            color: var(--lava-text-secondary);
+            font-weight: 400;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--lava-badge-bg);
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--lava-badge-text);
+            margin-bottom: 32px;
+            letter-spacing: 0.2px;
+        }
+
+        .warning-note {
+            background: var(--lava-warning-bg);
+            border-left: 4px solid var(--lava-warning-border);
+            padding: 18px 24px;
+            border-radius: 20px;
+            margin: 32px auto 0;
+            max-width: 720px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--lava-warning-text);
+        }
+
+        .mem-warning {
+            background: var(--lava-mem-bg);
+            border-radius: 60px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            margin-top: 24px;
+            color: var(--lava-mem-text);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .section {
+            padding: 96px 0;
+            border-top: 1px solid var(--lava-section-border);
+        }
+
+        .section:first-of-type {
+            border-top: none;
+        }
+
+        .section-alt {
+            background: var(--lava-section-alt-bg);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--lava-text);
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--lava-text-secondary);
+            max-width: 660px;
+            margin: 0 auto 56px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 32px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .feature-card {
+            background: var(--lava-card);
+            border: 1px solid var(--lava-border);
+            border-radius: 28px;
+            padding: 32px 28px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px var(--lava-feature-card-shadow);
+        }
+
+        .feature-card:hover {
+            border-color: var(--lava-card-hover-border);
+            box-shadow: 0 12px 24px -12px var(--lava-feature-card-hover-shadow);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            color: var(--lava-icon-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--lava-text);
+        }
+
+        .feature-card p {
+            color: var(--lava-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .game-badge {
+            background: var(--lava-badge-secondary-bg);
+            border-radius: 60px;
+            padding: 4px 14px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            color: var(--lava-badge-secondary-text);
+        }
+
+        .demo-config {
+            background: var(--lava-input-bg);
+            border-radius: 20px;
+            padding: 18px;
+            margin-top: 20px;
+            border: 1px solid var(--lava-input-border);
+            font-size: 0.85rem;
+            color: var(--lava-text-secondary);
+        }
+
+        pre {
+            background: var(--lava-pre-bg);
+            padding: 14px;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.75rem;
+            font-family: 'SF Mono', 'JetBrains Mono', monospace;
+            color: var(--lava-pre-text);
+        }
+
+        .screenshot-placeholder {
+            background: var(--lava-placeholder-bg);
+            border-radius: 32px;
+            padding: 48px 24px;
+            text-align: center;
+            border: 1px solid var(--lava-placeholder-border);
+            color: var(--lava-placeholder-text);
+        }
+
+        .license-note {
+            background: var(--lava-badge-secondary-bg);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            display: inline-block;
+            color: var(--lava-badge-secondary-text);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--lava-hr);
+            margin: 20px auto;
+            width: 80px;
+        }
+
+        footer {
+            background: var(--lava-footer-bg);
+            padding: 56px 0 40px;
+            text-align: center;
+            border-top: 1px solid var(--lava-footer-border);
+            color: var(--lava-footer-text);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 24px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--lava-footer-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--lava-accent);
+        }
+
+        @media (max-width: 780px) {
+            .container {
+                padding: 0 24px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero .subhead {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .nav-inner {
+                justify-content: center;
+                gap: 16px;
+            }
+            .nav-links {
+                gap: 24px;
+                justify-content: center;
+            }
+            .hero {
+                padding: 70px 0 50px;
+            }
+            .section {
+                padding: 64px 0;
+            }
+            .feature-card {
+                padding: 24px 20px;
+            }
+        }
+
+        .check-icon {
+            color: var(--lava-accent);
+        }
+
+        .text-accent {
+            color: var(--lava-accent);
+        }
+
+        code {
+            background: var(--lava-pre-bg);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: var(--lava-pre-text);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-inner">
+        <div class="nav-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <path d="M12 6v6l4 2"/>
+            </svg>
+            <span class="nav-logo-text">LavaArcade</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">功能</a>
+            <a href="#ai-deep">AI 框架</a>
+            <a href="#games">游戏预设</a>
+            <a href="#download">获取</a>
+            <a href="#extras">实验室</a>
+            <button class="theme-toggle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <span>深色</span>
+            </button>
+            <a href="https://github.com/qwq672/LavaArcade" target="_blank" class="github-btn"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="hero container">
+        <div class="hero-badge">
+            ✨ 适用于 Minecraft 1.20.1 · Fabric
+        </div>
+        <h1>让离线多人小游戏游玩更简单</h1>
+        <div class="subhead">
+            LavaArcade 提供智能 AI 玩家与完整小游戏预设，在离线环境、弱网或无真人队友时，依然获得如同专用服务器般的派对体验。
+        </div>
+        <div class="warning-note">
+            <i class="fas fa-code-branch text-accent" style="margin-right: 10px;"></i> 
+            我们仍在积极开发 LavaArcade 正式版本，目前提供预览版供早期体验 — 可能包含部分实验功能或尚未完整实现的内容，感谢你的耐心与反馈。
+        </div>
+        <div class="mem-warning">
+            <i class="fas fa-microchip"></i> 推荐配置：内存 ≥ 8 GB（多人 AI 对局更流畅）
+        </div>
+        <div class="button-group">
+            <a href="#download" class="btn-primary"><i class="fas fa-download"></i> 下载预览版</a>
+            <a href="https://github.com/qwq672/LavaArcade" target="_blank" class="btn-outline"><i class="fab fa-github"></i> 访问仓库</a>
+        </div>
+    </div>
+
+    <div id="features" class="section">
+        <div class="container">
+            <div class="section-title">核心设计</div>
+            <div class="section-sub">为离线场景重构多人小游戏体验，不依赖网络亦可尽兴</div>
+            <div class="grid-3">
+                <div class="feature-card">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3>智能 AI 玩家</h3>
+                    <p>行为树驱动，支持难度梯度（新手到专家级），模拟真实玩家战术：搭路、收集、 PVP 。可随时调整 AI 强度与发言频率。</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>可选大模型集成</h3>
+                    <p>支持接入本地 Ollama 或 OpenAI 兼容 API，赋予 AI 更深度的对话与决策能力。非必须，默认行为树完全离线可用。</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-gamepad feature-icon"></i>
+                    <h3>内建小游戏库</h3>
+                    <p>起床战争、密室杀手等完整玩法开箱即用，自带大厅地图与计分板，同时提供扩展接口以便添加自定义游戏。</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sliders-h feature-icon"></i>
+                    <h3>弹性难度体系</h3>
+                    <p>AI 的反应速度、资源分配、协作意识随难度动态变化，单人练习或挑战均可自由配置。</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-code feature-icon"></i>
+                    <h3>MIT 开源许可</h3>
+                    <p>完全开源，基于 MIT 协议，允许自由使用、修改与再分发。鼓励社区贡献与整合包制作。</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>离线 + 联机混合</h3>
+                    <p>离线模式下 AI 自动补位；局域网联机时真人玩家加入则动态减少 Bot ，始终保证热闹对局。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-deep" class="section section-alt">
+        <div class="container">
+            <div class="section-title">AI 框架 · 灵活可塑</div>
+            <div class="section-sub">从轻量级规则引擎到大型语言模型，按需选择</div>
+            <div class="grid-2">
+                <div class="feature-card">
+                    <i class="fas fa-microchip feature-icon"></i>
+                    <h3>离线优先 · 低延迟</h3>
+                    <p>内置行为树 AI 不依赖任何外部服务，响应迅速且稳定。支持动态难度调整，适合各类硬件环境。</p>
+                    <div class="demo-config">
+                        <i class="fas fa-tachometer-alt"></i> 难度等级：练习 / 普通 / 困难 / 专家<br>
+                        <i class="fas fa-comment"></i> AI 发言：可全局关闭或按游戏模式单独设置
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-plug feature-icon"></i>
+                    <h3>大模型接入（实验性）</h3>
+                    <p>支持 Ollama、OpenAI API 等形式，AI 可根据语境生成战术并对话。可在配置中切换不同的模型端点，完全由用户控制。</p>
+                    <div class="demo-config">
+                        <pre>// 配置示例 (config/lavaarcade.json)
+{
+  "ai": {
+    "llm": {
+      "enable": true,
+      "provider": "ollama",
+      "endpoint": "http://127.0.0.1:11434",
+      "model": "llama3.2"
+    }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <span class="license-note"><i class="fas fa-shield-alt"></i> 大模型为可选功能，未配置时完全离线可用</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="games" class="section">
+        <div class="container">
+            <div class="section-title">内置游戏预设</div>
+            <div class="section-sub">开局即玩，无需额外设置</div>
+            <div class="grid-2">
+                <div class="feature-card">
+                    <i class="fas fa-bed feature-icon"></i>
+                    <h3>起床战争</h3>
+                    <p>团队攻防，AI 会守床、收集资源、升级装备。支持自定义队伍数量和 Bot 难度，单人亦可体验完整对抗。</p>
+                    <div><span class="game-badge"><i class="fas fa-user-friends"></i> 最多 8v8</span><span class="game-badge"><i class="fas fa-chart-line"></i> 动态难度</span></div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mask feature-icon"></i>
+                    <h3>密室杀手</h3>
+                    <p>隐蔽身份与推理玩法，AI 会扮演杀手、侦探或平民，模仿玩家行为，增强单机悬疑氛围。</p>
+                    <div><span class="game-badge"><i class="fas fa-comment-dots"></i> 可开关AI发言</span><span class="game-badge"><i class="fas fa-random"></i> 随机身份分配</span></div>
+                </div>
+            </div>
+            <div class="screenshot-placeholder" style="margin-top: 40px;">
+                <i class="fas fa-camera" style="font-size: 2rem; opacity: 0.6; margin-bottom: 16px; display: inline-block;"></i>
+                <h3 style="font-size: 1.2rem; font-weight: 500;">直观化大厅与计分板</h3>
+                <p style="margin-top: 8px;">预设地图与 UI，游戏进程清晰可见。更多地图与扩展包即将通过社区贡献迭代。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="extras" class="section section-alt">
+        <div class="container">
+            <div class="section-title">创意实验室</div>
+            <div class="section-sub">仍在迭代中的功能，预览版可能已包含部分实现</div>
+            <div class="grid-2">
+                <div class="feature-card">
+                    <i class="fas fa-music feature-icon"></i>
+                    <h3>NBT 红石音乐导入</h3>
+                    <p>在大厅区域加载 .nbt 结构文件，自动生成红石音乐播放器。支持循环播放与音量控制，为等待时间添加氛围。</p>
+                    <div class="demo-config">
+                        <i class="fas fa-file-import"></i> 用法：将 <code>track.nbt</code> 放入指定目录，输入 <code>/lava music play &lt;id&gt;</code><br>
+                        <span>目前仅限大厅场景，未来可能扩展至全游戏内</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-palette feature-icon"></i>
+                    <h3>自定义 AI 皮肤 & 模型比例</h3>
+                    <p>允许为每个 Bot 单独设定皮肤（PNG 格式）以及模型缩放比例，打造个性化阵容。</p>
+                    <div class="demo-config">
+                        📁 配置示例：<code>bots/skin_custom.png</code> + 配置文件 <code>"scale": 1.15</code><br>
+                        <span class="license-note">支持随机皮肤池</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 32px;">
+                <span class="license-note"><i class="fas fa-flask"></i> 上述功能处于早期实验阶段，欢迎反馈建议</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="download" class="section">
+        <div class="container">
+            <div class="section-title">获取 LavaArcade</div>
+            <div class="section-sub">当前版本：开发预览版 · 需要 Fabric 1.20.1</div>
+            <div class="grid-2">
+                <div class="feature-card">
+                    <i class="fas fa-cube feature-icon"></i>
+                    <h3>环境要求</h3>
+                    <ul style="margin-top: 16px; list-style: none;">
+                        <li><i class="fas fa-check-circle check-icon"></i> Minecraft 1.20.1</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Fabric Loader 0.14.21+</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Fabric API</li>
+                        <li><i class="fas fa-check-circle check-icon"></i> Java 17+</li>
+                        <li><i class="fas fa-memory check-icon"></i> 推荐内存 ≥ 8GB</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-download feature-icon"></i>
+                    <h3>安装步骤</h3>
+                    <p>1. 从 GitHub Releases 下载预览版 <code>LavaArcade-预览版.jar</code><br>
+                    2. 放入 <code>.minecraft/mods/</code> 文件夹<br>
+                    3. 启动游戏，单人游戏或局域网世界中输入指令：<code>/lava host bedwars</code><br>
+                    <span class="license-note" style="margin-top: 12px; display: inline-block;">预览版每 1-2 周更新，建议保持最新</span></p>
+                    <div style="margin-top: 24px;">
+                        <a href="https://github.com/qwq672/LavaArcade/releases" target="_blank" class="btn-primary" style="padding: 10px 24px;"><i class="fab fa-github"></i> 前往 Releases</a>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-config" style="margin-top: 40px; text-align: center;">
+                <i class="fas fa-terminal"></i> 快速开黑示例：<code style="background: var(--lava-pre-bg); padding: 6px 14px; border-radius: 30px;">/lava create murder --bots 7 --difficulty expert</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="padding-bottom: 80px;">
+        <div class="container">
+            <div class="section-title">常见问题</div>
+            <div class="grid-2">
+                <div class="feature-card"><i class="fas fa-wifi-slash"></i> <h3>完全离线可用？</h3><p>可以。默认 AI 基于行为树，不请求任何外部网络，所有功能在离线模式下均可运行。</p></div>
+                <div class="feature-card"><i class="fas fa-user-plus"></i> <h3>能和真实玩家混合游戏？</h3><p>支持。局域网联机时，其他玩家加入会动态减少 AI 数量，保持游戏平衡。</p></div>
+                <div class="feature-card"><i class="fas fa-balance-scale"></i> <h3>开源协议细节</h3><p>本项目使用 MIT 许可证，允许自由使用、修改和再分发，仅保留版权声明。</p></div>
+                <div class="feature-card"><i class="fas fa-comment-slash"></i> <h3>如何关闭 AI 发言？</h3><p>通过配置文件或游戏内指令 <code>/lava config speech false</code> 即可完全禁用聊天发言，不影响 AI 行为逻辑。</p></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <hr>
+        <p>LavaArcade · 让离线多人小游戏游玩更简单</p>
+        <div class="footer-links">
+            <a href="https://github.com/qwq672/LavaArcade" target="_blank"><i class="fab fa-github"></i> GitHub 仓库</a>
+            <a href="https://github.com/qwq672/LavaArcade/blob/main/LICENSE" target="_blank"><i class="fas fa-file-contract"></i> MIT 许可证</a>
+            <a href="#"><i class="fas fa-comments"></i> 社区讨论</a>
+        </div>
+        <div style="font-size: 0.75rem;">开源项目 · 由 qwq672 维护 | 预览版持续迭代中</div>
+    </div>
+</footer>
+
+<script src="theme-toggle.js"></script>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#" || href === "") return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

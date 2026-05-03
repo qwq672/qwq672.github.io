@@ -1,0 +1,48 @@
+baseURL = "http://localhost:1313"
+languageCode = "zh-cn"
+title = "你的站点名称"
+theme = ""
+
+disableKinds = []
+ignoreErrors = ["error-remote-getjson"]
+
+# 分页设置：每页数量
+paginate = 10
+
+# 菜单定义
+[menu]
+[[menu.main]]
+  name = "首页"
+  url = "/"
+  weight = 1
+[[menu.main]]
+  name = "项目"
+  url = "/projects/"
+  weight = 2
+[[menu.main]]
+  name = "工具"
+  url = "/tools/"
+  weight = 3
+[[menu.main]]
+  name = "功能"
+  url = "/features/"
+  weight = 4
+[[menu.main]]
+  name = "博客"
+  url = "/posts/"
+  weight = 5
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+# 字体设置
+[params.fonts]
+  # 启用的字体族（可选值：system, noto, lxgw, sourceHans）
+  family = "system"  # 默认使用系统字体
+  # 自定义 CSS 字体URL（可选）
+  customUrl = ""
+
+# 站点描述
+description = "一个简约、温润的个人网站 | qwq672's personal website"

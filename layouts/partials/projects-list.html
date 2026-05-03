@@ -1,0 +1,28 @@
+<div class="projects-page">
+  <div class="container">
+    <header class="page-header">
+      <h1 class="page-title">项目</h1>
+      <p class="page-description">这里展示了我开发的项目作品</p>
+    </header>
+
+    <div class="projects-grid">
+      {{ range .Pages }}
+      {{ if eq .Params.type "project" }}
+      <a href="{{ .Params.project_url }}" class="project-card" target="_blank" rel="noopener">
+        <div class="project-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h2 class="project-title">{{ .Title }}</h2>
+        <p class="project-desc">{{ .Description }}</p>
+        <span class="project-link">
+          查看项目 →
+        </span>
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

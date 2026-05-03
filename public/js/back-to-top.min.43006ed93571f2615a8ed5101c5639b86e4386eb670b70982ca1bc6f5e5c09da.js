@@ -1,0 +1,1 @@
+(function(){const e=document.getElementById("backToTop");if(!e)return;function t(){window.scrollY>300?e.classList.add("visible"):e.classList.remove("visible")}function n(){window.scrollTo({top:0,behavior:"smooth"})}window.addEventListener("scroll",t),e.addEventListener("click",n),t()})()

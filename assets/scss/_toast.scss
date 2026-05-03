@@ -1,0 +1,48 @@
+@import 'variables';
+
+.toast-container {
+  position: fixed;
+  bottom: $spacing-md;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  pointer-events: none;
+  
+  .toast-message {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: $font-size-sm;
+    border: 1px solid var(--color-border);
+    pointer-events: auto;
+    backdrop-filter: none;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    animation: fadeInUp 0.3s ease;
+    
+    .close-toast {
+      cursor: pointer;
+      margin-left: $spacing-sm;
+      font-weight: bold;
+      color: var(--color-text-secondary);
+      
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

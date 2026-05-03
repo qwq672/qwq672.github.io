@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如何注册Xbox账户、安装Minecraft 基岩版并登录 | 你的站点名称</title>
+
+
+
+<script>
+    (function() {
+        
+        const theme = localStorage.getItem('theme');
+        let isDark = false;
+        if (theme === 'dark') {
+            isDark = true;
+        } else if (theme === 'light') {
+            isDark = false;
+        } else if (theme === 'system' || !theme) {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        
+        const metaTheme = document.createElement('meta');
+        metaTheme.name = 'theme-color';
+        metaTheme.content = isDark ? '#1a1816' : '#faf8f5';
+        document.head.appendChild(metaTheme);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/style.7740792240d96a3d300a9b3973c64cc174c0fcf18ac665dd8d136ca61c83c4e3.css" integrity="sha256-d0B5IkDZaj0wCps5c8ZMwXTA/PGKxmXdjRNsphyDxOM=">
+
+</head>
+<body>
+  <div class="site-wrapper">
+    <header class="site-header">
+  <div class="nav-container">
+    <div class="logo">
+      <a href="http://localhost:1313">你的站点名称</a>
+    </div>
+    <button class="menu-toggle" aria-label="菜单">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <ul class="nav-menu">
+      
+      <li><a href="/" class="nav-link">首页</a></li>
+      
+      <li><a href="/projects/" class="nav-link">项目</a></li>
+      
+      <li><a href="/tools/" class="nav-link">工具</a></li>
+      
+      <li><a href="/features/" class="nav-link">功能</a></li>
+      
+      <li><a href="/posts/" class="nav-link">博客</a></li>
+      
+      <li class="nav-item social-buttons">
+        <a href="https://space.bilibili.com/700347223" class="social-btn" aria-label="Bilibili" title="Bilibili" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.382.551.382.907 0 .355-.124.657-.373.906zM12 8.12c-.924 0-1.72.155-2.387.467-.667.311-1.187.747-1.56 1.307-.373.56-.613 1.21-.72 1.947H7.28c.071-.756.338-1.365.8-1.827.462-.462 1.057-.693 1.787-.693.697 0 1.275.231 1.733.693.458.462.687 1.071.687 1.827 0 .756-.229 1.365-.687 1.827-.458.462-1.036.693-1.733.693-.756 0-1.369-.249-1.84-.747a2.359 2.359 0 0 1-.747-1.76H5.413a3.44 3.44 0 0 0 .693 1.813c.388.533.904.955 1.547 1.267.644.311 1.378.467 2.207.467 1.564 0 2.791-.533 3.68-1.6.889-1.067 1.333-2.48 1.333-4.24 0-1.76-.444-3.173-1.333-4.24-.889-1.067-2.116-1.6-3.68-1.6z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/qwq672" class="social-btn" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+      </li>
+      <li class="nav-item search-toggle-item">
+        <button class="search-toggle icon-btn" aria-label="搜索" title="搜索">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </li>
+      <li class="nav-item theme-toggle-item">
+        <button class="theme-toggle icon-btn" aria-label="切换主题" title="切换主题">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="搜索文章...">
+      <button class="search-close" id="searchClose" aria-label="关闭">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </div>
+</header>
+
+    <main class="main-content">
+      
+<div class="article-page">
+  <div class="container">
+    <div class="article-layout">
+      <aside class="article-toc">
+        <div class="toc-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="15" y2="12"></line>
+            <line x1="3" y1="18" x2="18" y2="18"></line>
+          </svg>
+          目录
+        </div>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#注册账户">注册账户</a>
+      <ul>
+        <li><a href="#注册">注册</a></li>
+        <li><a href="#输入密码">输入密码</a></li>
+        <li><a href="#填写详细信息">填写详细信息</a></li>
+        <li><a href="#添加姓名证明你不是机器人是否使用通行密钥登录">添加姓名、证明你不是机器人、是否使用通行密钥登录</a></li>
+        <li><a href="#填写xbox个人资料">填写Xbox个人资料</a></li>
+      </ul>
+    </li>
+    <li><a href="#下载并安装-minecraft-基岩版">下载并安装 Minecraft 基岩版</a>
+      <ul>
+        <li><a href="#正版">正版</a></li>
+        <li><a href="#没钱有钱也买不了">没钱！有钱也买不了！</a></li>
+      </ul>
+    </li>
+    <li><a href="#登录">登录</a></li>
+    <li><a href="#最后">最后</a></li>
+  </ul>
+</nav>
+      </aside>
+
+      <article class="article-standalone">
+        <header class="article-header">
+          <h1 class="article-title">如何注册Xbox账户、安装Minecraft 基岩版并登录</h1>
+          <div class="article-meta">
+            <time datetime="2025-07-21">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              2025-07-21
+            </time>
+            
+            <span class="meta-divider"></span>
+            <span class="meta-categories">
+              <span class="category-tag">Minecraft</span>
+            </span>
+            
+            
+            <span class="meta-divider"></span>
+            <span class="meta-tags">
+              <span class="tag">游戏</span>
+            </span>
+            
+          </div>
+        </header>
+
+        <div class="article-body">
+          <h2 id="注册账户">注册账户</h2>
+<h3 id="注册">注册</h3>
+<p>如果你<strong>已经注册</strong>了微软账户，请直接在<a href="https://www.xbox.com/zh-CN/">Xbox官网</a>登录您的账户以<strong>填写Xbox个人资料</strong>。</p>
+<p>首先，请打开<a href="https://www.xbox.com/zh-CN/">Xbox官网</a>，点击“登录”按钮（或图中被标记的按钮）。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/xbox.png" alt=""></p>
+<p>接着，再次页面，点击同意。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/a.png" alt=""></p>
+<p>进入登录界面，如果您已经拥有微软账户，请直接登录（好像是不是又说了一遍？）并跳过这几步，如果你没有，请点击“创建账户”按钮。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/login.png" alt=""></p>
+<p>进入到注册页面，请输入电子邮箱地址。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/mail.png" alt="输入电子邮件地址的页面"></p>
+<h4 id="如果你拥有电子邮件地址">如果你拥有电子邮件地址</h4>
+<p>如果您拥有电子邮件地址（例如QQ邮箱或163邮箱），那么请输入您的电子邮件地址，然后点击“下一步”。</p>
+<p>接着，系统将会把验证码邮件发送到您的电子邮件地址。请检查收件箱或垃圾邮件，随后按照邮件上的代码（验证码）在输入框输入验证码，输入后将自动跳转下一步。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/other_email.png" alt=""></p>
+<h4 id="如果你没有电子邮箱地址">如果你没有电子邮箱地址</h4>
+<p>如果你没有电子邮箱地址，那么您可以在输入框“xxx@outlook.com”，不包括引号！！！（也就是“”），例如microsoft@outlook.com、a114514@outlook.com等，如果您输入了“@outlook.com”后缀，那么将会变成以下界面（以qwq672@outlook.com为例）：</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/reg_outlook.png" alt=""></p>
+<p>注意，邮箱地址一定是以字母开头，如果提示被占用，请换个名字，注意，请记住你输入的电子邮箱地址。</p>
+<h3 id="输入密码">输入密码</h3>
+<p>进入到“输入密码”界面，请输入好记且安全的密码。具体要求可在图中看到，如果ⓘ（也就是带圆圈的i）变成了✔（打勾），那么则代表你的密码符合要求。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/password.png" alt=""></p>
+<h3 id="填写详细信息">填写详细信息</h3>
+<p>进入到“添加一些详细信息”页面，国家或地区可任选（最好是默认，不要改）。</p>
+<p>出生年月填大于18岁即可（例如现在是2025年7月20日，可填2007年7月19日），如果想要保险一些则可以填大于21岁甚至24岁（例如现在是2025年7月20日，可填2004年7月19日或2001年7月19日）</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/more_info.png" alt=""></p>
+<h3 id="添加姓名证明你不是机器人是否使用通行密钥登录">添加姓名、证明你不是机器人、是否使用通行密钥登录</h3>
+<p>此段不详细表达，姓名随便填，照着做就行。</p>
+<p>来到“使用人脸、指纹或 PIN 更快地登录”页面，随便，想更安全就点“下一个”，不想搞可以点“暂时跳过”。本文不详细描述点击“下一步”后应该做什么。</p>
+<h3 id="填写xbox个人资料">填写Xbox个人资料</h3>
+<p>来到“欢迎来到Xbox”页面，点击编辑按钮可以编辑头像与自己的游戏名，默认来说系统已经为你设置了头像与游戏名，如果想换一个可以点击“随机”来换头像与游戏名。如果觉得可以了点击保存并继续即可。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/xbox_p.png" alt=""></p>
+<p>随后，点击“现在就开始吧”即可完成注册。</p>
+<h2 id="下载并安装-minecraft-基岩版">下载并安装 Minecraft 基岩版</h2>
+<h3 id="正版">正版</h3>
+<p>如果你已经购买了Minecraft 正版，那么仅需打开微软商店，登录已购买正版的账户，搜索“Minecraft”，点击安装，就完成了。</p>
+<p>如果你没有购买电脑版正版，请先购买一个正版。<a href="https://www.xbox.com/zh-cn/games/store/minecraft-java-bedrock-edition-for-pc/9nxp44l49shjc">前往购买页面（中国大陆）</a></p>
+<p>对于安卓正版，你需要一个梯子（ⓋⓅⓃ），并且你的Android设备需要支持谷歌服务才能打开Google Play商店，才能购买，另外，你可能还需要额外准备一个支持海外的银行卡。</p>
+<p>对于iOS正版，你需要一个外区Apple账户（Apple id），但无需梯子（ⓋⓅⓃ）即可访问外区App store，同样，你需要额外准备一个支持海外的银行卡。</p>
+<h3 id="没钱有钱也买不了">没钱！有钱也买不了！</h3>
+<p>如果你没有经济能力购买正版，你也可以以后补票。</p>
+<p>对于安卓设备（例如小米、荣耀、oppo等），你可以前往<a href="https://mcapks.net/">MCApks（推荐）</a>、<a href="https://mc.minebbs.com/">Minebbs（网站崩了？）</a>、<a href="https://zihao.fengqingwu.top/">Minecraft for Android 版本库</a>来下载apk安装包。对于部分厂商的机型，你需要勾选“允许未知来源安装”或类似的按钮等，才可正常安装。</p>
+<p>对于iOS设备，可以去下载破解过的ipa安装包或寻找共享的已购买Minecraft的Apple账户（这里不详细描述，自己搜）。</p>
+<h4 id="在windows设备上安装minecraft基岩版">在Windows设备上安装Minecraft基岩版</h4>
+<p>对于Windows 10及以上系统的设备，可以前往<a href="https://www.mcappx.com/index.html">Minecraft for Windows版本库</a>获取Appx安装包或前往Microsoft Store安装免费试用版。<a href="https://www.mcappx.com/help/#windows">前往MCAppx 帮助中心以查看详细基岩版Appx安装包安装教程。</a></p>
+<h5 id="通过appx安装包安装">通过Appx安装包安装</h5>
+<p>下载好Appx安装包后，在打开前。你还需要安装运行库。点击<a href="https://dl.mcappx.com/mc-framework-cn">下载运行库安装包（中国节点，推荐）</a>与<a href="https://dl.mcappx.com/mc-framework-jp">下载运行库安装包（日本节点）</a>，这里仅提供x86、x64的安装包。</p>
+<p>安装好运行库后，就可以打开appx安装包并安装了。</p>
+<p>*<em>注意</em>：Minecraft for Windows版本库提供的appx安装包里均有正版验证机制，需要自行登录已购买Minecraft的微软账户，无法立即游玩完整版。</p>
+<h5 id="通过microsoft-store下载免费试用版">通过Microsoft Store下载免费试用版</h5>
+<p>十分简单。仅需打开Microsoft Store，搜索“Mnecraft: Java &amp; Bedrock Edition For PC”，点开并找到“Minecraft For Windows”，点开，点击“免费试用版”即可下载安装。</p>
+<p><strong>注意</strong>：Minecraft 电脑基岩版最低Windows版本号为19041（Windows 10 版本 2004），最好在安装前检查您的操作系统版本。（通过Windows + R快捷键打开“运行”，输入“winver”，按下键盘上的回车键以查看系统版本。）</p>
+<h5 id="破解">破解</h5>
+<p><strong>注意</strong>：在安装Minecraft 基岩版后</p>
+<p>写不下去了。。。直接转载教程和工具吧：</p>
+<p><a href="https://www.123pan.com/s/RCrbVv-7NCEd.html">Minecraft Unlock.exe</a>：打开程序后点击“开始执行”即可。</p>
+<p><a href="https://blog.csdn.net/gitblog_00131/article/details/142239785">【免费下载】 Minecraft-Unlock 项目使用教程</a>：如上。</p>
+<p><a href="https://www.bilibili.com/video/BV14CcweLExe/">MC电脑基岩版和教育版最详细下载破解教程!全版本支持win10,11!Minecraft Unlock++Up制作，白嫖MC基岩版白嫖MC教育版</a></p>
+<p><a href="https://www.bilibili.com/opus/892406797273399302">（白嫖党欢喜）Minecraft破解教程</a></p>
+<h2 id="登录">登录</h2>
+<p>打开基岩版，此时游戏会弹出以下弹窗，点击“立即登录”即可。</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/mc_login.png" alt=""></p>
+<p>此时，游戏会要求你登录账户，</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/mobile_mc.png" alt="">（手机端登录图片）</p>
+<p>点击“登录”，输入您创建微软账户的电子邮件地址与账户密码，之后进入xbox页面，点击“现在就开始吧”即可。</p>
+<p>如果是Windows端，如果你在Windows上登录了其他微软账户而非您刚刚创建的微软账户，你可能需要在xbox客户端注销该微软账户，随后登录你自己刚刚创建的微软账户。进入游戏后，游戏将自动登录。</p>
+<p>如果登录出现错误，请检查您的网络，xbox组件是否齐全，检查系统是否有问题，或者重新安装。如果还是不行，可以自己上网搜自己的Minecraft登录错误代码。</p>
+<p>登录成功后，你看到的应该是这副画面（左下角有档案与你设置的xbox头像，右边有你设置的游戏名，此图片为示例图像，可能不是你完全实际看到的画面）：</p>
+<p><img src="https://d.feiliupan.com/t/103105630625075200/xbox%E6%B3%A8%E5%86%8C+%E5%9F%BA%E5%B2%A9%E7%89%88%E7%99%BB%E5%BD%95%E6%95%99%E7%A8%8B/mc.png" alt=""></p>
+<h2 id="最后">最后</h2>
+<p>最后，如果有什么错误点的话，还请多多指正awa</p>
+<p>神秘小视频：<a href="https://www.bilibili.com/video/BV1Us4y147x3">0-7-2-1?</a></p>
+
+        </div>
+
+        <nav class="article-nav">
+          
+          <div class="nav-prev">
+            <span class="nav-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              上一篇
+            </span>
+            <a href="/posts/2025-05-09-bedrockcapetojava/">Minecraft 大披肩披风（The Pan Cape）包括其他基岩版披风现已同步到Java版！</a>
+          </div>
+          
+          
+          <div class="nav-next">
+            <span class="nav-label">
+              下一篇
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+            <a href="/posts/about/">来自于Microsoft Teams的Minecraft社区（玩家创建）1111</a>
+          </div>
+          
+        </nav>
+      </article>
+    </div>
+  </div>
+</div>
+
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"></line>
+    <polyline points="5 12 12 5 19 12"></polyline>
+  </svg>
+</button>
+
+    </main>
+    <footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2026 你的站点名称. 保留所有权利。</p>
+  </div>
+</footer>
+
+  </div>
+  
+<div class="toast-container"></div>
+  
+<script src="/js/global.min.d9c3db44b4575deeeea1820f2f2daa3d70fc70be619bcd88309e9c9946504158.js" integrity="sha256-2cPbRLRXXe7uoYIPLy2qPXD8cL5hm82IMJ6cmUZQQVg=" defer></script>
+
+<script src="/js/progress.min.0ac3b0b895f52de2e46dd0d2ee4f5a81722807df550df1b971dff972603728cc.js" integrity="sha256-CsOwuJX1LeLkbdDS7k9agXIoB99VDfG5cd/5cmA3KMw=" defer></script>
+
+<script src="/js/tags-filter.min.597cfdf90c6389065f1a2e5f21df0ab3a4ca3418cb709e370635ace27f1118ff.js" defer></script>
+
+<script src="/js/back-to-top.min.43006ed93571f2615a8ed5101c5639b86e4386eb670b70982ca1bc6f5e5c09da.js" defer></script>
+
+<script src="/js/search.min.64b9ca37ed21a21f564f48a1e5db444de4534b1407c4097cfc96eacdee7d8538.js" integrity="sha256-ZLnKN&#43;0hoh9WT0ih5dtETeRTSxQHxAl8/Jbqze59hTg=" defer></script>
+
+</body>
+</html>

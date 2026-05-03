@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>测试 on 你的站点名称</title>
+    <link>http://localhost:1313/tags/%E6%B5%8B%E8%AF%95/</link>
+    <description>Recent content in 测试 on 你的站点名称</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 03 May 2025 21:48:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网站第一篇文章</title>
+      <link>http://localhost:1313/posts/2025-05-03-first/</link>
+      <pubDate>Sat, 03 May 2025 21:48:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2025-05-03-first/</guid>
+      <description>这是这个网站的第一篇文章，不知道要说些什么。。。。 资源分享：sky672.ysepan.com</description>
+    </item>
+  </channel>
+</rss>

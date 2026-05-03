@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+
+<!-- Flash Avoidance Script (FART) - 防止黑暗模式闪白屏 -->
+<script>
+    (function() {
+        // 极其轻量的主题检测与初始化脚本 (仅用于防止页面闪烁)
+        const theme = localStorage.getItem('theme');
+        let isDark = false;
+        if (theme === 'dark') {
+            isDark = true;
+        } else if (theme === 'light') {
+            isDark = false;
+        } else if (theme === 'system' || !theme) {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        // 注入主题色
+        const metaTheme = document.createElement('meta');
+        metaTheme.name = 'theme-color';
+        metaTheme.content = isDark ? '#1a1816' : '#faf8f5';
+        document.head.appendChild(metaTheme);
+    })();
+</script>
+
+<!-- 字体加载 -->
+{{ if .Site.Params.fonts }}
+{{ if eq .Site.Params.fonts.family "noto" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+{{ else if eq .Site.Params.fonts.family "lxgw" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai&display=swap" rel="stylesheet">
+{{ else if eq .Site.Params.fonts.family "sourceHans" }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/source-han-sans-sc@2.0.0/dist/SourceHanSansSC.min.css">
+{{ else if .Site.Params.fonts.customUrl }}
+<link rel="stylesheet" href="{{ .Site.Params.fonts.customUrl }}">
+{{ end }}
+{{ end }}
+
+<!-- 加载 SCSS 编译后的 CSS -->
+{{ $options := (dict "targetPath" "css/style.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $style := resources.Get "scss/main.scss" | resources.ToCSS $options | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">

@@ -1,0 +1,34 @@
+@import 'variables';
+
+/* reset.css 极简重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: $font-family;
+  line-height: $line-height-normal;
+  font-size: $font-size-base;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, textarea {
+  font: inherit;
+}

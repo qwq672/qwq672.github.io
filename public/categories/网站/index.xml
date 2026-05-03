@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网站 on 你的站点名称</title>
+    <link>http://localhost:1313/categories/%E7%BD%91%E7%AB%99/</link>
+    <description>Recent content in 网站 on 你的站点名称</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 04 May 2025 13:48:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E7%BD%91%E7%AB%99/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>所有资源分享网站链接</title>
+      <link>http://localhost:1313/posts/2025-05-04-sharelink/</link>
+      <pubDate>Sun, 04 May 2025 13:48:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2025-05-04-sharelink/</guid>
+      <description>这篇文章是关于我建立的所有资源分享网站/链接。 如果未来有新的资源分享链接/网站，这篇文章可能会更新。&#xA;百度网盘 123网盘 永硕e盘（1区）：http://sky672.ysepan.com 蓝奏云（密码0000） Huang1111网盘 永硕e盘（自由上传）：http://672upload-01.ysepan.com/ 暂时没其他了qwq</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,10 @@
+{{ $globalJS := resources.Get "js/global.js" | minify | fingerprint }}
+<script src="{{ $globalJS.RelPermalink }}" integrity="{{ $globalJS.Data.Integrity }}" defer></script>
+{{ $progressJS := resources.Get "js/progress.js" | minify | fingerprint }}
+<script src="{{ $progressJS.RelPermalink }}" integrity="{{ $progressJS.Data.Integrity }}" defer></script>
+{{ $tagsJS := resources.Get "js/tags-filter.js" | minify | fingerprint }}
+<script src="{{ $tagsJS.RelPermalink }}" defer></script>
+{{ $backToTopJS := resources.Get "js/back-to-top.js" | minify | fingerprint }}
+<script src="{{ $backToTopJS.RelPermalink }}" defer></script>
+{{ $searchJS := resources.Get "js/search.js" | minify | fingerprint }}
+<script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>

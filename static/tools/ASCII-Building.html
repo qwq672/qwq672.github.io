@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>图片转ASCII艺术工坊 | 彩色/黑白 | 缩放反色 | 导出纯净HTML</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        .back-home {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-home:hover {
+            background: var(--color-primary);
+            color: #fff;
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        :root {
+            --ascii-bg-primary: var(--color-bg-primary);
+            --ascii-bg-panel: var(--color-bg-secondary);
+            --ascii-bg-preview: var(--color-bg-card);
+            --ascii-border: var(--color-border);
+            --ascii-text: var(--color-text-primary);
+            --ascii-text-secondary: var(--color-text-secondary);
+            --ascii-accent: var(--color-primary);
+            --ascii-input-bg: var(--color-bg-code);
+            --ascii-input-border: var(--color-border);
+            --ascii-mode-btn: var(--color-bg-code);
+            --ascii-mode-active: var(--color-primary);
+            --ascii-upload-border: var(--color-primary);
+            --ascii-button-bg: var(--color-primary);
+            --ascii-button-hover: var(--color-link-hover);
+            --ascii-hr: var(--color-border);
+            --ascii-badge-bg: var(--color-bg-code);
+            --ascii-preview-bg: #0b1219;
+            --ascii-grid-bg: #ffffff;
+            --ascii-slider-track: var(--color-border);
+            --ascii-slider-thumb: var(--color-primary);
+            --ascii-range-bg: var(--color-bg-code);
+            --ascii-title-gradient: linear-gradient(135deg, #F9F3D9, #B9FBC0);
+            --ascii-sub-color: var(--color-text-secondary);
+            --ascii-sub-border: var(--color-primary);
+            --ascii-card-title-border: var(--color-primary);
+            --ascii-label-color: var(--color-text-secondary);
+            --ascii-info-badge-bg: var(--color-bg-code);
+            --ascii-info-badge-text: var(--color-text-secondary);
+        }
+
+        [data-theme="dark"] {
+            --ascii-bg-primary: #1a1816;
+            --ascii-bg-panel: #252220;
+            --ascii-bg-preview: #1a1816;
+            --ascii-border: rgba(255,255,255,0.08);
+            --ascii-input-bg: #1e2e3c;
+            --ascii-input-border: #3f6b7c;
+            --ascii-mode-btn: #0f1a1f;
+            --ascii-upload-border: #4e8aa8;
+            --ascii-button-bg: #2f6f6a;
+            --ascii-button-hover: #409f97;
+            --ascii-hr: #2b5466;
+            --ascii-badge-bg: #0c1a24;
+            --ascii-preview-bg: #0b1219;
+            --ascii-slider-track: #2f5f6a;
+            --ascii-slider-thumb: #7bc5c2;
+            --ascii-range-bg: #2f5f6a;
+            --ascii-sub-color: #9bb8d4;
+            --ascii-sub-border: #5bc0be;
+            --ascii-card-title-border: #3b6e8b;
+            --ascii-label-color: #c7e2f2;
+            --ascii-info-badge-bg: #1d3e46;
+        }
+
+        body {
+            background: var(--ascii-bg-primary);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            color: var(--ascii-text);
+            line-height: 1.65;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-bar {
+            background: var(--ascii-bg-panel);
+            border-bottom: 1px solid var(--ascii-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-svg {
+            width: 28px;
+            height: 28px;
+            color: var(--ascii-accent);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: -0.3px;
+            color: var(--ascii-text);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--ascii-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ascii-accent);
+        }
+
+        .theme-toggle {
+            background: var(--ascii-badge-bg);
+            border: 1px solid var(--ascii-border);
+            color: var(--ascii-text-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--color-bg-card);
+            border-color: var(--ascii-accent);
+            color: var(--ascii-text);
+        }
+
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            background: var(--ascii-title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .sub {
+            color: var(--ascii-sub-color);
+            margin-bottom: 28px;
+            border-left: 3px solid var(--ascii-sub-border);
+            padding-left: 14px;
+            font-weight: 400;
+        }
+
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .control-panel {
+            flex: 1.2;
+            min-width: 280px;
+            background: var(--ascii-bg-panel);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 22px 20px;
+            border: 1px solid var(--ascii-border);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        .preview-area {
+            flex: 2.5;
+            min-width: 480px;
+            background: var(--ascii-bg-preview);
+            border-radius: 32px;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--ascii-border);
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--ascii-card-title-border);
+            padding-bottom: 8px;
+            color: var(--ascii-text);
+        }
+
+        .param-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--ascii-label-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: var(--ascii-input-bg);
+            border: 1px solid var(--ascii-input-border);
+            border-radius: 20px;
+            padding: 8px 14px;
+            color: var(--ascii-text);
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--ascii-accent);
+            box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.3);
+        }
+
+        .row-flex {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .row-flex > div {
+            flex: 1;
+        }
+
+        .mode-switch {
+            display: flex;
+            gap: 12px;
+            background: var(--ascii-mode-btn);
+            padding: 6px;
+            border-radius: 48px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            text-align: center;
+            padding: 6px 0;
+            border-radius: 32px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+            background: transparent;
+            color: var(--ascii-text-secondary);
+            border: none;
+        }
+
+        .mode-btn.active {
+            background: var(--ascii-mode-active);
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--ascii-upload-border);
+            border-radius: 28px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--ascii-button-hover);
+            background: var(--ascii-badge-bg);
+        }
+
+        .img-preview {
+            max-width: 100%;
+            max-height: 160px;
+            border-radius: 16px;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        button {
+            background: var(--ascii-button-bg);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--ascii-button-hover);
+            transform: scale(0.98);
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .ascii-output {
+            background: var(--ascii-preview-bg);
+            border-radius: 24px;
+            padding: 16px;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 560px;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .ascii-grid {
+            display: inline-grid;
+            background: var(--ascii-grid-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.1s ease;
+        }
+
+        .ascii-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Monaco', 'Menlo', 'Cascadia Code', 'Courier New', monospace;
+            font-weight: 500;
+            white-space: pre;
+        }
+
+        .info-badge {
+            font-size: 0.75rem;
+            background: var(--ascii-info-badge-bg);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-top: 8px;
+            color: var(--ascii-info-badge-text);
+        }
+
+        hr {
+            border-color: var(--ascii-hr);
+            margin: 16px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: var(--ascii-text-secondary);
+        }
+
+        textarea {
+            font-family: monospace;
+            resize: vertical;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            padding: 0;
+            background: var(--ascii-range-bg);
+            height: 4px;
+            border-radius: 5px;
+            -webkit-appearance: none;
+            border: none;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--ascii-slider-thumb);
+            cursor: pointer;
+        }
+
+        .loading-tip {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--ascii-button-bg);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.3s;
+        }
+
+        .btn-placeholder {
+            display: inline-block;
+            background: var(--ascii-badge-bg);
+            border: 1px solid var(--ascii-border);
+            color: var(--ascii-text-secondary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            pointer-events: none;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            padding: 50px;
+            color: var(--ascii-text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <svg class="logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.5 3.5L20 9l-5 5-5-5 4.5-4.5z" />
+                    <path d="M9 8l-5 5 5 5 5-5-5-5z" />
+                    <path d="M3 20h18" />
+                </svg>
+                <span class="logo-text">ASCII 艺术工坊</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">主页</a>
+                <a href="#about">介绍</a>
+                <a href="#download">下载</a>
+                <button class="theme-toggle">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <span>深色</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+<div class="main-container">
+    <h1>⚡ ASCII 艺术工坊</h1>
+    <div class="sub">图片转字符画 · 彩色/黑白 · 可缩放/反色 · 导出纯净HTML（无边框）</div>
+
+    <div class="dashboard">
+        <div class="control-panel">
+            <div class="card-title">🎛️ 控制台</div>
+            <div class="upload-area" id="uploadZone">
+                📸 点击或拖拽上传图片 (JPG/PNG/WebP)
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <div id="imgPreviewContainer" style="margin-top: 8px;"></div>
+            </div>
+            <div class="param-group">
+                <label>🎨 色彩模式</label>
+                <div class="mode-switch" id="colorModeSwitch">
+                    <div class="mode-btn active" data-mode="color">🌈 彩色</div>
+                    <div class="mode-btn" data-mode="bw">⚫ 黑白</div>
+                </div>
+            </div>
+            <div class="param-group">
+                <label>📜 字符风格</label>
+                <select id="charSetMode">
+                    <option value="standard">标准 · 细腻渐变 (@%#*+=-:.)</option>
+                    <option value="detailed">精细 · 丰富层次 (经典密集版)</option>
+                    <option value="block">块状 · 像素块感 (░▒▓█)</option>
+                    <option value="custom">自定义 · 输入字符序列</option>
+                </select>
+                <textarea id="customCharset" rows="2" placeholder="从暗到亮输入字符，例如: .:-=+*#%@" style="margin-top: 8px;"></textarea>
+            </div>
+            <div class="param-group">
+                <label>📐 字符显示大小 (宽 × 高) — 每个字符占用的像素尺寸</label>
+                <div class="row-flex">
+                    <div><label>宽度 (px)</label><input type="number" id="cellWidth" value="10" step="1" min="6" max="40"></div>
+                    <div><label>高度 (px)</label><input type="number" id="cellHeight" value="16" step="1" min="8" max="48"></div>
+                </div>
+            </div>
+            <div class="param-group">
+                <label>🔍 预览缩放 (仅视觉效果)</label>
+                <input type="range" id="zoomSlider" min="0.5" max="2.0" step="0.01" value="1.0">
+                <div class="slider-label"><span>缩小</span><span id="zoomValue">100%</span><span>放大</span></div>
+            </div>
+            <div class="param-group">
+                <label>🔤 字体大小 (覆盖字符显示高度，让文字更舒适)</label>
+                <input type="range" id="fontSizeSlider" min="8" max="32" step="1" value="12">
+                <div class="slider-label"><span>小</span><span id="fontSizeValue">12px</span><span>大</span></div>
+            </div>
+            <div class="param-group">
+                <div class="flex-between">
+                    <label>🎯 图像精度 (宽度字符数)</label>
+                    <span class="info-badge">列数越多越细腻</span>
+                </div>
+                <input type="number" id="outputCols" value="90" step="5" min="20" max="240">
+                <div style="margin-top: 8px;">
+                    <label>🔒 保持原图比例 (自动计算行数)</label>
+                    <input type="checkbox" id="lockAspect" checked style="width: 18px; height: 18px; transform: translateY(4px);"> 
+                    <span style="font-size: 0.8rem;">根据图片比例自动调整行数，不变形</span>
+                </div>
+                <div id="manualRowContainer" style="margin-top: 10px;"></div>
+            </div>
+            <div class="param-group">
+                <label>🔄 反色 (负片效果)</label>
+                <input type="checkbox" id="invertCheckbox" style="width: 18px; height: 18px; transform: translateY(4px);">
+                <span style="font-size: 0.8rem;">启用后字符颜色反转（仅预览/导出HTML有效）</span>
+            </div>
+            <div class="download-buttons">
+                <button id="exportHtmlBtn">📄 导出 HTML (纯净无框)</button>
+                <button id="exportTxtBtn">📝 导出 TXT</button>
+                <button id="exportImgBtn">🖼️ 导出为图片 (PNG)</button>
+            </div>
+            <hr>
+            <div class="info-badge">✨ 所有参数调整都会自动刷新 | 导出HTML仅包含字符和颜色，零边框零背景</div>
+        </div>
+
+        <div class="preview-area">
+            <div class="card-title">🖼️ ASCII 画布</div>
+            <div class="ascii-output" id="asciiOutputContainer">
+                <div class="placeholder-text">⬆ 上传图片，即刻生成 ASCII 艺术</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">✨ 提示：导出成功会有弹窗提醒 | 缩放与字体大小只改变预览，不影响导出内容</div>
+</div>
+
+<script src="theme-toggle.js"></script>
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadZone = document.getElementById('uploadZone');
+    const imgPreviewDiv = document.getElementById('imgPreviewContainer');
+    const colorBtns = document.querySelectorAll('.mode-btn');
+    const charSetModeSelect = document.getElementById('charSetMode');
+    const customCharsetText = document.getElementById('customCharset');
+    const cellWidthInput = document.getElementById('cellWidth');
+    const cellHeightInput = document.getElementById('cellHeight');
+    const outputColsInput = document.getElementById('outputCols');
+    const lockAspectCheck = document.getElementById('lockAspect');
+    const exportHtmlBtn = document.getElementById('exportHtmlBtn');
+    const exportTxtBtn = document.getElementById('exportTxtBtn');
+    const exportImgBtn = document.getElementById('exportImgBtn');
+    const asciiOutputContainer = document.getElementById('asciiOutputContainer');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const zoomValue = document.getElementById('zoomValue');
+    const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const invertCheckbox = document.getElementById('invertCheckbox');
+
+    let currentImage = null;
+    let originalImgWidth = 0, originalImgHeight = 0;
+    let currentGridData = null;
+    let currentCols = 90, currentRows = 0;
+    let colorMode = 'color';
+    let manualRowsOverride = null;
+    let regenerateTimeout = null;
+    let isExporting = false;
+
+    const charSets = {
+        standard: "@%#*+=-:. ",
+        detailed: "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ",
+        block: "█▓▒░ ",
+    };
+
+    function getCurrentCharSet() {
+        const mode = charSetModeSelect.value;
+        if (mode === 'custom') {
+            let custom = customCharsetText.value.trim();
+            if (custom === "") return "@%#*+=-:. ";
+            return custom;
+        }
+        return charSets[mode] || charSets.standard;
+    }
+
+    function brightnessToChar(brightness, charset) {
+        if (!charset || charset.length === 0) return '@';
+        const idx = Math.floor(brightness * (charset.length - 1));
+        return charset[Math.min(idx, charset.length - 1)];
+    }
+
+    function computeRowsFromCols(cols, imgW, imgH, charAspectRatio) {
+        if (!imgW || !imgH) return 30;
+        const imgAspect = imgH / imgW;
+        let rows = cols * imgAspect / charAspectRatio;
+        return Math.max(8, Math.min(180, Math.round(rows)));
+    }
+
+    async function generateGridData() {
+        if (!currentImage) return null;
+        const cols = parseInt(outputColsInput.value, 10);
+        if (isNaN(cols) || cols < 10) return null;
+        
+        const charWidthPx = parseFloat(cellWidthInput.value);
+        const charHeightPx = parseFloat(cellHeightInput.value);
+        if (isNaN(charWidthPx) || isNaN(charHeightPx) || charWidthPx <= 0 || charHeightPx <= 0) return null;
+        
+        const charAspect = charWidthPx / charHeightPx;
+        let rows = 0;
+        if (lockAspectCheck.checked) {
+            rows = computeRowsFromCols(cols, originalImgWidth, originalImgHeight, charAspect);
+        } else {
+            if (manualRowsOverride && manualRowsOverride > 0) {
+                rows = manualRowsOverride;
+            } else {
+                rows = computeRowsFromCols(cols, originalImgWidth, originalImgHeight, charAspect);
+            }
+        }
+        rows = Math.min(160, Math.max(8, rows));
+        currentCols = cols;
+        currentRows = rows;
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = cols;
+        canvas.height = rows;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(currentImage, 0, 0, cols, rows);
+        const imgData = ctx.getImageData(0, 0, cols, rows);
+        const data = imgData.data;
+        
+        const charset = getCurrentCharSet();
+        const grid = [];
+        for (let y = 0; y < rows; y++) {
+            const row = [];
+            for (let x = 0; x < cols; x++) {
+                const idx = (y * cols + x) * 4;
+                let r = data[idx];
+                let g = data[idx+1];
+                let b = data[idx+2];
+                const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                let asciiChar = brightnessToChar(brightness, charset);
+                row.push({ char: asciiChar, r, g, b, brightness });
+            }
+            grid.push(row);
+        }
+        return { grid, cols, rows, charWidthPx, charHeightPx };
+    }
+
+    function renderASCII(gridData, colorModeFlag, cellW, cellH, zoom, fontSize, invert) {
+        if (!gridData || !gridData.grid) {
+            asciiOutputContainer.innerHTML = '<div class="placeholder-text">⚠️ 请先上传图片或生成失败</div>';
+            return;
+        }
+        const { grid, cols, rows } = gridData;
+        const container = asciiOutputContainer;
+        container.innerHTML = '';
+        
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'ascii-grid';
+        gridDiv.style.transform = `scale(${zoom})`;
+        gridDiv.style.transformOrigin = 'top left';
+        gridDiv.style.display = 'grid';
+        gridDiv.style.gridTemplateColumns = `repeat(${cols}, ${cellW}px)`;
+        gridDiv.style.backgroundColor = '#ffffff';
+        
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                const cell = grid[y][x];
+                const span = document.createElement('div');
+                span.className = 'ascii-cell';
+                span.style.width = `${cellW}px`;
+                span.style.height = `${cellH}px`;
+                span.style.lineHeight = `${cellH}px`;
+                span.style.fontSize = `${fontSize}px`;
+                span.style.textAlign = 'center';
+                span.style.fontFamily = "'Monaco', 'Menlo', 'Cascadia Code', 'Courier New', monospace";
+                span.textContent = cell.char;
+                
+                let r = cell.r, g = cell.g, b = cell.b;
+                if (invert) {
+                    r = 255 - r;
+                    g = 255 - g;
+                    b = 255 - b;
+                }
+                if (colorModeFlag === 'color') {
+                    span.style.color = `rgb(${r}, ${g}, ${b})`;
+                } else {
+                    let gray = Math.floor(cell.brightness * 255);
+                    if (invert) gray = 255 - gray;
+                    span.style.color = `rgb(${gray}, ${gray}, ${gray})`;
+                }
+                span.style.backgroundColor = '#ffffff';
+                gridDiv.appendChild(span);
+            }
+        }
+        container.appendChild(gridDiv);
+    }
+
+    async function withExportLock(exportFn, successMsg) {
+        if (isExporting) {
+            alert('正在导出中，请稍后再试...');
+            return;
+        }
+        isExporting = true;
+        const btns = [exportHtmlBtn, exportTxtBtn, exportImgBtn];
+        btns.forEach(btn => btn.disabled = true);
+        try {
+            await exportFn();
+            if (successMsg) alert(successMsg);
+        } catch (err) {
+            console.error('导出失败:', err);
+            alert('导出失败，请重试。\n错误详情请查看控制台（F12）。');
+        } finally {
+            btns.forEach(btn => btn.disabled = false);
+            isExporting = false;
+        }
+    }
+
+    function exportAsHTML() {
+        return new Promise((resolve, reject) => {
+            try {
+                if (!currentGridData) throw new Error('无ASCII数据，请先上传图片生成！');
+                const { grid, cols, rows } = currentGridData;
+                const cellW = parseFloat(cellWidthInput.value);
+                const cellH = parseFloat(cellHeightInput.value);
+                const modeNow = colorMode;
+                const invert = invertCheckbox.checked;
+                
+                let cellsHtml = '';
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        const cell = grid[y][x];
+                        let r = cell.r, g = cell.g, b = cell.b;
+                        if (invert) {
+                            r = 255 - r;
+                            g = 255 - g;
+                            b = 255 - b;
+                        }
+                        let colorStyle = '';
+                        if (modeNow === 'color') {
+                            colorStyle = `color:rgb(${r},${g},${b});`;
+                        } else {
+                            let gray = Math.floor(cell.brightness * 255);
+                            if (invert) gray = 255 - gray;
+                            colorStyle = `color:rgb(${gray},${gray},${gray});`;
+                        }
+                        const fontSize = Math.min(cellH * 0.7, cellW * 0.8);
+                        cellsHtml += `<div style="display:flex; align-items:center; justify-content:center; width:${cellW}px; height:${cellH}px; line-height:${cellH}px; font-size:${fontSize}px; font-family:'Monaco','Menlo','Cascadia Code','Courier New',monospace; white-space:pre; ${colorStyle}">${escapeHtml(cell.char)}</div>`;
+                    }
+                }
+                
+                const fullHtml = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ASCII Art</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#fff; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+    .ascii-pure { display:grid; grid-template-columns:repeat(${cols}, ${cellW}px); background:#fff; }
+</style>
+</head>
+<body>
+<div class="ascii-pure">
+${cellsHtml}
+</div>
+</body>
+</html>`;
+                downloadFile(fullHtml, 'ascii_art.html', 'text/html');
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    
+    function exportAsTXT() {
+        return new Promise((resolve, reject) => {
+            try {
+                if (!currentGridData) throw new Error('无ASCII数据，请先上传图片生成！');
+                const { grid, rows, cols } = currentGridData;
+                let text = '';
+                for (let y = 0; y < rows; y++) {
+                    let line = '';
+                    for (let x = 0; x < cols; x++) {
+                        line += grid[y][x].char;
+                    }
+                    text += line + '\n';
+                }
+                downloadFile(text, 'ascii_art.txt', 'text/plain');
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    
+    async function exportAsImage() {
+        return new Promise((resolve, reject) => {
+            try {
+                if (!currentGridData) throw new Error('无ASCII数据，请先上传图片生成！');
+                const targetDiv = asciiOutputContainer.querySelector('.ascii-grid');
+                if (!targetDiv) throw new Error('渲染区域不存在，请稍后重试');
+                html2canvas(targetDiv, { scale: 2, backgroundColor: '#ffffff' })
+                    .then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = 'ascii_art.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        resolve();
+                    })
+                    .catch(reject);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+    
+    function downloadFile(content, filename, mime) {
+        const blob = new Blob([content], { type: mime });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function scheduleRegenerate() {
+        if (regenerateTimeout) clearTimeout(regenerateTimeout);
+        regenerateTimeout = setTimeout(async () => {
+            if (!currentImage) return;
+            const gridResult = await generateGridData();
+            if (gridResult) {
+                currentGridData = gridResult;
+                const cellW = parseFloat(cellWidthInput.value);
+                const cellH = parseFloat(cellHeightInput.value);
+                const zoom = parseFloat(zoomSlider.value);
+                const fontSize = parseFloat(fontSizeSlider.value);
+                const invert = invertCheckbox.checked;
+                renderASCII(currentGridData, colorMode, cellW, cellH, zoom, fontSize, invert);
+            }
+        }, 300);
+    }
+
+    function bindEvents() {
+        colorBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                colorBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                colorMode = btn.getAttribute('data-mode');
+                scheduleRegenerate();
+            });
+        });
+        
+        const changeEvt = () => scheduleRegenerate();
+        charSetModeSelect.addEventListener('change', () => {
+            const isCustom = charSetModeSelect.value === 'custom';
+            customCharsetText.disabled = !isCustom;
+            if (!isCustom) customCharsetText.value = '';
+            changeEvt();
+        });
+        customCharsetText.addEventListener('input', changeEvt);
+        cellWidthInput.addEventListener('input', changeEvt);
+        cellHeightInput.addEventListener('input', changeEvt);
+        outputColsInput.addEventListener('input', changeEvt);
+        lockAspectCheck.addEventListener('change', changeEvt);
+        invertCheckbox.addEventListener('change', changeEvt);
+        zoomSlider.addEventListener('input', () => {
+            const val = parseFloat(zoomSlider.value);
+            zoomValue.innerText = Math.round(val * 100) + '%';
+            if (currentGridData) {
+                const cellW = parseFloat(cellWidthInput.value);
+                const cellH = parseFloat(cellHeightInput.value);
+                const fontSize = parseFloat(fontSizeSlider.value);
+                renderASCII(currentGridData, colorMode, cellW, cellH, val, fontSize, invertCheckbox.checked);
+            }
+        });
+        fontSizeSlider.addEventListener('input', () => {
+            const val = parseFloat(fontSizeSlider.value);
+            fontSizeValue.innerText = val + 'px';
+            if (currentGridData) {
+                const cellW = parseFloat(cellWidthInput.value);
+                const cellH = parseFloat(cellHeightInput.value);
+                const zoom = parseFloat(zoomSlider.value);
+                renderASCII(currentGridData, colorMode, cellW, cellH, zoom, val, invertCheckbox.checked);
+            }
+        });
+        
+        const manualRowDiv = document.getElementById('manualRowContainer');
+        manualRowDiv.innerHTML = `<label style="font-size:0.75rem; color: var(--ascii-label-color);">✍️ 手动行数(若未锁定则生效): <input type="number" id="manualRows" min="8" max="160" step="1" style="width:90px; background:var(--ascii-input-bg); border:1px solid var(--ascii-input-border); border-radius:16px; padding:4px 8px; color:var(--ascii-text);"></label>`;
+        const manualRowsInput = document.getElementById('manualRows');
+        if (manualRowsInput) {
+            manualRowsInput.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value, 10);
+                if (!isNaN(val) && val > 0) manualRowsOverride = val;
+                else manualRowsOverride = null;
+                if (!lockAspectCheck.checked && currentImage) scheduleRegenerate();
+            });
+        }
+        
+        exportHtmlBtn.addEventListener('click', () => withExportLock(() => exportAsHTML(), '✅ HTML 导出成功！文件已保存。'));
+        exportTxtBtn.addEventListener('click', () => withExportLock(() => exportAsTXT(), '✅ TXT 导出成功！文件已保存。'));
+        exportImgBtn.addEventListener('click', () => withExportLock(() => exportAsImage(), '✅ 图片导出成功！文件已保存。'));
+    }
+    
+    function setupImageUpload() {
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.style.borderColor = 'var(--ascii-button-hover)'; });
+        uploadZone.addEventListener('dragleave', () => uploadZone.style.borderColor = 'var(--ascii-upload-border)'; });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) handleImageFile(file);
+            uploadZone.style.borderColor = 'var(--ascii-upload-border)';
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleImageFile(e.target.files[0]);
+        });
+    }
+    
+    function handleImageFile(file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => {
+                currentImage = img;
+                originalImgWidth = img.width;
+                originalImgHeight = img.height;
+                imgPreviewDiv.innerHTML = `<img src="${ev.target.result}" class="img-preview" alt="preview">`;
+                scheduleRegenerate();
+            };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function init() {
+        setupImageUpload();
+        bindEvents();
+        customCharsetText.disabled = true;
+        customCharsetText.placeholder = "例如: .:-=+*#%@@";
+        zoomValue.innerText = '100%';
+        fontSizeValue.innerText = '12px';
+        const demoMsg = document.createElement('div');
+        demoMsg.style.fontSize = '12px';
+        demoMsg.style.marginTop = '8px';
+        demoMsg.innerText = '⬆ 支持 JPG / PNG / WebP';
+        uploadZone.appendChild(demoMsg);
+    }
+    init();
+</script>
+<a href="/" class="back-home" title="返回主页">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+</a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+{{ define "main" }}
+<div class="home-page">
+  <div class="container">
+    <section class="intro-section">
+      <div class="intro-avatar">
+        <img src="/avatar.png" alt="avatar" class="avatar-img">
+      </div>
+      <div class="intro-header">
+        <h1 class="intro-title">{{ .Site.Title }}</h1>
+        <p class="intro-subtitle">{{ .Site.Params.description }}</p>
+      </div>
+      <div class="intro-content">
+        {{ .Content }}
+      </div>
+    </section>
+
+    <!-- 分类导航 -->
+    <nav class="category-nav">
+      <a href="/posts/" class="category-item">
+        <div class="category-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <span class="category-name">博客</span>
+        <span class="category-count">{{ len (where .Site.RegularPages "Section" "posts") }}</span>
+      </a>
+      <a href="/projects/" class="category-item">
+        <div class="category-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <span class="category-name">项目</span>
+        <span class="category-count">{{ len (where .Site.Pages "Section" "projects") }}</span>
+      </a>
+      <a href="/tools/" class="category-item">
+        <div class="category-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+        </div>
+        <span class="category-name">工具</span>
+        <span class="category-count">{{ len (where .Site.Pages "Section" "tools") }}</span>
+      </a>
+      <a href="/features/" class="category-item">
+        <div class="category-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <span class="category-name">功能</span>
+        <span class="category-count">{{ len (where .Site.Pages "Section" "features") }}</span>
+      </a>
+    </nav>
+
+    <!-- 联系方式 -->
+    <section class="social-links">
+      <h2 class="section-title">联系方式</h2>
+      <div class="social-grid">
+        <a href="https://space.bilibili.com/700347223" class="social-item" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.382.551.382.907 0 .355-.124.657-.373.906zM12 8.12c-.924 0-1.72.155-2.387.467-.667.311-1.187.747-1.56 1.307-.373.56-.613 1.21-.72 1.947H7.28c.071-.756.338-1.365.8-1.827.462-.462 1.057-.693 1.787-.693.697 0 1.275.231 1.733.693.458.462.687 1.071.687 1.827 0 .756-.229 1.365-.687 1.827-.458.462-1.036.693-1.733.693-.756 0-1.369-.249-1.84-.747a2.359 2.359 0 0 1-.747-1.76H5.413a3.44 3.44 0 0 0 .693 1.813c.388.533.904.955 1.547 1.267.644.311 1.378.467 2.207.467 1.564 0 2.791-.533 3.68-1.6.889-1.067 1.333-2.48 1.333-4.24 0-1.76-.444-3.173-1.333-4.24-.889-1.067-2.116-1.6-3.68-1.6zM17.08 11.627a.957.957 0 0 1-.267.693.87.87 0 0 1-.653.284.87.87 0 0 1-.653-.284.954.954 0 0 1-.267-.693c0-.269.089-.489.267-.667a.87.87 0 0 1 .653-.267c.262 0 .482.089.653.267.173.178.259.398.267.667zm-1.333 0a.957.957 0 0 1-.267.693.87.87 0 0 1-.653.284.87.87 0 0 1-.653-.284.954.954 0 0 1-.267-.693c0-.269.089-.489.267-.667a.87.87 0 0 1 .653-.267c.262 0 .482.089.653.267.173.178.259.398.267.667z"/>
+          </svg>
+          <span>Bilibili</span>
+        </a>
+        <a href="https://github.com/qwq672" class="social-item" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="mailto:672@z.org" class="social-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>672@z.org</span>
+        </a>
+        <a href="mailto:b167963232@163.com" class="social-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>163邮箱</span>
+        </a>
+        <a href="http://672.w0.am" class="social-item" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>老设备站</span>
+        </a>
+        <a href="https://teams.live.com/l/invite/FEAJU8ZgWxzwQqgjQM?v=g1" class="social-item" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Teams</span>
+        </a>
+        <a href="https://pwp-qwq.github.io" class="social-item" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+            <polyline points="13 2 13 9 20 9"></polyline>
+          </svg>
+          <span>文件直链</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 最新文章 -->
+    <section class="latest-posts">
+      <div class="section-header">
+        <h2 class="section-title">最新文章</h2>
+        <a href="/posts/" class="view-all">查看全部 →</a>
+      </div>
+      
+      <div class="posts-grid">
+        {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
+        <article class="post-card" data-tags="{{ range .Params.tags }}{{ . }},{{ end }}">
+          <div class="post-card__content">
+            <h3 class="post-card__title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            <p class="post-card__summary">{{ .Summary | plainify | truncate 100 }}</p>
+            <div class="post-card__meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+              {{ with .Params.tags }}
+              <div class="tag-list">
+                {{ range first 2 . }}
+                <span class="tag">{{ . }}</span>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</div>
+{{ end }}

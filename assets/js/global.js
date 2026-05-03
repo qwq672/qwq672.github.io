@@ -1,0 +1,203 @@
+// 1. 主题管理器 (Theme Manager)
+// ============================================
+
+const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+const applyTheme = (theme) => {
+  const isDark = theme === 'dark';
+  const htmlElement = document.documentElement;
+
+  if (isDark) {
+    htmlElement.setAttribute('data-theme', 'dark');
+  } else {
+    htmlElement.removeAttribute('data-theme');
+  }
+
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  if (metaThemeColor) {
+    const themeColor = isDark ? '#1a1612' : '#fffef7';
+    metaThemeColor.setAttribute('content', themeColor);
+  }
+};
+
+const initTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  let activeTheme = savedTheme;
+
+  if (savedTheme === 'system') {
+    activeTheme = getSystemTheme();
+  } else if (!savedTheme) {
+    activeTheme = getSystemTheme();
+    localStorage.setItem('theme', 'system');
+  }
+
+  applyTheme(activeTheme);
+};
+
+const setTheme = (mode) => {
+  localStorage.setItem('theme', mode);
+  let activeTheme = mode;
+
+  if (mode === 'system') {
+    activeTheme = getSystemTheme();
+  }
+
+  applyTheme(activeTheme);
+};
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  const currentSetting = localStorage.getItem('theme');
+  if (currentSetting === 'system') {
+    const newTheme = e.matches ? 'dark' : 'light';
+    applyTheme(newTheme);
+  }
+});
+
+function attachThemeToggleEvent() {
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentTheme = localStorage.getItem('theme') || 'system';
+      if (currentTheme === 'system') setTheme('dark');
+      else if (currentTheme === 'dark') setTheme('light');
+      else if (currentTheme === 'light') setTheme('system');
+    });
+  }
+}
+
+// 2. 汉堡菜单切换
+function attachMenuToggleEvent() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const navMenu = document.querySelector('.nav-menu');
+      if (navMenu) {
+        navMenu.classList.toggle('active');
+      }
+    });
+  }
+}
+
+// 3. 平滑滚动
+function attachSmoothScrollEvent() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === "#" || href === "") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+// 4. 返回顶部按钮
+function initBackToTop() {
+  const backToTop = document.getElementById('backToTop');
+  if (!backToTop) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// 5. 博客标签筛选
+function initTagFilter() {
+  const tagFilter = document.getElementById('tagFilter');
+  const timelineItems = document.querySelectorAll('.timeline-item');
+
+  if (!tagFilter || timelineItems.length === 0) return;
+
+  const allTags = new Set();
+  timelineItems.forEach(item => {
+    const tagsStr = item.getAttribute('data-tags') || '';
+    tagsStr.split(',').forEach(tag => {
+      if (tag.trim()) allTags.add(tag.trim());
+    });
+  });
+
+  if (allTags.size === 0) return;
+
+  const sortedTags = Array.from(allTags).sort();
+  const allTagBtn = document.createElement('span');
+  allTagBtn.className = 'tag active';
+  allTagBtn.textContent = '全部';
+  allTagBtn.dataset.tag = 'all';
+  tagFilter.appendChild(allTagBtn);
+
+  sortedTags.forEach(tag => {
+    const tagBtn = document.createElement('span');
+    tagBtn.className = 'tag';
+    tagBtn.textContent = tag;
+    tagBtn.dataset.tag = tag;
+    tagFilter.appendChild(tagBtn);
+  });
+
+  tagFilter.addEventListener('click', (e) => {
+    if (e.target.classList.contains('tag')) {
+      const selectedTag = e.target.dataset.tag;
+
+      document.querySelectorAll('#tagFilter .tag').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+
+      timelineItems.forEach(item => {
+        if (selectedTag === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          const itemTags = item.getAttribute('data-tags') || '';
+          if (itemTags.split(',').map(t => t.trim()).includes(selectedTag)) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        }
+      });
+    }
+  });
+}
+
+// 6. 时间线项点击跳转
+function initTimelineLinks() {
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+        const link = item.querySelector('.timeline-title a');
+        if (link) {
+          window.location.href = link.href;
+        }
+      }
+    });
+  });
+}
+
+// 页面启动
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    attachThemeToggleEvent();
+    attachMenuToggleEvent();
+    attachSmoothScrollEvent();
+    initBackToTop();
+    initTagFilter();
+    initTimelineLinks();
+  });
+} else {
+  initTheme();
+  attachThemeToggleEvent();
+  attachMenuToggleEvent();
+  attachSmoothScrollEvent();
+  initBackToTop();
+  initTagFilter();
+  initTimelineLinks();
+}

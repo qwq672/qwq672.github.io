@@ -1,0 +1,113 @@
+@import 'variables';
+
+.projects-page {
+  padding: $spacing-xl 0;
+  min-height: calc(100vh - 200px);
+}
+
+.tools-page {
+  padding: $spacing-xl 0;
+  min-height: calc(100vh - 200px);
+}
+
+.projects-grid,
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-lg;
+  margin-top: $spacing-xl;
+}
+
+.project-card,
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  background: var(--color-bg-card);
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-link));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    border-color: var(--color-primary);
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .project-icon,
+    .tool-icon {
+      transform: scale(1.1);
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .project-link,
+    .tool-link {
+      color: var(--color-link);
+    }
+  }
+}
+
+.project-icon,
+.tool-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  background: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-bottom: $spacing-md;
+  transition: all 0.4s ease;
+}
+
+.project-title,
+.tool-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: $spacing-sm;
+}
+
+.project-desc,
+.tool-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.project-link,
+.tool-link {
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+  margin-top: $spacing-md;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .projects-grid,
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
