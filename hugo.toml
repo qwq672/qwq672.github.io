@@ -42,3 +42,5 @@ paginate = 10
 
 # 站点描述
 description = "一个简约、温润的个人网站 | qwq672's personal website"
+
+disableFingerprinting = true
