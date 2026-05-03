@@ -1,8 +1,6 @@
 baseURL = "http://localhost:1313"
 languageCode = "zh-cn"
-title = "你的站点名称"
-theme = ""
-
+title = "qwq672的个人网站"
 disableKinds = []
 ignoreErrors = ["error-remote-getjson"]
 
@@ -39,9 +37,7 @@ paginate = 10
 
 # 字体设置
 [params.fonts]
-  # 启用的字体族（可选值：system, noto, lxgw, sourceHans）
-  family = "system"  # 默认使用系统字体
-  # 自定义 CSS 字体URL（可选）
+  family = "system"
   customUrl = ""
 
 # 站点描述
