@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第一篇博客 | 你的站点名称</title>
+<title>第一篇博客 | qwq672的个人网站</title>
 
 
 
@@ -38,7 +38,7 @@
 
 
 
-<link rel="stylesheet" href="http://localhost:1313/css/style.7740792240d96a3d300a9b3973c64cc174c0fcf18ac665dd8d136ca61c83c4e3.css" integrity="sha256-d0B5IkDZaj0wCps5c8ZMwXTA/PGKxmXdjRNsphyDxOM=">
+<link rel="stylesheet" href="http://localhost:1313/css/style.6293d56c1999acd2607e4bf09c848cd0da3eff60addb1ceda455e71d45449bf6.css" integrity="sha256-YpPVbBmZrNJgfkvwnISM0No&#43;/2Ct2xztpFXnHUVEm/Y=">
 
 </head>
 <body>
@@ -46,13 +46,17 @@
     <header class="site-header">
   <div class="nav-container">
     <div class="logo">
-      <a href="http://localhost:1313">你的站点名称</a>
+      <a href="http://localhost:1313">qwq672的个人网站</a>
     </div>
     <button class="menu-toggle" aria-label="菜单">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
     <ul class="nav-menu">
@@ -158,7 +162,647 @@
 
         <div class="article-body">
           <p>这是测试内容。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh-CN&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;流光映像 · 林述光 | 多列自动照片墙&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&amp;display=swap&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">box-sizing</span>: <span style="color:#66d9ef">border-box</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 主题变量 */</span>
+</span></span><span style="display:flex;"><span>        :<span style="color:#a6e22e">root</span> {
+</span></span><span style="display:flex;"><span>            --bg-page: <span style="color:#ae81ff">#0f0e0c</span>;
+</span></span><span style="display:flex;"><span>            --surface: rgba(<span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">0.7</span>);
+</span></span><span style="display:flex;"><span>            --text-primary: <span style="color:#ae81ff">#f2eee9</span>;
+</span></span><span style="display:flex;"><span>            --text-secondary: <span style="color:#ae81ff">#cdc5b8</span>;
+</span></span><span style="display:flex;"><span>            --accent: <span style="color:#ae81ff">#e0863a</span>;
+</span></span><span style="display:flex;"><span>            --border-light: rgba(<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0.08</span>);
+</span></span><span style="display:flex;"><span>            --shadow-md: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">12</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.3</span>);
+</span></span><span style="display:flex;"><span>            --card-radius: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">body</span>.<span style="color:#a6e22e">light</span> {
+</span></span><span style="display:flex;"><span>            --bg-page: <span style="color:#ae81ff">#f5f2ef</span>;
+</span></span><span style="display:flex;"><span>            --surface: rgba(<span style="color:#ae81ff">245</span>, <span style="color:#ae81ff">240</span>, <span style="color:#ae81ff">235</span>, <span style="color:#ae81ff">0.8</span>);
+</span></span><span style="display:flex;"><span>            --text-primary: <span style="color:#ae81ff">#1f1c19</span>;
+</span></span><span style="display:flex;"><span>            --text-secondary: <span style="color:#ae81ff">#5a524a</span>;
+</span></span><span style="display:flex;"><span>            --accent: <span style="color:#ae81ff">#e0863a</span>;
+</span></span><span style="display:flex;"><span>            --border-light: rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.08</span>);
+</span></span><span style="display:flex;"><span>            --shadow-md: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">8</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.08</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-family</span>: <span style="color:#e6db74">&#39;Inter&#39;</span>, <span style="color:#66d9ef">sans-serif</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>bg<span style="color:#f92672">-</span><span style="color:#66d9ef">page</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>primary);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">background</span> <span style="color:#ae81ff">0.3</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">ease</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">min-height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">vh</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">overflow-x</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 静态背景氛围 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">bg-ambient</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">fixed</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: radial-gradient(<span style="color:#66d9ef">circle</span> at <span style="color:#ae81ff">30</span><span style="color:#66d9ef">%</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>, rgba(<span style="color:#ae81ff">224</span>,<span style="color:#ae81ff">134</span>,<span style="color:#ae81ff">58</span>,<span style="color:#ae81ff">0.08</span>), <span style="color:#66d9ef">transparent</span> <span style="color:#ae81ff">70</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>            pointer-events: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">z-index</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 主内容区（顶部介绍部分） */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">main-content</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">max-width</span>: <span style="color:#ae81ff">1400</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">relative</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">z-index</span>: <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 导航栏 - 无圆角，顶层 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">navbar</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">sticky</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">z-index</span>: <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">space-between</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">flex-wrap</span>: <span style="color:#66d9ef">wrap</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: rgba(<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">0.85</span>);
+</span></span><span style="display:flex;"><span>            backdrop-filter: blur(<span style="color:#ae81ff">16</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>border<span style="color:#f92672">-</span>light);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">body</span>.<span style="color:#a6e22e">light</span> .<span style="color:#a6e22e">navbar</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: rgba(<span style="color:#ae81ff">245</span>, <span style="color:#ae81ff">240</span>, <span style="color:#ae81ff">235</span>, <span style="color:#ae81ff">0.85</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">logo</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-weight</span>: <span style="color:#ae81ff">700</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1.3</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: linear-gradient(<span style="color:#ae81ff">125</span><span style="color:#66d9ef">deg</span>, <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>primary), <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent));
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-clip</span>: <span style="color:#66d9ef">text</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">-webkit-</span><span style="color:#66d9ef">background-clip</span>: <span style="color:#66d9ef">text</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">transparent</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">nav-links</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">nav-links</span> <span style="color:#f92672">a</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>secondary);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-decoration</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.9</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-weight</span>: <span style="color:#ae81ff">500</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">color</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">nav-links</span> <span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">theme-switch-nav</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">cursor</span>: <span style="color:#66d9ef">pointer</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1.2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">transform</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">theme-switch-nav</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transform</span>: scale(<span style="color:#ae81ff">1.05</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 两栏简介布局 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">two-col</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">flex-wrap</span>: <span style="color:#66d9ef">wrap</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">3</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">info-card</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">flex</span>: <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">min-width</span>: <span style="color:#ae81ff">260</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>surface);
+</span></span><span style="display:flex;"><span>            backdrop-filter: blur(<span style="color:#ae81ff">16</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>card<span style="color:#f92672">-</span>radius);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">box-shadow</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>shadow<span style="color:#f92672">-</span>md);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>border<span style="color:#f92672">-</span>light);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">transform</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">info-card</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">-3</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">avatar</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">avatar-icon</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">64</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">64</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: linear-gradient(<span style="color:#ae81ff">135</span><span style="color:#66d9ef">deg</span>, <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent), <span style="color:#ae81ff">#9f4a1a</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">18</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">avatar-icon</span> <span style="color:#f92672">i</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#fff2e2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">name</span> <span style="color:#f92672">h1</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-weight</span>: <span style="color:#ae81ff">700</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>primary);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">name</span> .<span style="color:#a6e22e">title</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">bio</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.9</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">1.6</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>secondary);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-left</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding-left</span>: <span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">section</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">1.2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">section-label</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.7</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-transform</span>: <span style="color:#66d9ef">uppercase</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">letter-spacing</span>: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">tags</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">flex-wrap</span>: <span style="color:#66d9ef">wrap</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">tag</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: rgba(<span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">134</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">0.12</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">0.9</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.7</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>secondary);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> rgba(<span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">134</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">0.3</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">contact-item</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">0.7</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.85</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>secondary);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">0.6</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">contact-item</span> <span style="color:#f92672">i</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">social</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">1.2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">social-link</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">38</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">38</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: rgba(<span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">134</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">0.12</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">inline-flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>border<span style="color:#f92672">-</span>light);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-decoration</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">social-link</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>accent);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#1e120c</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">-2</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ---------- 照片墙分区（铺满屏幕宽度，多行多列，无间隔，自动缓慢平移） ---------- */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">photo-wall-section</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">vw</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">relative</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#66d9ef">transparent</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 暗角效果 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">photo-wall-section</span>::<span style="color:#a6e22e">after</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">content</span>: <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            pointer-events: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">z-index</span>: <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: radial-gradient(<span style="color:#66d9ef">circle</span> at <span style="color:#66d9ef">center</span>, <span style="color:#66d9ef">transparent</span> <span style="color:#ae81ff">60</span><span style="color:#66d9ef">%</span>, rgba(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.45</span>) <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">box-shadow</span>: <span style="color:#66d9ef">inset</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">60</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.3</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 滚动容器：溢出隐藏，鼠标可拖拽暂停 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-scroll</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">overflow-x</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">overflow-y</span>: <span style="color:#66d9ef">visible</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">cursor</span>: grab;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">user-select</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-scroll</span>:<span style="color:#a6e22e">active</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">cursor</span>: grabbing;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 多列布局核心：使用 column-count 实现多行多列瀑布墙 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">column-gap</span>: <span style="color:#ae81ff">0</span>;          <span style="color:#75715e">/* 列之间无间隔 */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">column-fill</span>: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break-inside</span>: <span style="color:#66d9ef">avoid</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: max-content;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation</span>: slowPanLinear <span style="color:#ae81ff">100</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span> <span style="color:#66d9ef">infinite</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">will-change</span>: <span style="color:#66d9ef">transform</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 鼠标悬浮时暂停移动 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">photo-wall-section</span>:<span style="color:#a6e22e">hover</span> .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-play-state</span>: <span style="color:#66d9ef">paused</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 单个图片项：无任何卡片样式，内部图片自适应宽度 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-track</span> .<span style="color:#a6e22e">photo-item</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">inline-block</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">box-shadow</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break-inside</span>: <span style="color:#66d9ef">avoid</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-track</span> <span style="color:#f92672">img</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">block</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#2a241e</span>;    <span style="color:#75715e">/* 占位色，避免加载闪烁 */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">filter</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">wall-track</span> <span style="color:#f92672">img</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">filter</span>: brightness(<span style="color:#ae81ff">1.02</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 慢速水平平移动画（极缓移动，像墙在呼吸） */</span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">slowPanLinear</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 底部脚注 */</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">footer-note</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">max-width</span>: <span style="color:#ae81ff">1400</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span> <span style="color:#66d9ef">auto</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1.8</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border-top</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span>border<span style="color:#f92672">-</span>light);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">0.8</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#a6e22e">var</span>(<span style="color:#f92672">--</span><span style="color:#66d9ef">text</span><span style="color:#f92672">-</span>secondary);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ---------- 响应式：不同设备自动调整列数 ---------- */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 通过动态 column-count 实现自适应，移动端减少列数，保证可读性 */</span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">min-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">1400px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">column-count</span>: <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">1399px</span><span style="color:#f92672">)</span> <span style="color:#f92672">and</span> <span style="color:#f92672">(</span><span style="color:#f92672">min-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">1024px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">column-count</span>: <span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">1023px</span><span style="color:#f92672">)</span> <span style="color:#f92672">and</span> <span style="color:#f92672">(</span><span style="color:#f92672">min-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">768px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">column-count</span>: <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">767px</span><span style="color:#f92672">)</span> <span style="color:#f92672">and</span> <span style="color:#f92672">(</span><span style="color:#f92672">min-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">480px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">column-count</span>: <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">479px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">column-count</span>: <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 导航栏移动端适配 */</span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">768px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">main-content</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">navbar</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">nav-links</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">info-card</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1.2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">avatar-icon</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">52</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">52</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">name</span> <span style="color:#f92672">h1</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">1.5</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* 高PPI优化 */</span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">-webkit-min-device-pixel-ratio</span><span style="color:#f92672">:</span> <span style="color:#f92672">2</span><span style="color:#f92672">),</span> <span style="color:#f92672">(</span><span style="color:#f92672">min-resolution</span><span style="color:#f92672">:</span> <span style="color:#f92672">192dpi</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">wall-track</span> <span style="color:#f92672">img</span> {
+</span></span><span style="display:flex;"><span>                image-rendering: <span style="color:#66d9ef">crisp-edges</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bg-ambient&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 导航栏（无圆角，深色模式开关在右侧） --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">nav</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navbar&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo&#34;</span>&gt;流光映像 · 林述光&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nav-links&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span>&gt;主页&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span>&gt;作品&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span>&gt;摄影&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span>&gt;关于&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theme-switch-nav&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;navThemeToggle&#34;</span> <span style="color:#a6e22e">aria-label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;切换主题&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-moon&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">nav</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main-content&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;two-col&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;info-card&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;avatar&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;avatar-icon&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-sun&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">h1</span>&gt;林述光&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>&gt;暖域叙事 · 光之构筑师&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bio&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                在数字与感知的交界，用光与色编织情绪的栖息地。每一束暖光，都是一段沉默而有力的对话。
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section-label&#34;</span>&gt;创作光谱&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;沉浸式光域&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;粒子美学&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;生成艺术&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;氛围交互&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section-label&#34;</span>&gt;进行时&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tags&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;《琥珀纪》文献&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;动态光效装置&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tag&#34;</span>&gt;AI 暖色调引擎&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact-item&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-map-marker-alt&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt; &lt;<span style="color:#f92672">span</span>&gt;杭州 · 上海&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact-item&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-globe&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt; &lt;<span style="color:#f92672">span</span>&gt;shuguang.space&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact-item&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-envelope&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt; &lt;<span style="color:#f92672">span</span>&gt;hello@shuguang.space&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;social&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;social-link&#34;</span>&gt;&lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab fa-github&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;social-link&#34;</span>&gt;&lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab fa-dribbble&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;social-link&#34;</span>&gt;&lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab fa-instagram&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;social-link&#34;</span>&gt;&lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab fa-behance&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;info-card&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;section-label&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;margin-bottom: 1rem;&#34;</span>&gt;✨ 正在创作&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bio&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;border-left-color: var(--accent); margin-bottom: 0;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                最新系列《琥珀色记忆》—— 用光影捕捉时间的温度，即将呈现。
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 多行多列自动照片墙（铺满屏幕宽度） --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;photo-wall-section&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wall-scroll&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wallScroll&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wall-track&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wallTrack&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">&lt;!-- 图片由js动态生成（双倍内容实现无缝循环） --&gt;</span>
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;footer-note&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">i</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas fa-feather-alt&#34;</span>&gt;&lt;/<span style="color:#f92672">i</span>&gt; 光是暖的，慢下来才会看见形状。
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ---------- 图片池：不同比例，无边框，无卡片 ----------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 使用不同比例的高质量图片，确保多列瀑布墙自然错落
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawImages</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/104/500/750&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">750</span> },   <span style="color:#75715e">// 竖向
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/106/800/600&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">800</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/107/600/900&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">900</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/116/700/500&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">700</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/119/600/600&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/127/650/850&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">650</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">850</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/155/900/600&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">900</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/169/480/720&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">480</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">720</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/186/750/500&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">750</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/200/600/800&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">600</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">800</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/201/700/700&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">700</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">700</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/203/850/550&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">850</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">550</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/210/580/780&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">580</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">780</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/215/620/620&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">620</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">620</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/219/720/480&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">720</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">480</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/225/680/900&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">680</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">900</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/238/800/800&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">800</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">800</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;https://picsum.photos/id/239/550/820&#39;</span>, <span style="color:#a6e22e">w</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">550</span>, <span style="color:#a6e22e">h</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">820</span> }
+</span></span><span style="display:flex;"><span>    ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 生成足够数量的图片（复制多份，保证滚动墙内容足够长），并随机排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">allImages</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {  <span style="color:#75715e">// 重复6遍增强长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">shuffled</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">rawImages</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">shuffled</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rand</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> (<span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>            [<span style="color:#a6e22e">shuffled</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">shuffled</span>[<span style="color:#a6e22e">rand</span>]] <span style="color:#f92672">=</span> [<span style="color:#a6e22e">shuffled</span>[<span style="color:#a6e22e">rand</span>], <span style="color:#a6e22e">shuffled</span>[<span style="color:#a6e22e">j</span>]];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">allImages</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">allImages</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">shuffled</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 最终随机打乱顺序，使不同尺寸交替出现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">allImages</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>        [<span style="color:#a6e22e">allImages</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">allImages</span>[<span style="color:#a6e22e">j</span>]] <span style="color:#f92672">=</span> [<span style="color:#a6e22e">allImages</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">allImages</span>[<span style="color:#a6e22e">i</span>]];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 构建双倍内容实现无缝无限滚动（因为动画移动距离为总宽度的一半）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">track</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;wallTrack&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildWall</span>(<span style="color:#a6e22e">images</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">doubleImages</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">images</span>, ...<span style="color:#a6e22e">images</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">doubleImages</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">img</span> =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 图片使用原始宽高比例，在CSS中宽度由容器决定（100%），高度自动
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// 添加 loading=&#34;lazy&#34; 优化性能
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">html</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;div class=&#34;photo-item&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &lt;img src=&#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; style=&#34;aspect-ratio: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">w</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> / </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">img</span>.<span style="color:#a6e22e">h</span><span style="color:#e6db74">}</span><span style="color:#e6db74">;&#34; loading=&#34;lazy&#34; alt=&#34;&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                     &lt;/div&gt;`</span>;
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">track</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">html</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">buildWall</span>(<span style="color:#a6e22e">allImages</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 调整动画速度：根据屏幕宽度适当微调移动端速度，但整体已经较慢（100s缓慢平移）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// CSS 中已设置 100s，符合用户“稍微慢一丢丢”需求。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 拖拽互动：鼠标/触摸可以暂停移动并手动拖动，感知更精致
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scrollContainer</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;wallScroll&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isDragging</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">startScrollLeft</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">trackEl</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.wall-track&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">scrollContainer</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">trackEl</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mousedown&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">isDragging</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">pageX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">offsetLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">startScrollLeft</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">scrollLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">cursor</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;grabbing&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">animationPlayState</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;paused&#39;</span>;  <span style="color:#75715e">// 暂停移动
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        });
+</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mousemove&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isDragging</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">pageX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">offsetLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">walk</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">startX</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.2</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">scrollLeft</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startScrollLeft</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">walk</span>;
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mouseup&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isDragging</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">isDragging</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">cursor</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;grab&#39;</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#39;:hover&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">animationPlayState</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;running&#39;</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 触摸事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;touchstart&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">isDragging</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">startX</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">touches</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">pageX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">offsetLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">startScrollLeft</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">scrollLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">animationPlayState</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;paused&#39;</span>;
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;touchmove&#39;</span>, (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isDragging</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">touches</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">pageX</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">offsetLeft</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">walk</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">startX</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.2</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">scrollLeft</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">startScrollLeft</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">walk</span>;
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;touchend&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isDragging</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">isDragging</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">matches</span>(<span style="color:#e6db74">&#39;:hover&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">animationPlayState</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;running&#39;</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 鼠标离开容器时恢复自动移动（若无拖拽）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">scrollContainer</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;mouseleave&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isDragging</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">animationPlayState</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;running&#39;</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 图片加载优化：为避免初次加载堆积请求，可设置懒加载已通过 loading=&#34;lazy&#34; 实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 添加占位背景色，图片加载后覆盖
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 主题切换 (导航栏按钮)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">themeBtn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;navThemeToggle&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">body</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isDark</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setTheme</span>(<span style="color:#a6e22e">dark</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">dark</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#39;light&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">themeBtn</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;i class=&#34;fas fa-moon&#34;&gt;&lt;/i&gt;&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#39;ui_theme&#39;</span>, <span style="color:#e6db74">&#39;dark&#39;</span>);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#39;light&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">themeBtn</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;i class=&#34;fas fa-sun&#34;&gt;&lt;/i&gt;&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#39;ui_theme&#39;</span>, <span style="color:#e6db74">&#39;light&#39;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">savedTheme</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#39;ui_theme&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">savedTheme</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;light&#39;</span>) <span style="color:#a6e22e">setTheme</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">setTheme</span>(<span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">themeBtn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isLight</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#39;light&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTheme</span>(<span style="color:#a6e22e">isLight</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 确保照片墙适应不同设备后的列数刷新（无额外操作，CSS媒体查询自动处理）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 增加一小段处理，避免图片加载后布局抖动（重绘）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;load&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 可触发一次轻微重绘，确保列宽准确
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">trackEl</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">transform</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;translateX(0.01px)&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">setTimeout</span>(() =&gt; { <span style="color:#a6e22e">trackEl</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">transform</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>; }, <span style="color:#ae81ff">50</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div>
         </div>
 
         <nav class="article-nav">
@@ -191,7 +835,7 @@
     </main>
     <footer class="site-footer">
   <div class="container">
-    <p>&copy; 2026 你的站点名称. 保留所有权利。</p>
+    <p>&copy; 2026 qwq672的个人网站. 保留所有权利。</p>
   </div>
 </footer>
 
@@ -199,7 +843,7 @@
   
 <div class="toast-container"></div>
   
-<script src="/js/global.min.d9c3db44b4575deeeea1820f2f2daa3d70fc70be619bcd88309e9c9946504158.js" integrity="sha256-2cPbRLRXXe7uoYIPLy2qPXD8cL5hm82IMJ6cmUZQQVg=" defer></script>
+<script src="/js/global.min.41d93e5e071c63c58d2b1464e7a633e69253973a2e42457c9a90a6715227877d.js" integrity="sha256-Qdk&#43;XgccY8WNKxRk56Yz5pJTlzouQkV8mpCmcVInh30=" defer></script>
 
 <script src="/js/progress.min.0ac3b0b895f52de2e46dd0d2ee4f5a81722807df550df1b971dff972603728cc.js" integrity="sha256-CsOwuJX1LeLkbdDS7k9agXIoB99VDfG5cd/5cmA3KMw=" defer></script>
 
@@ -208,6 +852,8 @@
 <script src="/js/back-to-top.min.43006ed93571f2615a8ed5101c5639b86e4386eb670b70982ca1bc6f5e5c09da.js" defer></script>
 
 <script src="/js/search.min.64b9ca37ed21a21f564f48a1e5db444de4534b1407c4097cfc96eacdee7d8538.js" integrity="sha256-ZLnKN&#43;0hoh9WT0ih5dtETeRTSxQHxAl8/Jbqze59hTg=" defer></script>
+
+<script src="/js/photo-wall.min.6e262898fd9a26e3cb04614a5fe1dba38943d8445aa48afef5cea77adc346fbe.js" defer></script>
 
 </body>
 </html>

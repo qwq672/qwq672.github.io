@@ -69,11 +69,31 @@ function attachThemeToggleEvent() {
 // 2. 汉堡菜单切换
 function attachMenuToggleEvent() {
   const menuToggle = document.querySelector('.menu-toggle');
-  if (menuToggle) {
+  const navMenu = document.querySelector('.nav-menu');
+  const logo = document.querySelector('.logo');
+
+  if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
-      const navMenu = document.querySelector('.nav-menu');
-      if (navMenu) {
-        navMenu.classList.toggle('active');
+      const isActive = navMenu.classList.contains('active');
+      if (isActive) {
+        // 关闭菜单
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+        if (logo) {
+          logo.classList.remove('mobile-hidden');
+        }
+        document.body.style.overflow = '';
+      } else {
+        // 打开菜单 - 先添加 mobile-fullscreen 类显示菜单，再添加 active 类触发动画
+        navMenu.classList.add('mobile-fullscreen');
+        setTimeout(() => {
+          navMenu.classList.add('active');
+        }, 10);
+        menuToggle.classList.add('active');
+        if (logo) {
+          logo.classList.add('mobile-hidden');
+        }
+        document.body.style.overflow = 'hidden';
       }
     });
   }

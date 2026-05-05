@@ -5,7 +5,7 @@
     "title": "第一篇博客",
     "url": "/posts/my-first-post/",
     "date": "2026-05-03",
-    "summary": "这是测试内容。"
+    "summary": "这是测试内容。\n\u0026lt;!DOCTYPE html\u0026gt; \u0026lt;html lang=\u0026#34;zh-CN\u0026#34;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;meta charset=\u0026#34;UTF-8\u0026#34;\u0026gt; \u0026lt;meta name=\u0026#34;viewport\u0026#34; content=\u0026#34;width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes\u0026#34;\u0026gt; \u0026lt;title\u0026gt;流光映像 · 林述光 | 多列自动照片墙\u0026lt;/title\u0026gt; \u0026lt;link href=\u0026#34;https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700\u0026amp;display=swap\u0026#34; rel=\u0026#34;stylesheet\u0026#34;\u0026gt; \u0026lt;link rel=\u0026#34;stylesheet\u0026#34; href=\u0026#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\u0026#34;\u0026gt; \u0026lt;style\u0026gt; * { margin: 0; padding: 0; box-sizing: border-box; } /* 主题变量 */ :root { --bg-page: #0f0e0c; --surface: rgba(25, 22, 20, 0.7); --text-primary: #f2eee9; --text-secondary: #cdc5b8; --accent: #e0863a; --border-light: rgba(255, 255, 255, 0.08); --shadow-md: 0 12px 24px rgba(0,0,0,0.3); --card-radius: 20px; } body.light { --bg-page: #f5f2ef; --surface: rgba(245, 240, 235, 0."
   }
   
   ,

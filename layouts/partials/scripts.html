@@ -8,3 +8,5 @@
 <script src="{{ $backToTopJS.RelPermalink }}" defer></script>
 {{ $searchJS := resources.Get "js/search.js" | minify | fingerprint }}
 <script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>
+{{ $photoWallJS := resources.Get "js/photo-wall.js" | minify | fingerprint }}
+<script src="{{ $photoWallJS.RelPermalink }}" defer></script>

@@ -1,119 +1,151 @@
-// 一、整体风格核心 - 温润暖色调
+// 一、整体风格核心 - 低饱和暖金极简
 // ============================================
 
-// 暖色调主色系 - 更柔和耐看
-$brand-primary: #d4a574;      // 柔和驼色（主色调）
-$brand-secondary: #c4956a;    // 深驼色
-$brand-accent: #e8c49a;       // 浅杏色（点缀）
-$brand-warm-light: #faf6f1;   // 暖白（亮色背景）
-$brand-warm-dark: #2d2622;    // 深暖棕（暗黑背景）
+// 主题主色 - 低饱和暖棕金
+$brand-primary: #C8A27A;      // 主色调
+$brand-primary-light: #D9B992; // hover 态
+$brand-primary-dark: #B0885C;  // 点击/强调态
+
+// 背景色彩
+$brand-bg-light: #FDF8F2;     // 浅模式主背景
+$brand-card-light: #FFFFFF;   // 浅模式卡片
+$brand-hover-light: #F8F1E9;  // 浅模式hover背景
+$brand-bg-dark: #1A1816;      // 深模式主背景
+$brand-card-dark: #252320;    // 深模式卡片
+$brand-hover-dark: #2E2B28;   // 深模式hover背景
+
+// 文字色彩 - 暖调灰阶
+$brand-text-h1-light: #2D2A26;
+$brand-text-body-light: #44403B;
+$brand-text-secondary-light: #6B665F;
+$brand-text-muted-light: #9A948B;
+
+$brand-text-h1-dark: #F2EDE8;
+$brand-text-body-dark: #D9D4CE;
+$brand-text-secondary-dark: #B0ABA4;
+$brand-text-muted-dark: #8A857E;
 
 // 二、通用原子变量系统
 // ============================================
 
-// 2.1 间距系统 - 统一留白标准
+// 2.1 间距系统 - 8px基准
 $spacing-none: 0;
-$spacing-xs: 0.5rem;     // 8px - 小间隙
-$spacing-sm: 1rem;       // 16px - 常规间隙
-$spacing-md: 1.5rem;     // 24px - 中等模块间距
-$spacing-lg: 2rem;       // 32px - 大间距
-$spacing-xl: 3rem;       // 48px - 超大间距
+$spacing-xs: 0.5rem;     // 8px
+$spacing-sm: 1rem;       // 16px
+$spacing-md: 1.5rem;     // 24px
+$spacing-lg: 2rem;       // 32px
+$spacing-xl: 3rem;       // 48px
 $spacing-2xl: 4rem;      // 64px
 
-// 2.2 字体系统 - 固定层级，舒适阅读
-$font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans SC", sans-serif;
+// 2.2 字体系统
+$font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans SC", sans-serif;
 
-$font-size-xs: 0.8rem;    // 极小字 - 注释
-$font-size-sm: 0.9rem;    // 辅助文字
-$font-size-base: 1rem;    // 正文基础 - 舒适字号
-$font-size-md: 1.15rem;   // 加强正文
-$font-size-lg: 1.35rem;   // 小标题
-$font-size-xl: 1.6rem;    // 大标题
-$font-size-2xl: 2rem;     // 页面主标题
+$font-size-xs: 0.8rem;    // 备注
+$font-size-sm: 0.9rem;    // 辅助
+$font-size-base: 1rem;    // 正文
+$font-size-md: 1.1rem;    // 加强
+$font-size-lg: 1.3rem;    // H2
+$font-size-xl: 1.8rem;    // H1
+$font-size-2xl: 2rem;     // 大号标题（备用）
 
-// 2.3 行高规范 - 舒适不累眼
-$line-height-tight: 1.3;
-$line-height-normal: 1.65; // 正文、长文本舒适行高
-$line-height-relaxed: 1.75;
+// 2.3 行高规范
+$line-height-tight: 1.2;    // 标题
+$line-height-normal: 1.6;   // 正文
 
-// 2.4 圆角规范 - 简约淡雅
-$border-radius-sm: 0.375rem;   // 6px - 小按钮
-$border-radius-md: 0.5rem;     // 8px - 卡片、常规按钮
-$border-radius-lg: 0.75rem;    // 12px - 大组件
-$border-radius-xl: 1rem;       // 16px - 大卡片
+// 2.4 圆角规范
+$border-radius-sm: 0.25rem;  // 4px - 标签
+$border-radius-md: 0.5rem;   // 8px - 卡片、按钮
+$border-radius-lg: 0.75rem;  // 12px
+$border-radius-xl: 1rem;     // 16px
 
 // 2.5 阴影规范 - 极微弱层次
-$shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-$shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+$shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+$shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
 
-// 亚克力效果 - 仅用于导航栏
-$acrylic-blur: 12px;
-$acrylic-bg: rgba(255, 255, 255, 0.75);
+// 2.6 过渡动画
+$transition-fast: 150ms ease-in-out;
+$transition-normal: 200ms ease-in-out;
 
-// 2.6 过渡动画 - 克制柔和
-$transition-fast: 150ms ease;
-$transition-normal: 200ms ease;
-
-// 2.7 版心宽度 - 增大了！
-$container-max-width: 960px;  // 增大宽度，更舒适阅读
+// 2.7 版心宽度
+$container-max-width: 1200px;
 $container-padding: $spacing-md;
 
-// 三、明亮主题（默认）- 更柔和温暖
+// 三、明亮主题（默认）
 // ============================================
 :root {
-  // 背景色彩 - 更柔和
-  --color-bg-primary: #fdfaf6;      // 主背景 - 更暖的米色
-  --color-bg-secondary: #ffffff;    // 次背景 - 纯白
-  --color-bg-card: #ffffff;         // 卡片底色
-  --color-bg-code: #f7f2ea;         // 代码背景 - 浅暖
-  --color-border: rgba(0,0,0,0.06); // 分割线
+  // 背景
+  --color-bg-primary: #FDF8F2;
+  --color-bg-secondary: #FFFFFF;
+  --color-bg-card: #FFFFFF;
+  --color-bg-code: #F8F1E9;
+  --color-bg-hover: #F8F1E9;
+  --color-border: rgba(0,0,0,0.06);
 
-  // 文字色彩 - 更柔和
-  --color-text-primary: #3d3128;    // 主要文字 - 深暖棕
-  --color-text-secondary: #6b5c50;  // 辅助文字 - 暖灰
-  --color-text-tertiary: #9a8b7f;   // 注释文字
+  // 文字 - 暖调灰阶
+  --color-text-primary: #2D2A26;      // H1/H2
+  --color-text-secondary: #44403B;    // 正文
+  --color-text-tertiary: #6B665F;     // 次要
+  --color-text-muted: #9A948B;        // 备注
 
-  // 交互色彩 - 更柔和驼色系
-  --color-link: #b88a62;            // 链接色 - 更柔和驼色
-  --color-link-hover: #d4a574;      // 链接悬浮 - 亮驼色
-  --color-primary: #d4a574;         // 主色调
-  --color-surface: #ffffff;         // 表面色
+  // 交互色彩
+  --color-link: #C8A27A;
+  --color-link-hover: #B0885C;
+  --color-primary: #C8A27A;
+  --color-primary-light: #D9B992;
+  --color-surface: #FFFFFF;
 
   // 提示框色彩
-  --color-tip-bg: #fef9f3;
-  --color-tip-border: #f0e4d7;
-  --color-warning-bg: #fff9e6;
-  --color-warning-border: #f5c842;
-  --color-error-bg: #fff0f0;
-  --color-error-border: #f08080;
+  --color-tip-bg: #F8F1E9;
+  --color-tip-border: #E8D8C8;
+  --color-info-bg: #EDF4F8;
+  --color-info-border: #7BAFD4;
+  --color-success-bg: #EAF5EE;
+  --color-success-border: #7AC4A0;
+  --color-warning-bg: #FFF9E6;
+  --color-warning-border: #E8B86D;
+  --color-error-bg: #FDEEEE;
+  --color-error-border: #D48080;
 }
 
-// 四、暗黑主题 - 深灰暖调
+// 四、暗黑主题 - 暖调深灰
 // ============================================
 [data-theme="dark"] {
-  // 背景色彩 - 深灰暖调
-  --color-bg-primary: #1a1816;       // 主背景 - 深暖灰
-  --color-bg-secondary: #252220;     // 次背景 - 浅一层暖灰
-  --color-bg-card: #252220;          // 卡片底色
-  --color-bg-code: #2a2725;          // 代码背景
-  --color-border: rgba(255,255,255,0.08);
+  // 背景
+  --color-bg-primary: #1A1816;
+  --color-bg-secondary: #252320;
+  --color-bg-card: #252320;
+  --color-bg-code: #2E2B28;
+  --color-bg-hover: #2E2B28;
+  --color-border: rgba(255,255,255,0.12);
 
-  // 文字色彩 - 柔和奶白
-  --color-text-primary: #f0ebe6;     // 主要文字 - 奶白
-  --color-text-secondary: #c4bdb5;   // 辅助文字 - 柔沙
-  --color-text-tertiary: #8a827a;    // 注释文字
+  // 文字 - 暖调灰阶
+  --color-text-primary: #F2EDE8;      // H1/H2
+  --color-text-secondary: #D9D4CE;    // 正文
+  --color-text-tertiary: #B0ABA4;     // 次要
+  --color-text-muted: #8A857E;        // 备注
 
-  // 交互色彩 - 暖调降低饱和度
-  --color-link: #d4a574;            // 链接色 - 暖驼
-  --color-link-hover: #e8c49a;      // 链接悬浮 - 浅杏
-  --color-primary: #d4a574;         // 主色调
-  --color-surface: #252220;         // 表面色
+  // 交互色彩
+  --color-link: #C8A27A;
+  --color-link-hover: #D9B992;
+  --color-primary: #C8A27A;
+  --color-primary-light: #D9B992;
+  --color-surface: #252320;
 
-  // 提示框色彩 - 暗黑版本
-  --color-tip-bg: #2a2520;
-  --color-tip-border: #4a4035;
-  --color-warning-bg: #2a2520;
-  --color-warning-border: #5a4a30;
-  --color-error-bg: #2a2020;
-  --color-error-border: #5a3030;
+  // 提示框色彩
+  --color-tip-bg: #2E2B28;
+  --color-tip-border: #4A4540;
+  --color-info-bg: #252B32;
+  --color-info-border: #5A7A94;
+  --color-success-bg: #252E28;
+  --color-success-border: #5A8A6A;
+  --color-warning-bg: #2E2B25;
+  --color-warning-border: #6A5A30;
+  --color-error-bg: #2E2525;
+  --color-error-border: #6A4040;
+}
+
+// 深色模式背景网点纹理
+[data-theme="dark"] body {
+  background-image: radial-gradient(rgba(200, 162, 122, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }

@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "http://localhost:1313"
 languageCode = "zh-cn"
 title = "qwq672的个人网站"
 disableKinds = []
@@ -42,5 +42,3 @@ paginate = 10
 
 # 站点描述
 description = "一个简约、温润的个人网站 | qwq672's personal website"
-
-disableFingerprinting = true

@@ -180,6 +180,35 @@
             padding: 24px 20px;
         }
 
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            font-size: 0.85rem;
+            color: var(--ascii-text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--ascii-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ascii-accent);
+        }
+
+        .breadcrumb .separator {
+            color: var(--ascii-text-secondary);
+        }
+
+        .breadcrumb .current {
+            color: var(--ascii-text);
+            font-weight: 500;
+        }
+
         h1 {
             font-size: 1.9rem;
             font-weight: 600;
@@ -502,8 +531,16 @@
         </div>
     </nav>
 
-<div class="main-container">
-    <h1>⚡ ASCII 艺术工坊</h1>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="/">首页</a>
+            <span class="separator">/</span>
+            <a href="/tools/">工具</a>
+            <span class="separator">/</span>
+            <span class="current">ASCII 艺术工坊</span>
+        </nav>
+
+        <h1>⚡ ASCII 艺术工坊</h1>
     <div class="sub">图片转字符画 · 彩色/黑白 · 可缩放/反色 · 导出纯净HTML（无边框）</div>
 
     <div class="dashboard">

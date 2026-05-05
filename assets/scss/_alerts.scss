@@ -1,7 +1,11 @@
 @import 'variables';
 
-// 提示框样式 - 用于 MD 中的提示块
-// 使用方法：{: .prompt-tip }、{: .prompt-warning }、{: .prompt-error }
+// ============================================
+// Markdown 扩展语法样式
+// ============================================
+
+// 一、提示色块 (prompt)
+// 使用方法：{: .prompt-tip }、{: .prompt-info }、{: .prompt-success }、{: .prompt-warning }、{: .prompt-error }
 
 .prompt {
   padding: $spacing-sm $spacing-md;
@@ -10,7 +14,7 @@
   margin: $spacing-md 0;
   font-size: $font-size-base;
   line-height: $line-height-normal;
-  
+
   p:last-child {
     margin-bottom: 0;
   }
@@ -20,17 +24,37 @@
   background-color: var(--color-tip-bg);
   border-color: var(--color-link);
   color: var(--color-text-primary);
-  
+
   &::before {
     content: "💡 ";
   }
 }
 
+.prompt-info {
+  background-color: var(--color-info-bg);
+  border-color: #7BAFD4;
+  color: var(--color-text-primary);
+
+  &::before {
+    content: "ℹ️ ";
+  }
+}
+
+.prompt-success {
+  background-color: var(--color-success-bg);
+  border-color: #7AC4A0;
+  color: var(--color-text-primary);
+
+  &::before {
+    content: "✅ ";
+  }
+}
+
 .prompt-warning {
   background-color: var(--color-warning-bg);
-  border-color: #f59e0b;
+  border-color: #E8B86D;
   color: var(--color-text-primary);
-  
+
   &::before {
     content: "⚠️ ";
   }
@@ -38,10 +62,338 @@
 
 .prompt-error {
   background-color: var(--color-error-bg);
-  border-color: #ef4444;
+  border-color: #D48080;
   color: var(--color-text-primary);
-  
+
   &::before {
     content: "❌ ";
   }
+}
+
+// 二、折叠展开块 (details/summary)
+// 使用方法：<details><summary>标题</summary>折叠内容</details>
+
+details.prompt-details {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: $border-radius-md;
+  margin: $spacing-md 0;
+  overflow: hidden;
+
+  summary {
+    padding: $spacing-sm $spacing-md;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    transition: all $transition-fast;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+
+    &::before {
+      content: "▶";
+      font-size: 0.75rem;
+      transition: transform $transition-fast;
+    }
+
+    &:hover {
+      background: var(--color-bg-hover);
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] summary {
+    border-bottom: 1px solid var(--color-border);
+
+    &::before {
+      transform: rotate(90deg);
+    }
+  }
+
+  .prompt-details-content {
+    padding: $spacing-md;
+    color: var(--color-text-secondary);
+    line-height: $line-height-normal;
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// 三、徽章标签 (badge)
+// 使用方法：[]{: .badge }、[]{: .badge-primary }、[]{: .badge-success } 等
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: $border-radius-sm;
+  background: #E4D2BC;
+  color: #383430;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+.badge-primary {
+  background: rgba($brand-primary, 0.15);
+  color: $brand-primary-dark;
+}
+
+.badge-info {
+  background: rgba(#7BAFD4, 0.15);
+  color: #5A8FAD;
+}
+
+.badge-success {
+  background: rgba(#7AC4A0, 0.15);
+  color: #5A9A7A;
+}
+
+.badge-warning {
+  background: rgba(#E8B86D, 0.15);
+  color: #B08840;
+}
+
+.badge-error {
+  background: rgba(#D48080, 0.15);
+  color: #B06060;
+}
+
+.badge-outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] {
+  .badge {
+    background: #3D3832;
+    color: #D9D4CE;
+  }
+
+  .badge-primary {
+    background: rgba($brand-primary, 0.2);
+    color: $brand-primary-light;
+  }
+
+  .badge-info {
+    background: rgba(#7BAFD4, 0.2);
+    color: #9DC4DD;
+  }
+
+  .badge-success {
+    background: rgba(#7AC4A0, 0.2);
+    color: #9DD4B5;
+  }
+
+  .badge-warning {
+    background: rgba(#E8B86D, 0.2);
+    color: #E8C890;
+  }
+
+  .badge-error {
+    background: rgba(#D48080, 0.2);
+    color: #E4A0A0;
+  }
+
+  .badge-outline {
+    border-color: rgba(255,255,255,0.15);
+    color: var(--color-text-secondary);
+  }
+}
+
+// 四、居中/居右文字 (text alignment)
+// 使用方法：{: .text-center }、{: .text-right }、{: .text-justify }
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+// 五、引用块增强 (blockquote)
+// Markdown 原生 > 引用已美化，此处补充浮动引用块
+
+.blockquote-float-left {
+  float: left;
+  max-width: 45%;
+  margin: 0 $spacing-lg $spacing-md 0;
+  padding: $spacing-md $spacing-lg;
+  background: var(--color-tip-bg);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.blockquote-float-right {
+  float: right;
+  max-width: 45%;
+  margin: 0 0 $spacing-md $spacing-lg;
+  padding: $spacing-md $spacing-lg;
+  background: var(--color-tip-bg);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+// 六、代码块语法高亮增强
+// 使用 Hugo 内置 Chromify 或 highlight.js
+
+.article-body {
+  // 行内代码
+  :not(pre) > code {
+    background: var(--color-bg-code);
+    padding: 0.15rem 0.4rem;
+    border-radius: $border-radius-sm;
+    font-size: 0.9em;
+    color: var(--color-link);
+    border: 1px solid var(--color-border);
+  }
+
+  // 代码块容器
+  pre {
+    background: var(--color-bg-code);
+    border-radius: $border-radius-md;
+    padding: 1.5rem 1.75rem;
+    overflow-x: auto;
+    margin: $spacing-lg 0;
+    font-size: $font-size-sm;
+    line-height: 1.7;
+    border: 1px solid var(--color-border);
+    position: relative;
+
+    // 代码语言标签
+    &.chroma {
+      position: relative;
+
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: $spacing-sm;
+        margin-bottom: $spacing-sm;
+        border-bottom: 1px solid var(--color-border);
+        font-size: 0.75rem;
+        color: var(--color-text-tertiary);
+      }
+    }
+
+    code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+      border: none;
+      color: inherit;
+    }
+  }
+
+  // 高亮行
+  .highlight {
+    pre {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+  }
+
+  // 代码行号
+  .line-numbers {
+    counter-reset: line;
+
+    .line {
+      counter-increment: line;
+      display: block;
+
+      &::before {
+        content: counter(line);
+        margin-right: $spacing-md;
+        color: var(--color-text-muted);
+        font-size: 0.85em;
+      }
+    }
+  }
+}
+
+// 七、脚注样式
+.footnotes {
+  margin-top: $spacing-2xl;
+  padding-top: $spacing-lg;
+  border-top: 1px solid var(--color-border);
+  font-size: $font-size-sm;
+  color: var(--color-text-secondary);
+
+  hr {
+    display: none;
+  }
+
+  ol {
+    padding-left: $spacing-lg;
+
+    li {
+      margin-bottom: $spacing-xs;
+      line-height: 1.6;
+    }
+  }
+
+  p {
+    margin-bottom: $spacing-xs;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// 八、任务列表样式
+.task-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    input[type="checkbox"] {
+      margin-top: 0.35rem;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    &.done {
+      color: var(--color-text-muted);
+      text-decoration: line-through;
+    }
+  }
+}
+
+// 清除浮动辅助类
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }

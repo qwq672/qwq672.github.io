@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on 你的站点名称</title>
+    <title>Posts on qwq672的个人网站</title>
     <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on 你的站点名称</description>
+    <description>Recent content in Posts on qwq672的个人网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sun, 03 May 2026 00:00:00 +0000</lastBuildDate>
@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/my-first-post/</link>
       <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>这是测试内容。</description>
+      <description>这是测试内容。&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;zh-CN&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes&amp;#34;&amp;gt; &amp;lt;title&amp;gt;流光映像 · 林述光 | 多列自动照片墙&amp;lt;/title&amp;gt; &amp;lt;link href=&amp;#34;https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&amp;amp;display=swap&amp;#34; rel=&amp;#34;stylesheet&amp;#34;&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css&amp;#34;&amp;gt; &amp;lt;style&amp;gt; * { margin: 0; padding: 0; box-sizing: border-box; } /* 主题变量 */ :root { --bg-page: #0f0e0c; --surface: rgba(25, 22, 20, 0.7); --text-primary: #f2eee9; --text-secondary: #cdc5b8; --accent: #e0863a; --border-light: rgba(255, 255, 255, 0.08); --shadow-md: 0 12px 24px rgba(0,0,0,0.3); --card-radius: 20px; } body.light { --bg-page: #f5f2ef; --surface: rgba(245, 240, 235, 0.</description>
     </item>
     <item>
       <title>来自于Microsoft Teams的Minecraft社区（玩家创建）</title>

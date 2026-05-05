@@ -1,19 +1,91 @@
 @import 'variables';
 
-.projects-page {
-  padding: $spacing-xl 0;
-  min-height: calc(100vh - 200px);
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: $spacing-md;
+  padding-top: $spacing-md;
+
+  a {
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-link);
+    }
+  }
+
+  .separator {
+    opacity: 0.5;
+  }
+
+  .current {
+    color: var(--color-text-secondary);
+  }
 }
 
+.projects-page,
 .tools-page {
   padding: $spacing-xl 0;
   min-height: calc(100vh - 200px);
 }
 
+.page-header {
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: $spacing-sm;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--color-primary);
+  }
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-description {
+  font-size: 1rem;
+  color: var(--color-text-tertiary);
+  margin: 0;
+  width: 100%;
+  margin-top: $spacing-sm;
+}
+
+.page-stats {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-primary-light);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
 .projects-grid,
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: $spacing-lg;
   margin-top: $spacing-xl;
 }
@@ -22,12 +94,13 @@
 .tool-card {
   display: flex;
   flex-direction: column;
-  padding: 1.75rem;
+  padding: 1.5rem;
   background: var(--color-bg-card);
-  border-radius: 1.25rem;
+  border-radius: 8px;
   border: 1px solid var(--color-border);
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  transition: all 200ms ease-in-out;
   position: relative;
   overflow: hidden;
 
@@ -37,16 +110,16 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-link));
+    height: 2px;
+    background: var(--color-primary);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s ease;
+    transition: transform 200ms ease-in-out;
   }
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
     border-color: var(--color-primary);
 
     &::before {
@@ -55,59 +128,89 @@
 
     .project-icon,
     .tool-icon {
-      transform: scale(1.1);
       background: var(--color-primary);
       color: #fff;
     }
 
     .project-link,
     .tool-link {
-      color: var(--color-link);
+      text-decoration: underline;
     }
   }
 }
 
 .project-icon,
 .tool-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 1rem;
-  background: var(--color-bg-secondary);
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--color-bg-code);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-primary);
   margin-bottom: $spacing-md;
-  transition: all 0.4s ease;
+  transition: all 200ms ease-in-out;
+  flex-shrink: 0;
 }
 
 .project-title,
 .tool-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: $spacing-sm;
+  line-height: 1.3;
 }
 
 .project-desc,
 .tool-desc {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
   flex: 1;
 }
 
+.project-updated,
+.tool-updated {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: $spacing-sm;
+}
+
 .project-link,
 .tool-link {
   font-size: 0.9rem;
-  color: var(--color-text-tertiary);
+  color: var(--color-link);
   margin-top: $spacing-md;
-  transition: color 0.3s ease;
+  transition: color 200ms ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+
+  svg {
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+.project-card:hover .project-link svg,
+.tool-card:hover .tool-link svg {
+  transform: translateX(3px);
 }
 
 @media (max-width: 768px) {
   .projects-grid,
   .tools-grid {
     grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-stats {
+    margin-top: 0.25rem;
   }
 }
