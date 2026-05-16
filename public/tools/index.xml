@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>工具 on qwq672的个人网站</title>
-    <link>http://localhost:1313/tools/</link>
+    <link>/tools/</link>
     <description>Recent content in 工具 on qwq672的个人网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tools/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ASCII图片生成器</title>
-      <link>http://localhost:1313/tools/ascii-building/</link>
+      <link>/tools/ascii-building/</link>
       <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tools/ascii-building/</guid>
+      <guid>/tools/ascii-building/</guid>
       <description>在线ASCII艺术生成工具，支持彩色和黑白模式。</description>
     </item>
     <item>
       <title>B站价值评估器</title>
-      <link>http://localhost:1313/tools/bilibili-evaluator/</link>
+      <link>/tools/bilibili-evaluator/</link>
       <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tools/bilibili-evaluator/</guid>
+      <guid>/tools/bilibili-evaluator/</guid>
       <description>评估B站UP主商业价值的工具。</description>
     </item>
     <item>
       <title>MIDI编辑器</title>
-      <link>http://localhost:1313/tools/midi-editor/</link>
+      <link>/tools/midi-editor/</link>
       <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tools/midi-editor/</guid>
+      <guid>/tools/midi-editor/</guid>
       <description>一个功能完善的在线MIDI编辑器。</description>
     </item>
   </channel>
