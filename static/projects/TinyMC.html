@@ -387,6 +387,33 @@
             pointer-events: none;
         }
 
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--color-primary);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 162, 122, 0.3);
+            color: #fff;
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
         .notice-temp {
             background: var(--color-warning-bg);
             border-radius: 1rem;
@@ -435,6 +462,221 @@
 
         .info-grid strong {
             color: var(--color-text-primary);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .comparison-grid::before {
+            content: '→';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: var(--color-primary);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .comparison-card {
+            background: var(--color-bg-card);
+            border-radius: 1.25rem;
+            padding: 2rem 1.5rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--color-border);
+        }
+
+        .comparison-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .comparison-card.old::before {
+            background: linear-gradient(90deg, #888, #aaa);
+        }
+
+        .comparison-card.new::before {
+            background: linear-gradient(90deg, var(--color-primary), #e0b090);
+        }
+
+        .comparison-card.new {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 20px rgba(200, 162, 122, 0.12);
+        }
+
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .comparison-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.7rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .comparison-badge.old {
+            background: var(--color-bg-code);
+            color: var(--color-text-tertiary);
+            border: 1px solid var(--color-border);
+        }
+
+        .comparison-badge.new {
+            background: linear-gradient(135deg, var(--color-primary), #d4a574);
+            color: #fff;
+        }
+
+        .comparison-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .comparison-meta {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--color-border);
+            font-size: 0.8rem;
+            color: var(--color-text-tertiary);
+        }
+
+        .comparison-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .comparison-meta span::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            opacity: 0.5;
+        }
+
+        .comparison-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.25rem;
+        }
+
+        .comparison-features li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .comparison-features li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .comparison-card.old .comparison-features li::before {
+            content: '·';
+            color: var(--color-text-tertiary);
+            font-size: 1.2rem;
+            top: 0.4rem;
+        }
+
+        .comparison-link {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+
+        .comparison-link a {
+            color: var(--color-link);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s ease;
+        }
+
+        .comparison-link a:hover {
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+
+        .comparison-link span {
+            color: var(--color-text-tertiary);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .evolution-note {
+            background: linear-gradient(135deg, var(--color-tip-bg), var(--color-bg-card));
+            border-radius: 1.25rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--color-tip-border);
+            position: relative;
+        }
+
+        .evolution-note::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--color-primary), transparent);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .evolution-note h3 {
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+        }
+
+        .evolution-note p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin: 0;
+            padding-left: 1rem;
         }
 
         .name-note {
@@ -532,6 +774,7 @@
             <div class="nav-links">
                 <a href="#home">主页</a>
                 <a href="#about">介绍</a>
+                <a href="#history">传承</a>
                 <a href="#download">下载</a>
                 <button class="theme-toggle" onclick="toggleTheme()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -606,32 +849,61 @@
                                     <line x1="8" y1="8" x2="16" y2="16" />
                                     <line x1="16" y1="8" x2="8" y2="16" />
                                 </svg>
-                                tcl@tinycraft:~
+                                tinymc@tinymc:~
                             </span>
                         </div>
                         <div class="terminal-content">
                             <div class="cmd-line">
                                 <span class="prompt">$</span>
-                                <span class="cmd-text">tcl -v list</span>
+                                <span class="cmd-text">tinymc -help</span>
                             </div>
-                            <div class="output">Minecraft Version:<br>
-Name          | Mod Loader          | Version<br>
-1.21.11       | Vanilla             | 1.21.11<br>
-TsetModPack   | Fabric 0.15.0       | 1.16.5<br>
-PVPGame       | Forge 11.15.1.2318  | 1.8.9<br>
-Cave Game     | Vanilla             | rd-132211</div>
+                            <div class="output">=== Tiny MC Launcher (Full Command Line) ===
+Core Commands:
+  -ver                Show version
+  -help               Show this help
+
+MC Path Management:
+  -mcpath &lt;path&gt;       Set Minecraft directory
+  -lv                 List MC versions
+  -setver &lt;ver&gt;       Set default version
+
+Java Management:
+  -j -au              Auto scan Java
+  -j -list            List all Java
+
+Account Management:
+  -u -l               Show login help
+  -u -l offline &lt;name&gt;
+  -u -l external &lt;api&gt; &lt;email&gt; &lt;pass&gt;
+  -u -list            List accounts
+
+Launch Settings:
+  -set memory &lt;Xms/Xmx&gt;  Set memory
+  -set memory auto       Auto memory
+  -set jvm &lt;args&gt;        Custom JVM args
+
+Launch Game:
+  -start               Interactive startup
+  -start [options]     Advanced startup
+  -s                   Quick start
+  -printstart &lt;ver&gt;    Export start_mc.bat
+
+Download:
+  -download            Download versions
+    -ver &lt;type&gt; &lt;ver&gt;     Download version
+    -mod_loader &lt;loader&gt;  Install mod loader
+==============================</div>
 
                             <div class="cmd-line">
                                 <span class="prompt">$</span>
-                                <span class="cmd-text">tcl -ver</span>
+                                <span class="cmd-text">tinymc -ver</span>
                             </div>
-                            <div class="output">TinyCraft Launcher [Version: 0.1, Beta]</div>
+                            <div class="output">Tiny MC Launcher [Version: v260524, Beta]</div>
 
                             <div class="cmd-line">
                                 <span class="prompt">$</span>
-                                <span class="cmd-text">tcl -start 1.21.11<span class="cursor"></span></span>
+                                <span class="cmd-text">tinymc -s<span class="cursor"></span></span>
                             </div>
-                            <div class="comment"># 闪烁光标模拟输入中</div>
                         </div>
                     </div>
                 </div>
@@ -689,6 +961,65 @@ Cave Game     | Vanilla             | rd-132211</div>
             </div>
         </section>
 
+        <section id="history">
+            <h2>▸ 传承 · 从 MinecraftCSG 到 Tiny MC</h2>
+            <p style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--color-text-secondary);">Tiny MC 并非凭空诞生。在 2021-2022 年间，我开发了第一款 Minecraft 启动器 <strong>MinecraftCSG</strong>，而如今的 Tiny MC 在某种意义上延续了"极小 Minecraft 启动器"的目标。</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card old">
+                    <div class="comparison-header">
+                        <span class="comparison-badge old">前身</span>
+                        <h3>MinecraftCSG</h3>
+                    </div>
+                    <div class="comparison-meta">
+                        <span>2021 - 2022</span>
+                        <span>易语言开发</span>
+                    </div>
+                    <ul class="comparison-features">
+                        <li>离线登录</li>
+                        <li>选择 Java 路径</li>
+                        <li>选择游戏版本</li>
+                        <li>Windows 平台限定</li>
+                        <li>无法保存配置</li>
+                    </ul>
+                    <div class="comparison-link">
+                        <a href="http://minecraftcsg.mysxl.cn/" target="_blank" rel="noopener">访问旧版网站 →</a>
+                        <br>
+                        <a href="https://minecraftcsg-download.mysxl.cn/" target="_blank" rel="noopener">下载 MinecraftCSG →</a>
+                    </div>
+                </div>
+
+                <div class="comparison-card new">
+                    <div class="comparison-header">
+                        <span class="comparison-badge new">当前</span>
+                        <h3>Tiny MC Launcher</h3>
+                    </div>
+                    <div class="comparison-meta">
+                        <span>2025 - 至今</span>
+                        <span>C 语言开发</span>
+                    </div>
+                    <ul class="comparison-features">
+                        <li>离线 / 外置 / 官方登录</li>
+                        <li>自动扫描 Java</li>
+                        <li>版本与 Mod Loader 管理</li>
+                        <li>内存与 JVM 参数配置</li>
+                        <li>版本下载与安装</li>
+                        <li>配置持久化保存</li>
+                        <li>跨平台：Win / Linux / macOS</li>
+                        <li>未压缩体积 < UPX 压缩后的旧版</li>
+                    </ul>
+                    <div class="comparison-link">
+                        <span>本页即为介绍</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evolution-note">
+                <h3>🔄 进化之路</h3>
+                <p>从易语言到 C 语言，从 Windows 限定到跨平台，从三个基础功能到完整的命令行启动器。Tiny MC 不仅是一个新工具，更是对"极小启动器"理念的延续与升级。</p>
+            </div>
+        </section>
+
         <section id="download">
             <h2>▸ 下载 · 即将就绪</h2>
             <p style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--color-text-secondary);">目前启动器处于积极开发阶段，下方为占位入口。正式版本会提供预编译二进制和源码。</p>
@@ -713,7 +1044,10 @@ Cave Game     | Vanilla             | rd-132211</div>
                         </svg>
                     </div>
                     <h3>Windows</h3>
-                    <div class="btn-placeholder">exe (暂未开放)</div>
+                    <a href="https://github.com/qwq672/TinyCraft/releases" target="_blank" rel="noopener" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        下载 Release
+                    </a>
                 </div>
                 <div class="platform-card">
                     <div class="platform-icon">
@@ -726,7 +1060,10 @@ Cave Game     | Vanilla             | rd-132211</div>
                         </svg>
                     </div>
                     <h3>Linux</h3>
-                    <div class="btn-placeholder">AppImage / 静态二进制</div>
+                    <a href="https://github.com/qwq672/TinyCraft/releases" target="_blank" rel="noopener" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        下载 Release
+                    </a>
                 </div>
                 <div class="platform-card">
                     <div class="platform-icon">
@@ -737,23 +1074,27 @@ Cave Game     | Vanilla             | rd-132211</div>
                         </svg>
                     </div>
                     <h3>macOS</h3>
-                    <div class="btn-placeholder">universal 二进制</div>
+                    <a href="https://github.com/qwq672/TinyCraft/releases" target="_blank" rel="noopener" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        下载 Release
+                    </a>
                 </div>
                 <div class="platform-card">
                     <div class="platform-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                            <path d="M4 4h16v16H4z" />
-                            <path d="M8 8h8v8H8z" />
-                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
                     <h3>源码</h3>
-                    <div class="btn-placeholder">GitHub (即将公开)</div>
+                    <a href="https://github.com/qwq672/TinyCraft" target="_blank" rel="noopener" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        查看仓库
+                    </a>
                 </div>
             </div>
 
             <div class="notice-temp">
-                ⚠️ <strong>所有下载链接均为静态占位</strong> — 待项目达到可用状态后替换为真实链接。您可关注后续更新。
+                ✅ <strong>已公开下载</strong> — 所有平台均可通过 GitHub Releases 获取最新版本。
             </div>
 
             <div class="info-grid">
@@ -771,7 +1112,7 @@ Cave Game     | Vanilla             | rd-132211</div>
                 <div class="footer-links">
                     <span>暂定名</span>
                     <span>未来可能更名</span>
-                    <a href="#">GitHub 占位</a>
+                    <a href="https://github.com/qwq672/TinyCraft" target="_blank" rel="noopener">GitHub 仓库</a>
                 </div>
             </div>
         </footer>

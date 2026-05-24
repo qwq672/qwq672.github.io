@@ -195,6 +195,37 @@
     }
   }
 
+  .highlight {
+    position: relative;
+    margin: $spacing-lg 0;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+
+    .code-lang {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      background: var(--color-bg-secondary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    pre {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      padding-top: 2rem;
+    }
+  }
+
   pre {
     background: var(--color-bg-code);
     border-radius: $border-radius-md;
@@ -259,10 +290,17 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   }
 
+  .table-wrapper {
+    overflow-x: auto;
+    margin: $spacing-lg 0;
+    border-radius: $border-radius-md;
+    border: 1px solid var(--color-border);
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: $spacing-lg 0;
+    margin: 0;
     font-size: $font-size-sm;
 
     th, td {

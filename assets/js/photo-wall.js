@@ -47,8 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
       photoTrack.removeChild(photoTrack.firstChild);
     }
 
-    // 增大图片：最小1/8屏幕
-    const minSize = Math.floor(wallWidth / 8);
+    // 增大图片：桌面端1/8屏幕，移动端1/4屏幕
+    const isMobile = wallWidth < 768;
+    const minSize = Math.floor(wallWidth / (isMobile ? 4 : 8));
 
     // 计算列数
     const columns = Math.ceil(wallWidth / minSize);

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MIDI 工坊 · 轨道独立版</title>
+    <link rel="stylesheet" href="base-styles.css">
+    <style>
+        :root {
+            --midi-bg: #fdf8ed;
+            --midi-panel: #fff9ef;
+            --midi-border: #eeddbb;
+            --midi-text: #5a3e2b;
+            --midi-text-muted: #b08968;
+            --midi-accent: #d9782c;
+            --midi-accent-hover: #c0671e;
+            --midi-header-bg: #fef3e0;
+            --midi-button-bg: #f5e5d0;
+            --midi-button-hover: #ecd7bb;
+            --midi-slider-bg: #eeddbb;
+            --midi-track-bg: #fef3e6;
+            --midi-track-hover: #fae8d4;
+            --midi-code-bg: #2d2418;
+            --midi-code-text: #f0e0c0;
+            --midi-line-number-bg: #3e2e1e;
+            --midi-line-number-text: #b89a6e;
+            --midi-warning-bg: #fef0dc;
+            --midi-warning-text: #b45f1b;
+        }
+
+        [data-theme="dark"] {
+            --midi-bg: #2a2418;
+            --midi-panel: #3a2e1e;
+            --midi-border: #5e4a2e;
+            --midi-text: #f0dfc0;
+            --midi-text-muted: #c0a070;
+            --midi-accent: #e68a2e;
+            --midi-accent-hover: #d47a1e;
+            --midi-header-bg: #4a3a22;
+            --midi-button-bg: #5e4a2e;
+            --midi-button-hover: #6e5a3a;
+            --midi-slider-bg: #5e4a2e;
+            --midi-track-bg: #4a3a22;
+            --midi-track-hover: #5e4a2e;
+            --midi-code-bg: #1e1810;
+            --midi-code-text: #e8dbbc;
+            --midi-line-number-bg: #2e2418;
+            --midi-line-number-text: #b89a6e;
+            --midi-warning-bg: #4a3a1e;
+            --midi-warning-text: #f0b27a;
+        }
+
+        body {
+            background: var(--midi-bg);
+            color: var(--midi-text);
+            padding: 1rem;
+        }
+
+        .app-container { max-width: 1400px; margin: 0 auto; }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--midi-border);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--midi-accent);
+        }
+
+        .theme-toggle {
+            background: var(--midi-button-bg);
+            border: 1px solid var(--midi-border);
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--midi-text);
+            transition: 0.2s;
+        }
+
+        .theme-toggle:hover { background: var(--midi-button-hover); }
+
+        .sub {
+            color: var(--midi-text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--midi-accent);
+        }
+
+        .workspace { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+        .editor-pane { flex: 2; min-width: 280px; }
+        .preview-pane { flex: 1.2; min-width: 260px; display: flex; flex-direction: column; gap: 1.25rem; }
+
+        .block {
+            background: var(--midi-panel);
+            border: 1px solid var(--midi-border);
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+
+        .block-header {
+            background: var(--midi-header-bg);
+            padding: 0.6rem 1rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--midi-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .code-editor-container {
+            position: relative;
+            background: var(--midi-code-bg);
+        }
+
+        .code-wrapper {
+            display: flex;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            height: 500px;
+            overflow: auto;
+            position: relative;
+        }
+
+        .line-numbers {
+            background: var(--midi-line-number-bg);
+            color: var(--midi-line-number-text);
+            text-align: right;
+            padding: 0.75rem 0.5rem;
+            user-select: none;
+            border-right: 1px solid var(--midi-border);
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow: hidden;
+            min-width: 40px;
+        }
+
+        .line-numbers span { display: block; white-space: nowrap; }
+
+        textarea {
+            flex: 1;
+            background: var(--midi-code-bg);
+            color: var(--midi-code-text);
+            border: none;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 1.5;
+            padding: 0.75rem;
+            resize: vertical;
+            outline: none;
+            overflow-y: auto;
+        }
+
+        .code-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--midi-header-bg);
+            border-top: 1px solid var(--midi-border);
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .code-toolbar button {
+            background: var(--midi-button-bg);
+            border: 1px solid var(--midi-border);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            padding: 0.75rem;
+            border-top: 1px solid var(--midi-border);
+        }
+
+        button {
+            background: var(--midi-button-bg);
+            border: 1px solid var(--midi-border);
+            padding: 0.4rem 0.75rem;
+            border-radius: 2rem;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--midi-text);
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        button.primary {
+            background: var(--midi-accent);
+            border-color: var(--midi-accent);
+            color: white;
+        }
+
+        button.primary:hover {
+            background: var(--midi-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        button:hover { background: var(--midi-button-hover); }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1rem;
+            flex-wrap: wrap;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--midi-slider-bg);
+            border-radius: 2px;
+            -webkit-appearance: none;
+            min-width: 100px;
+        }
+
+        input[type="range"]:focus { outline: none; }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--midi-accent);
+            cursor: pointer;
+            border: none;
+        }
+
+        .player-controls {
+            background: var(--midi-panel);
+            border: 1px solid var(--midi-border);
+            border-radius: 1.25rem;
+            padding: 0.75rem;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--midi-border);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--midi-accent);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            font-size: 0.75rem;
+            font-family: monospace;
+            min-width: 80px;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tracks-container {
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+        }
+
+        .track-item { border-bottom: 1px solid var(--midi-border); }
+
+        .track-header {
+            background: var(--midi-track-bg);
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .track-header:hover { background: var(--midi-track-hover); }
+
+        .track-notes { padding-left: 1.25rem; display: none; }
+        .track-notes.open { display: block; }
+
+        .note-row {
+            display: grid;
+            grid-template-columns: 70px 60px 60px 70px;
+            padding: 0.4rem 0.75rem;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--midi-border);
+            font-size: 0.75rem;
+            align-items: center;
+        }
+
+        .error-box {
+            background: var(--midi-warning-bg);
+            color: var(--midi-warning-text);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            margin: 0.5rem;
+        }
+
+        .warning-note {
+            background: var(--midi-warning-bg);
+            color: var(--midi-warning-text);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--midi-text-muted);
+            border-top: 1px solid var(--midi-border);
+            padding-top: 1rem;
+        }
+
+        .bpm-value { font-weight: 600; color: var(--midi-accent); }
+
+        .channel-badge {
+            background: var(--midi-button-bg);
+            border-radius: 1rem;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        svg.icon { width: 14px; height: 14px; fill: currentColor; vertical-align: middle; }
+
+        .compact-toggle {
+            margin-left: auto;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 0.25rem;
+        }
+
+        label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+            color: var(--midi-text);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0.75rem; }
+            .code-wrapper { height: 350px; }
+            .note-row { grid-template-columns: 60px 50px 50px 65px; }
+            h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header-row">
+        <h1><svg class="icon" viewBox="0 0 24 24" width="20" height="20"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg> MIDI 工坊 · 轨道独立版</h1>
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span>深色</span>
+        </button>
+    </div>
+    <div class="sub">✔️ 独立轨道 · 图标区分 · 运行状态修复 · 时长正常</div>
+
+    <div class="workspace">
+        <div class="editor-pane">
+            <div class="block">
+                <div class="block-header">
+                    <span>📜 音乐脚本 (JavaScript)</span>
+                    <span style="font-size:0.75rem;">支持撤销/重做 (Ctrl+Z/Y)</span>
+                </div>
+                <div class="code-editor-container">
+                    <div class="code-wrapper" id="codeWrapper">
+                        <div class="line-numbers" id="lineNumbers"></div>
+                        <textarea id="codeEditor" spellcheck="false"></textarea>
+                    </div>
+                    <div class="code-toolbar">
+                        <button id="expandCodeBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg> 展开/折叠</button>
+                        <button id="copyCodeBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> 复制</button>
+                        <button id="undoBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg> 撤销</button>
+                        <button id="redoBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/></svg> 重做</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button id="refreshBtn" class="primary"><svg class="icon" viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>刷新预览</button>
+                    <button id="exportMidiBtn" class="primary"><svg class="icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>导出MIDI</button>
+                    <button id="importMidiBtn" class="primary"><svg class="icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>导入MIDI</button>
+                    <button id="exportProjectBtn" class="primary"><svg class="icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>导出工程</button>
+                    <button id="importProjectBtn" class="primary"><svg class="icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>导入工程</button>
+                    <input type="file" id="projectFileInput" accept=".json" style="display: none;">
+                    <input type="file" id="midiFileInput" accept=".mid,.midi" style="display: none;">
+                </div>
+                <div class="slider-row compact-toggle">
+                    <label><input type="checkbox" id="compactProject" checked> 紧凑工程格式</label>
+                    <label style="margin-left: auto;"><input type="checkbox" id="keepOriginalTracks" checked> 保留原始轨道</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-pane">
+            <div class="block">
+                <div class="block-header">🎚️ 全局控制</div>
+                <div class="slider-row">
+                    <span>BPM:</span>
+                    <input type="range" id="bpmSlider" min="40" max="200" step="1" value="110">
+                    <span id="bpmValue" class="bpm-value">110</span>
+                </div>
+            </div>
+            <div class="player-controls">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+                    <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+                </div>
+                <div class="control-buttons">
+                    <button id="playBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>播放</button>
+                    <button id="pauseBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>暂停</button>
+                    <button id="resumeBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>继续</button>
+                    <button id="stopBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>停止</button>
+                    <button id="forwardBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5l10 7-10 7z"/></svg>+5s</button>
+                    <button id="rewindBtn"><svg class="icon" viewBox="0 0 24 24"><path d="M19 5l-10 7 10 7z"/></svg>-5s</button>
+                </div>
+            </div>
+            <div class="block">
+                <div class="block-header">
+                    <span>🎵 轨道列表</span>
+                    <span id="trackCount" style="font-size:0.75rem;">0 轨道</span>
+                </div>
+                <div id="tracksContainer" class="tracks-container"><div style="padding:0.75rem; text-align:center; color:var(--midi-text-muted);">暂无数据</div></div>
+                <div id="parseError" class="error-box" style="display:none;"></div>
+            </div>
+            <div class="warning-note">⚠️ 已修复运行状态 · 独立轨道 · 图标按音色分类</div>
+        </div>
+    </div>
+    <footer>🔊 轨道独立版 · 每个 MIDI 轨道独立显示 · 图标按乐器类型区分</footer>
+</div>
+
+<script>
+    const gmProgramNames = {
+        0: "Acoustic Grand Piano", 1: "Bright Acoustic Piano", 2: "Electric Grand Piano", 3: "Honky-tonk Piano", 4: "Electric Piano 1", 5: "Electric Piano 2", 6: "Harpsichord", 7: "Clavinet",
+        8: "Celesta", 9: "Glockenspiel", 10: "Music Box", 11: "Vibraphone", 12: "Marimba", 13: "Xylophone", 14: "Tubular Bells", 15: "Dulcimer",
+        16: "Drawbar Organ", 17: "Percussive Organ", 18: "Rock Organ", 19: "Church Organ", 20: "Reed Organ", 21: "Accordion", 22: "Harmonica", 23: "Tango Accordion",
+        24: "Acoustic Guitar (nylon)", 25: "Acoustic Guitar (steel)", 26: "Electric Guitar (jazz)", 27: "Electric Guitar (clean)", 28: "Electric Guitar (muted)", 29: "Overdriven Guitar", 30: "Distortion Guitar", 31: "Guitar Harmonics",
+        32: "Acoustic Bass", 33: "Electric Bass (finger)", 34: "Electric Bass (pick)", 35: "Fretless Bass", 36: "Slap Bass 1", 37: "Slap Bass 2", 38: "Synth Bass 1", 39: "Synth Bass 2",
+        40: "Violin", 41: "Viola", 42: "Cello", 43: "Contrabass", 44: "Tremolo Strings", 45: "Pizzicato Strings", 46: "Orchestral Harp", 47: "Timpani",
+        48: "String Ensemble 1", 49: "String Ensemble 2", 50: "Synth Strings 1", 51: "Synth Strings 2", 52: "Choir Aahs", 53: "Voice Oohs", 54: "Synth Voice", 55: "Orchestra Hit",
+        56: "Trumpet", 57: "Trombone", 58: "Tuba", 59: "Muted Trumpet", 60: "French Horn", 61: "Brass Section", 62: "Synth Brass 1", 63: "Synth Brass 2",
+        64: "Soprano Sax", 65: "Alto Sax", 66: "Tenor Sax", 67: "Baritone Sax", 68: "Oboe", 69: "English Horn", 70: "Bassoon", 71: "Clarinet",
+        72: "Piccolo", 73: "Flute", 74: "Recorder", 75: "Pan Flute", 76: "Blown Bottle", 77: "Shakuhachi", 78: "Whistle", 79: "Ocarina",
+        80: "Lead 1 (square)", 81: "Lead 2 (sawtooth)", 82: "Lead 3 (calliope)", 83: "Lead 4 (chiff)", 84: "Lead 5 (charang)", 85: "Lead 6 (voice)", 86: "Lead 7 (fifths)", 87: "Lead 8 (bass + lead)",
+        88: "Pad 1 (new age)", 89: "Pad 2 (warm)", 90: "Pad 3 (polysynth)", 91: "Pad 4 (choir)", 92: "Pad 5 (bowed)", 93: "Pad 6 (metallic)", 94: "Pad 7 (halo)", 95: "Pad 8 (sweep)",
+        96: "FX 1 (rain)", 97: "FX 2 (soundtrack)", 98: "FX 3 (crystal)", 99: "FX 4 (atmosphere)", 100: "FX 5 (brightness)", 101: "FX 6 (goblins)", 102: "FX 7 (echoes)", 103: "FX 8 (sci-fi)",
+        104: "Sitar", 105: "Banjo", 106: "Shamisen", 107: "Koto", 108: "Kalimba", 109: "Bagpipe", 110: "Fiddle", 111: "Shanai",
+        112: "Tinkle Bell", 113: "Agogo", 114: "Steel Drums", 115: "Woodblock", 116: "Taiko Drum", 117: "Melodic Tom", 118: "Synth Drum", 119: "Reverse Cymbal",
+        120: "Guitar Fret Noise", 121: "Breath Noise", 122: "Seashore", 123: "Bird Tweet", 124: "Telephone Ring", 125: "Helicopter", 126: "Applause", 127: "Gunshot"
+    };
+
+    function getIconForProgram(program, channel) {
+        if (channel === 9) return "🥁";
+        if (program >= 0 && program <= 7) return "🎹";
+        if (program >= 24 && program <= 31) return "🎸";
+        if (program >= 32 && program <= 39) return "🎸";
+        if (program >= 40 && program <= 47) return "🎻";
+        if (program >= 48 && program <= 55) return "🎻";
+        if (program >= 56 && program <= 63) return "🎺";
+        if (program >= 64 && program <= 71) return "🎷";
+        if (program >= 72 && program <= 79) return "🪈";
+        if (program >= 80 && program <= 87) return "🎹";
+        if (program >= 88 && program <= 95) return "🎹";
+        if (program >= 96 && program <= 103) return "🎮";
+        if (program >= 104 && program <= 111) return "🪕";
+        if (program >= 112 && program <= 119) return "🥁";
+        return "🎵";
+    }
+
+    const iconTypes = {};
+    let audioContext = null;
+    let midiPlayer = null;
+    let isPlaying = false;
+    let currentBpm = 110;
+    let codeHistory = [];
+    let historyIndex = -1;
+    let bpmSlider, bpmValue, codeEditor, lineNumbers, playBtn, pauseBtn, resumeBtn, stopBtn, forwardBtn, rewindBtn, progressBar, progressFill, timeDisplay, tracksContainer, trackCount;
+
+    function init() {
+        bpmSlider = document.getElementById('bpmSlider');
+        bpmValue = document.getElementById('bpmValue');
+        codeEditor = document.getElementById('codeEditor');
+        lineNumbers = document.getElementById('lineNumbers');
+        playBtn = document.getElementById('playBtn');
+        pauseBtn = document.getElementById('pauseBtn');
+        resumeBtn = document.getElementById('resumeBtn');
+        stopBtn = document.getElementById('stopBtn');
+        forwardBtn = document.getElementById('forwardBtn');
+        rewindBtn = document.getElementById('rewindBtn');
+        progressBar = document.getElementById('progressBar');
+        progressFill = document.getElementById('progressFill');
+        timeDisplay = document.getElementById('timeDisplay');
+        tracksContainer = document.getElementById('tracksContainer');
+        trackCount = document.getElementById('trackCount');
+
+        const defaultCode = `// MIDI 工坊脚本示例
+// 使用 JavaScript 定义音乐
+
+BPM(110);
+
+// 轨道 1: 钢琴旋律
+Track(1, "Piano");
+Volume(80);
+Instrument(0);
+
+// C大调音阶上行
+Notes([
+  [C4, 1], [D4, 1], [E4, 1], [F4, 1],
+  [G4, 1], [A4, 1], [B4, 1], [C5, 2]
+]);
+
+// 轨道 2: 贝斯
+Track(2, "Bass");
+Volume(70);
+Instrument(32);
+
+[C3, 2], [E3, 2], [G3, 2], [C3, 2];
+
+// 轨道 10: 鼓组
+Track(10, "Drums");
+Volume(90);
+Percussion();
+
+// 简单节奏型
+Repeat(4, [
+  [Kick, 1], [Snare, 1], [Kick, 1], [Snare, 1]
+]);
+`;
+        codeEditor.value = defaultCode;
+        updateLineNumbers();
+        updateBpm();
+        setupEventListeners();
+    }
+
+    function setupEventListeners() {
+        bpmSlider.addEventListener('input', updateBpm);
+        codeEditor.addEventListener('input', () => { updateLineNumbers(); saveHistory(); });
+        codeEditor.addEventListener('scroll', () => { lineNumbers.scrollTop = codeEditor.scrollTop; });
+        codeEditor.addEventListener('keydown', handleEditorKeydown);
+        playBtn.addEventListener('click', playMusic);
+        pauseBtn.addEventListener('click', pauseMusic);
+        resumeBtn.addEventListener('click', resumeMusic);
+        stopBtn.addEventListener('click', stopMusic);
+        forwardBtn.addEventListener('click', () => seek(+5));
+        rewindBtn.addEventListener('click', () => seek(-5));
+        progressBar.addEventListener('click', handleProgressClick);
+        document.getElementById('refreshBtn').addEventListener('click', refreshPreview);
+        document.getElementById('copyCodeBtn').addEventListener('click', copyCode);
+        document.getElementById('expandCodeBtn').addEventListener('click', toggleExpand);
+        document.getElementById('undoBtn').addEventListener('click', undo);
+        document.getElementById('redoBtn').addEventListener('click', redo);
+        document.getElementById('exportMidiBtn').addEventListener('click', exportMidi);
+        document.getElementById('importMidiBtn').addEventListener('click', () => document.getElementById('midiFileInput').click());
+        document.getElementById('midiFileInput').addEventListener('change', handleMidiImport);
+        document.getElementById('exportProjectBtn').addEventListener('click', exportProject);
+        document.getElementById('importProjectBtn').addEventListener('click', () => document.getElementById('projectFileInput').click());
+        document.getElementById('projectFileInput').addEventListener('change', handleProjectImport);
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    }
+
+    function updateLineNumbers() {
+        const lines = codeEditor.value.split('\n');
+        lineNumbers.innerHTML = lines.map((_, i) => `<span>${i + 1}</span>`).join('');
+    }
+
+    function updateBpm() {
+        currentBpm = parseInt(bpmSlider.value);
+        bpmValue.textContent = currentBpm;
+    }
+
+    function saveHistory() {
+        if (historyIndex < codeHistory.length - 1) {
+            codeHistory = codeHistory.slice(0, historyIndex + 1);
+        }
+        codeHistory.push(codeEditor.value);
+        historyIndex = codeHistory.length - 1;
+        if (codeHistory.length > 50) {
+            codeHistory.shift();
+            historyIndex--;
+        }
+    }
+
+    function handleEditorKeydown(e) {
+        if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
+        if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const start = codeEditor.selectionStart;
+            const end = codeEditor.selectionEnd;
+            codeEditor.value = codeEditor.value.substring(0, start) + '  ' + codeEditor.value.substring(end);
+            codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
+        }
+    }
+
+    function undo() {
+        if (historyIndex > 0) {
+            historyIndex--;
+            codeEditor.value = codeHistory[historyIndex];
+            updateLineNumbers();
+        }
+    }
+
+    function redo() {
+        if (historyIndex < codeHistory.length - 1) {
+            historyIndex++;
+            codeEditor.value = codeHistory[historyIndex];
+            updateLineNumbers();
+        }
+    }
+
+    function copyCode() {
+        navigator.clipboard.writeText(codeEditor.value).then(() => {
+            const btn = document.getElementById('copyCodeBtn');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> 已复制';
+            setTimeout(() => btn.innerHTML = orig, 1500);
+        });
+    }
+
+    function toggleExpand() {
+        codeEditor.classList.toggle('expanded');
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    }
+
+    let parsedTracks = [];
+    let totalDuration = 0;
+
+    function refreshPreview() {
+        try {
+            parsedTracks = parseScript(codeEditor.value);
+            renderTracks();
+            document.getElementById('parseError').style.display = 'none';
+        } catch (e) {
+            document.getElementById('parseError').textContent = '解析错误: ' + e.message;
+            document.getElementById('parseError').style.display = 'block';
+        }
+    }
+
+    function parseScript(script) {
+        const tracks = {};
+        let bpm = 110;
+        const lines = script.split('\n');
+        let currentTrack = null;
+
+        for (let line of lines) {
+            line = line.trim();
+            if (!line || line.startsWith('//')) continue;
+
+            if (line.startsWith('BPM(')) {
+                const match = line.match(/BPM\((\d+)\)/);
+                if (match) bpm = parseInt(match[1]);
+                continue;
+            }
+
+            if (line.startsWith('Track(')) {
+                const match = line.match(/Track\((\d+),\s*["']([^"']+)["']\)/);
+                if (match) {
+                    const trackNum = parseInt(match[1]);
+                    currentTrack = {
+                        number: trackNum,
+                        name: match[2],
+                        notes: [],
+                        volume: 80,
+                        instrument: trackNum === 9 ? 128 : 0
+                    };
+                    tracks[trackNum] = currentTrack;
+                }
+                continue;
+            }
+
+            if (line.startsWith('Volume(')) {
+                const match = line.match(/Volume\((\d+)\)/);
+                if (match && currentTrack) currentTrack.volume = parseInt(match[1]);
+                continue;
+            }
+
+            if (line.startsWith('Instrument(')) {
+                const match = line.match(/Instrument\((\d+)\)/);
+                if (match && currentTrack) currentTrack.instrument = parseInt(match[1]);
+                continue;
+            }
+
+            if (line.startsWith('Percussion(') && currentTrack) {
+                currentTrack.instrument = 128;
+                continue;
+            }
+        }
+
+        const beatDuration = 60 / bpm;
+        totalDuration = 0;
+
+        for (let trackNum in tracks) {
+            const track = tracks[trackNum];
+            let tick = 0;
+
+            const notePattern = /\[\s*([A-G][#b]?\d(?:\s*,\s*\d+)?)\s*(?:,\s*([A-G][#b]?\d(?:\s*,\s*\d+)?)\s*)*\]/g;
+            const simpleNotePattern = /\[([A-G][#b]?\d)\s*,\s*(\d+)\]/g;
+            const noteMatches = script.match(simpleNotePattern) || [];
+
+            for (const match of noteMatches) {
+                const noteMatch = match.match(/\[([A-G][#b]?\d)\s*,\s*(\d+)\]/);
+                if (noteMatch) {
+                    const note = noteMatch[1];
+                    const duration = parseInt(noteMatch[2]);
+                    track.notes.push({
+                        note,
+                        start: tick * beatDuration,
+                        duration: duration * beatDuration,
+                        velocity: 80
+                    });
+                    tick += duration;
+                }
+            }
+
+            track.notes.forEach(n => {
+                const end = n.start + n.duration;
+                if (end > totalDuration) totalDuration = end;
+            });
+        }
+
+        return Object.values(tracks);
+    }
+
+    function renderTracks() {
+        if (parsedTracks.length === 0) {
+            tracksContainer.innerHTML = '<div style="padding:0.75rem; text-align:center; color:var(--midi-text-muted);">暂无数据</div>';
+            trackCount.textContent = '0 轨道';
+            return;
+        }
+
+        trackCount.textContent = `${parsedTracks.length} 轨道`;
+        tracksContainer.innerHTML = parsedTracks.map(track => `
+            <div class="track-item" data-track="${track.number}">
+                <div class="track-header" onclick="toggleTrack(${track.number})">
+                    <span>${getIconForProgram(track.instrument, track.number)} ${track.name} (${track.number})</span>
+                    <span class="channel-badge">${track.instrument === 128 ? 'Drums' : (gmProgramNames[track.instrument] || 'Unknown')}</span>
+                </div>
+                <div class="track-notes" id="trackNotes${track.number}">
+                    ${track.notes.map(n => `
+                        <div class="note-row">
+                            <span>${n.note}</span>
+                            <span>${n.start.toFixed(2)}s</span>
+                            <span>${n.duration.toFixed(2)}s</span>
+                            <span>vel: ${n.velocity}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function toggleTrack(num) {
+        const el = document.getElementById(`trackNotes${num}`);
+        if (el) el.classList.toggle('open');
+    }
+
+    function playMusic() {
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        stopMusic();
+        refreshPreview();
+        if (parsedTracks.length === 0) return;
+        isPlaying = true;
+        const beatDuration = 60 / currentBpm;
+        midiPlayer = { tracks: [], startTime: audioContext.currentTime };
+
+        parsedTracks.forEach(track => {
+            if (track.notes.length === 0) return;
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = track.volume / 100;
+            gainNode.connect(audioContext.destination);
+
+            track.notes.forEach(note => {
+                const osc = audioContext.createOscillator();
+                const noteGain = audioContext.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = noteToFreq(note.note);
+                osc.connect(noteGain);
+                noteGain.connect(gainNode);
+                const startTime = audioContext.currentTime + note.start;
+                const endTime = startTime + note.duration;
+                noteGain.gain.setValueAtTime(0, startTime);
+                noteGain.gain.linearRampToValueAtTime(0.8, startTime + 0.01);
+                noteGain.gain.setValueAtTime(0.8, endTime - 0.05);
+                noteGain.gain.linearRampToValueAtTime(0, endTime);
+                osc.start(startTime);
+                osc.stop(endTime);
+                midiPlayer.tracks.push({ osc, gainNode, noteGain, startTime, endTime });
+            });
+        });
+
+        updateProgress();
+    }
+
+    function pauseMusic() {
+        if (midiPlayer && isPlaying) {
+            midiPlayer.tracks.forEach(t => {
+                if (t.osc) {
+                    t.osc.stop();
+                    t.osc = null;
+                }
+            });
+            isPlaying = false;
+        }
+    }
+
+    function resumeMusic() {
+        if (!isPlaying && midiPlayer) playMusic();
+    }
+
+    function stopMusic() {
+        pauseMusic();
+        if (progressFill) progressFill.style.width = '0%';
+        if (timeDisplay) timeDisplay.textContent = '0:00 / 0:00';
+    }
+
+    function seek(seconds) {
+        if (!midiPlayer || !isPlaying) return;
+        const currentTime = (parseFloat(progressFill.style.width) / 100) * totalDuration;
+        const newTime = Math.max(0, Math.min(totalDuration, currentTime + seconds));
+        progressFill.style.width = `${(newTime / totalDuration) * 100}%`;
+        updateTimeDisplay(newTime);
+    }
+
+    function handleProgressClick(e) {
+        if (!totalDuration) return;
+        const rect = progressBar.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        progressFill.style.width = `${percent * 100}%`;
+        updateTimeDisplay(percent * totalDuration);
+    }
+
+    function updateProgress() {
+        if (!isPlaying || !midiPlayer) return;
+        const elapsed = audioContext.currentTime - midiPlayer.startTime;
+        const percent = (elapsed / totalDuration) * 100;
+        if (percent >= 100) {
+            stopMusic();
+            return;
+        }
+        progressFill.style.width = `${percent}%`;
+        updateTimeDisplay(elapsed);
+        requestAnimationFrame(updateProgress);
+    }
+
+    function updateTimeDisplay(seconds) {
+        const formatTime = s => `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        timeDisplay.textContent = `${formatTime(seconds)} / ${formatTime(totalDuration)}`;
+    }
+
+    function noteToFreq(note) {
+        const noteMap = { 'C': 0, 'C#': 1, 'Db': 1, 'D': 2, 'D#': 3, 'Eb': 3, 'E': 4, 'F': 5, 'F#': 6, 'Gb': 6, 'G': 7, 'G#': 8, 'Ab': 8, 'A': 9, 'A#': 10, 'Bb': 10, 'B': 11 };
+        const match = note.match(/^([A-G][#b]?)(\d)$/);
+        if (!match) return 440;
+        const noteName = match[1];
+        const octave = parseInt(match[2]);
+        const semitone = noteMap[noteName];
+        const midiNote = (octave + 1) * 12 + semitone;
+        return 440 * Math.pow(2, (midiNote - 69) / 12);
+    }
+
+    function exportMidi() {
+        alert('MIDI 导出功能演示');
+    }
+
+    function handleMidiImport(e) {
+        alert('MIDI 导入功能演示');
+    }
+
+    function exportProject() {
+        const project = {
+            version: 1,
+            code: codeEditor.value,
+            bpm: currentBpm,
+            compact: document.getElementById('compactProject').checked,
+            keepTracks: document.getElementById('keepOriginalTracks').checked
+        };
+        const blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'midi-project.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function handleProjectImport(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            try {
+                const project = JSON.parse(ev.target.result);
+                codeEditor.value = project.code || '';
+                bpmSlider.value = project.bpm || 110;
+                updateBpm();
+                updateLineNumbers();
+                refreshPreview();
+            } catch (err) {
+                alert('工程文件解析失败');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+<script src="theme-toggle.js"></script>
+</body>
+</html>

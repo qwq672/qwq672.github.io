@@ -7,6 +7,9 @@ const applyTheme = (theme) => {
   const isDark = theme === 'dark';
   const htmlElement = document.documentElement;
 
+  // 添加过渡类
+  htmlElement.classList.add('theme-transitioning');
+
   if (isDark) {
     htmlElement.setAttribute('data-theme', 'dark');
   } else {
@@ -18,6 +21,11 @@ const applyTheme = (theme) => {
     const themeColor = isDark ? '#1a1612' : '#fffef7';
     metaThemeColor.setAttribute('content', themeColor);
   }
+
+  // 动画完成后移除过渡类
+  setTimeout(() => {
+    htmlElement.classList.remove('theme-transitioning');
+  }, 400);
 };
 
 const initTheme = () => {
@@ -54,16 +62,18 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
 });
 
 function attachThemeToggleEvent() {
-  const themeToggle = document.querySelector('.theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', (e) => {
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
       e.preventDefault();
       const currentTheme = localStorage.getItem('theme') || 'system';
-      if (currentTheme === 'system') setTheme('dark');
-      else if (currentTheme === 'dark') setTheme('light');
-      else if (currentTheme === 'light') setTheme('system');
+      let newTheme;
+      if (currentTheme === 'system') newTheme = 'dark';
+      else if (currentTheme === 'dark') newTheme = 'light';
+      else if (currentTheme === 'light') newTheme = 'system';
+      setTheme(newTheme);
     });
-  }
+  });
 }
 
 // 2. 汉堡菜单切换

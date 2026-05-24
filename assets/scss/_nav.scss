@@ -1,10 +1,10 @@
 @import 'variables';
 
 .site-header {
-  background: rgba(253, 248, 242, 0.9);
+  background: rgba(250, 250, 248, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -99,6 +99,12 @@
 }
 
 .social-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.icon-buttons-row {
   display: flex;
   gap: 0.5rem;
   margin-left: 0.25rem;
@@ -233,14 +239,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(253, 248, 242, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(250, 250, 248, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 10vh;
-  z-index: 999;
+  padding-top: 15vh;
+  z-index: 10000;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -248,7 +254,7 @@
 
 [data-theme="dark"] {
   .search-overlay {
-    background: rgba(26, 24, 22, 0.92);
+    background: rgba(26, 24, 22, 0.95);
   }
 }
 
@@ -259,24 +265,25 @@
 
 .search-container {
   width: 100%;
-  max-width: 700px;
-  max-height: 80vh;
+  max-width: 640px;
+  max-height: 70vh;
   background: var(--color-surface);
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12), 0 0 0 1px var(--color-border);
   position: relative;
-  transform: translateY(-20px) scale(0.98);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-20px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
   opacity: 0;
   margin: 0 1rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 [data-theme="dark"] {
   .search-container {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px var(--color-border);
   }
 }
 
@@ -288,24 +295,29 @@
 .search-input-wrapper {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  margin-right: 0.75rem;
 }
 
 .search-input {
-  width: 100%;
-  padding: 1rem 3rem 1rem 1.25rem;
+  flex: 1;
+  padding: 0.75rem 0;
   font-size: 1.05rem;
-  border: 2px solid var(--color-border);
-  border-radius: 8px;
+  border: none;
   outline: none;
-  background: var(--color-bg-primary);
+  background: transparent;
   color: var(--color-text-primary);
   transition: all 0.2s ease;
-  box-sizing: border-box;
-
-  &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba($brand-primary, 0.15);
-  }
 
   &::placeholder {
     color: var(--color-text-tertiary);
@@ -313,14 +325,10 @@
 }
 
 .search-close {
-  position: absolute;
-  top: 50%;
-  right: 0.75rem;
-  transform: translateY(-50%);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -334,13 +342,13 @@
     background: var(--color-primary);
     color: #fff;
     border-color: var(--color-primary);
-    transform: translateY(-50%) rotate(90deg);
+    transform: rotate(90deg);
   }
 }
 
 .search-results {
-  margin-top: 1rem;
-  max-height: 50vh;
+  padding: 0.5rem;
+  max-height: 55vh;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
@@ -348,8 +356,8 @@
 
 .search-result-item {
   padding: 0.85rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 0.4rem;
+  border-radius: 12px;
+  margin-bottom: 0.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid transparent;
@@ -364,14 +372,14 @@
 }
 
 .search-result-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--color-link);
   margin-bottom: 0.25rem;
 }
 
 .search-result-date {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--color-text-tertiary);
 }
 
@@ -388,14 +396,14 @@
 
 .search-result-empty {
   text-align: center;
-  padding: 2rem;
-  color: var(--color-text-secondary);
+  padding: 2.5rem 1rem;
+  color: var(--color-text-tertiary);
   font-size: 0.95rem;
 }
 
 .search-hint {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem 1rem;
   color: var(--color-text-tertiary);
   font-size: 0.9rem;
 }
@@ -420,19 +428,19 @@
     height: 100vh;
     max-height: 100vh;
     margin: 0;
-    padding: 8rem 1.5rem 2rem;
+    padding: 7rem 1.5rem 2rem;
     background: var(--color-bg-primary);
     border: none;
     border-radius: 0;
     z-index: 998;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-20px);
-    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease, background-color 0.3s ease;
     overflow-y: auto;
   }
 
@@ -461,41 +469,54 @@
   .nav-menu.mobile-fullscreen.active li:nth-child(4) { transition-delay: 0.2s; }
   .nav-menu.mobile-fullscreen.active li:nth-child(5) { transition-delay: 0.25s; }
   .nav-menu.mobile-fullscreen.active li:nth-child(6) { transition-delay: 0.3s; }
+  .nav-menu.mobile-fullscreen.active li:nth-child(7) { transition-delay: 0.35s; }
+  .nav-menu.mobile-fullscreen.active li:nth-child(8) { transition-delay: 0.4s; }
 
   .nav-menu .nav-link {
     display: block;
     padding: 0.85rem 1rem;
     width: 100%;
-    text-align: center;
+    text-align: left;
     border-radius: 8px;
     font-size: 1.1rem;
   }
 
-  .nav-menu .social-buttons {
-    justify-content: center;
-    padding: 1rem 0;
-    gap: 1rem;
+  /* 图标按钮行：搜索 + 主题切换 + 社交 */
+  .nav-menu.mobile-fullscreen .icon-buttons-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
+    margin-left: 0;
+  }
+
+  .nav-menu.mobile-fullscreen .icon-buttons-row .icon-btn {
+    width: 2.8rem;
+    height: 2.8rem;
+    flex-shrink: 0;
+  }
+
+  .nav-menu.mobile-fullscreen .social-buttons {
+    justify-content: flex-start;
+    padding: 0;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 320px;
+    margin-left: 0;
   }
 
   .nav-menu.mobile-fullscreen .social-btn {
-    width: 3rem;
-    height: 3rem;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
   .nav-menu.mobile-fullscreen .search-toggle-item,
   .nav-menu.mobile-fullscreen .theme-toggle-item {
-    width: 100%;
-    max-width: 300px;
-    display: flex;
-    justify-content: center;
-    padding: 0.5rem 0;
-  }
-
-  .nav-menu.mobile-fullscreen .icon-btn {
-    width: 3rem;
-    height: 3rem;
+    width: auto;
+    max-width: none;
+    display: none;
   }
 
   .menu-toggle {
@@ -536,7 +557,7 @@
   .search-container {
     max-height: 90vh;
     margin: 0.5rem;
-    border-radius: 8px;
+    border-radius: 16px;
   }
 
   .search-results {

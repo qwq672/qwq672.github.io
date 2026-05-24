@@ -3,6 +3,7 @@ languageCode = "zh-cn"
 title = "qwq672的个人网站"
 disableKinds = []
 ignoreErrors = ["error-remote-getjson"]
+future = true
 
 # 分页设置：每页数量
 paginate = 10
