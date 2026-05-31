@@ -2,7 +2,7 @@
 title: Minecraft LIVE 2026 March 直播总结
 date: 2026-05-24 14:00:00 +0800
 categories: [游戏]
-tags: [游戏]     # TAG names should always be lowercase
+tags: [MinecraftLIVE]     # TAG names should always be lowercase
 description: 有关Minecraft LIVE 2026 March 直播的总结
 # the default layout is 'page'
 icon: fas fa-info-circle
