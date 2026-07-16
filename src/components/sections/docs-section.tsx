@@ -2,29 +2,33 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Loader2, ChevronRight, FileText } from "lucide-react";
+import { BookOpen, Loader2, ChevronRight, FileText, Folder } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/motion-helpers";
 import { MarkdownView } from "@/components/markdown-view";
-import type { DocMeta, Doc } from "@/lib/docs";
+import type { DocMeta, Doc, DocSetMeta } from "@/lib/docs";
 import { cn } from "@/lib/utils";
 
 export function DocsSection() {
-  const [docs, setDocs] = React.useState<DocMeta[]>([]);
-  const [active, setActive] = React.useState<string>("");
+  const [sets, setSets] = React.useState<DocSetMeta[]>([]);
+  const [activeProject, setActiveProject] = React.useState<string>("");
+  const [activeSlug, setActiveSlug] = React.useState<string>("");
   const [doc, setDoc] = React.useState<Doc | null>(null);
   const [loadingList, setLoadingList] = React.useState(true);
   const [loadingDoc, setLoadingDoc] = React.useState(false);
 
-  // Load TOC
+  // Load all doc sets (project switcher + TOCs come in one request)
   React.useEffect(() => {
     let cancelled = false;
-    fetch("/api/docs")
+    fetch("/api/doc-sets")
       .then((r) => r.json())
-      .then((data: { docs: DocMeta[] }) => {
+      .then((data: { sets: DocSetMeta[] }) => {
         if (cancelled) return;
-        const list = data.docs ?? [];
-        setDocs(list);
-        if (list[0]) setActive(list[0].slug);
+        const list = data.sets ?? [];
+        setSets(list);
+        if (list[0]) {
+          setActiveProject(list[0].project);
+          setActiveSlug(list[0].docs[0]?.slug ?? "");
+        }
       })
       .finally(() => {
         if (!cancelled) setLoadingList(false);
@@ -34,13 +38,13 @@ export function DocsSection() {
     };
   }, []);
 
-  // Load active doc
+  // Load active doc when project/slug changes
   React.useEffect(() => {
-    if (!active) return;
+    if (!activeProject || !activeSlug) return;
     let cancelled = false;
     setLoadingDoc(true);
     setDoc(null);
-    fetch(`/api/docs/${encodeURIComponent(active)}`)
+    fetch(`/api/docs/${encodeURIComponent(activeProject)}/${encodeURIComponent(activeSlug)}`)
       .then((r) => r.json())
       .then((data: { doc: Doc }) => {
         if (!cancelled) setDoc(data.doc);
@@ -51,13 +55,21 @@ export function DocsSection() {
     return () => {
       cancelled = true;
     };
-  }, [active]);
+  }, [activeProject, activeSlug]);
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  // Reset scroll when doc changes
   React.useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0 });
-  }, [active]);
+  }, [activeProject, activeSlug]);
+
+  const activeSet = sets.find((s) => s.project === activeProject);
+  const hasMultipleSets = sets.length > 1;
+
+  const handleProjectChange = (project: string) => {
+    setActiveProject(project);
+    const set = sets.find((s) => s.project === project);
+    setActiveSlug(set?.docs[0]?.slug ?? "");
+  };
 
   return (
     <section
@@ -69,11 +81,34 @@ export function DocsSection() {
           eyebrow="Docs"
           title={
             <>
-              LavaArcade 文档<span className="text-accent">.</span>
+              项目文档<span className="text-accent">.</span>
             </>
           }
-          description="模组还在开发中，先把已有的文档放出来预览，后续会持续补充。"
+          description="目前只有 LavaArcade 的文档，等其它项目文档写好了会陆续放上来。"
         />
+
+        {/* Project switcher — only shows when >1 set */}
+        {hasMultipleSets && (
+          <Reveal className="mt-8">
+            <div className="flex flex-wrap gap-2">
+              {sets.map((s) => (
+                <button
+                  key={s.project}
+                  onClick={() => handleProjectChange(s.project)}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all",
+                    s.project === activeProject
+                      ? "border-accent/40 bg-accent/10 text-foreground"
+                      : "border-border/50 bg-card/40 text-muted-foreground hover:border-accent/30 hover:text-foreground"
+                  )}
+                >
+                  <Folder className="h-3.5 w-3.5" />
+                  {s.name}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+        )}
 
         <div className="mt-12 grid gap-5 md:grid-cols-5">
           {/* Sidebar TOC */}
@@ -81,7 +116,12 @@ export function DocsSection() {
             <div className="md:sticky md:top-24">
               <div className="mb-3 flex items-center gap-2 px-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 <BookOpen className="h-3.5 w-3.5" />
-                目录
+                {activeSet ? activeSet.name : "目录"}
+                {activeSet && (
+                  <span className="ml-auto hidden truncate text-[0.7rem] font-normal normal-case tracking-normal text-muted-foreground/70 md:block">
+                    {activeSet.tagline}
+                  </span>
+                )}
               </div>
               <nav className="flex gap-2 overflow-x-auto pb-1 md:flex-col md:overflow-visible md:pb-0">
                 {loadingList
@@ -91,12 +131,12 @@ export function DocsSection() {
                         className="h-11 w-32 shrink-0 animate-pulse rounded-xl bg-muted md:w-full"
                       />
                     ))
-                  : docs.map((d) => {
-                      const isActive = d.slug === active;
+                  : (activeSet?.docs ?? []).map((d) => {
+                      const isActive = d.slug === activeSlug;
                       return (
                         <button
                           key={d.slug}
-                          onClick={() => setActive(d.slug)}
+                          onClick={() => setActiveSlug(d.slug)}
                           className={cn(
                             "group flex shrink-0 items-center gap-3 rounded-2xl border px-4 py-3 text-left transition-all duration-300 md:w-full",
                             isActive
@@ -174,7 +214,7 @@ export function DocsSection() {
                     </motion.div>
                   ) : (
                     <motion.div
-                      key={doc.slug}
+                      key={`${activeProject}-${doc.slug}`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}

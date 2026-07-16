@@ -44,6 +44,9 @@ export const metadata: Metadata = {
     "qwq672 的个人小站 — 学生 / 老设备折腾者 / Minecraft 模组作者 / 音乐小白。游戏、复古、代码、碎碎念，都丢在这啦。",
   keywords: ["qwq672", "个人网站", "Minecraft", "LavaArcade", "老设备", "复古", "博客"],
   authors: [{ name: "qwq672" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "qwq672 · 随笔与小破站",
     description: "学生 / 老设备折腾者 / Minecraft 模组作者 / 音乐小白",

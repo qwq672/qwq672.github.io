@@ -103,3 +103,38 @@ Work Log:
 Stage Summary:
 - v2 迭代完成: 文章独立页化、新增文档板块、项目logo与准确信息、丝滑intro动画、导航修复、UI精细优化
 - 全站通过端到端自检
+
+---
+Task ID: v3 (架构扩展 + 修复)
+Agent: main
+Task: Arvgrid图标修复 + 文档多项目架构 + 博客搜索筛选 + 移动端全屏菜单
+
+Work Log:
+- Arvgrid 图标: 用新 icon.svg（手写A字形），白色描边改 currentColor；原 namemc.svg 改作 favicon（琥珀色672方块）
+- 文档多项目架构重构:
+  - 目录改为 content/docs/<project>/（lavaarcade/ 下6篇）
+  - lib/docs.ts 重写: REGISTRY 注册表定义项目集(project/name/tagline/logo/TOC)，getDocSets() + getDoc(project,slug)
+  - API: /api/doc-sets（所有项目集TOC）+ /api/docs/[...params]（catch-all，规避Next.js嵌套动态段不同名限制，force-dynamic支持中文slug）
+  - DocsSection UI: 加项目切换器(>1项目时显示)，目前只有LavaArcade所以隐藏，结构已就绪可扩展
+- 博客可扩展性: 加搜索框(标题/摘要/标签/分类全文匹配) + 分类chips筛选 + 结果计数 + 空状态(带清除筛选按钮) + 加载骨架
+- 移动端全屏菜单:
+  - MenuIcon 组件: 3条线流畅形变为X（上线旋45°/中线淡出缩放/下线旋-45°）
+  - 全屏遮罩: clipPath circle 从右上角展开，大号导航项(2xl字体+序号01-06)，staggered入场，Esc关闭，body滚动锁
+  - 菜单按钮aria-label随状态切换(打开菜单↔关闭菜单)
+- 修复 framer-motion opacity undefined 警告(MenuIcon 加 initial)
+- 清理 .next 缓存解决旧路由结构残留的 "different slug names" 错误
+
+自检结果 (Agent Browser):
+- Arvgrid logo: ✓ 手写A字形图标（不再是像素网格）
+- 博客搜索: ✓ 输入minecraft过滤出6篇，显示"共6篇"计数
+- 博客分类筛选: ✓ Minecraft/Minecraft披风/网站/测试 chips 可切换
+- 文档切换: ✓ 点"下载与安装"加载表格内容(TABLE FOUND)
+- 移动端全屏菜单: ✓ 全屏遮罩+大号序号导航项+汉堡变X+Esc关闭+点X复原
+- 控制台: ✓ 无错误无警告
+- 页面errors: ✓ []
+- Lint: ✓ 0 error
+
+Stage Summary:
+- 架构扩展完成: 文档支持多项目(注册表+目录+切换器)、博客支持搜索筛选应对文章增长
+- Arvgrid图标修正、移动端全屏菜单升级
+- 注: 沙箱会清理后台进程，dev server需用 nohup+disown 启动，跨调用可能需重启
