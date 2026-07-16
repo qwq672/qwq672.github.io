@@ -222,3 +222,35 @@ Work Log:
 
 Stage Summary:
 - 5项全部修复完成，等用户后续提供新 hero 图片（含移动端专用版）
+
+---
+Task ID: v6 (新hero图片 + 文字模糊修复)
+Agent: main
+Task: 新hero图片（桌面+移动）接入 + 修复段落文字模糊背景
+
+Work Log:
+- 解压 hero-new zip: day(7) + day-mobile(8) + night(5) + night-mobile(4) = 24张图
+- 用 sharp 批量压缩: 桌面 1920x1080 landscape, 移动 800x1400 portrait, quality 72 mozjpeg
+  → 桌面 ~100KB/张, 移动 ~80KB/张
+- 删除旧图片，新图按 day/day-mobile/night/night-mobile 四目录组织
+- Hero 组件重写:
+  - 4个图片池常量(DAY_DESKTOP/DAY_MOBILE/NIGHT_DESKTOP/NIGHT_MOBILE)
+  - matchMedia('(max-width:767px)') 检测移动端，动态切换池
+  - dayImg/nightImg 改为 string|null，isMobile 变化时重新选图(避免闪错池)
+  - currentImg null 时不渲染 img
+  - 全部24张图预加载
+- 文字模糊背景修复:
+  - 段落 <p> 去掉 backdrop-blur-[2px]（这是模糊背景元凶）
+  - 改用 textShadow: 0 2px 12px rgba(0,0,0,0.4) 保证可读性
+  - 顶部 tag pill 保留 backdrop-blur-md（小面积无所谓）
+
+自检结果:
+- 移动端390px: 加载 /bg/night-mobile/IMG_20260717_033818.jpg (竖版) ✓
+- 桌面端1440px: 加载 /bg/night/20251210211750.jpg (横版) ✓
+- 亮色模式: 加载 /bg/day/ 日间图 ✓
+- 文字: sharp/readable, NO blurry text background ✓
+- 控制台: CLEAN, errors:[] ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 24张新hero图接入(桌面横版+移动竖版)，文字模糊背景已修复
