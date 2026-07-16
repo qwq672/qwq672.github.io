@@ -144,12 +144,49 @@ export const socials: SocialLink[] = [
   },
 ];
 
+export interface ResourceLink {
+  name: string;
+  url: string;
+  desc: string;
+  password?: string;
+  badge?: string;
+}
+
+export const resources: ResourceLink[] = [
+  {
+    name: "老设备兼容网站",
+    url: "http://672.w0.am",
+    desc: "用 HTML 3.2 + GB2312 写的老设备复古站，iPod touch 4 也能访问。",
+    badge: "Web 1.0",
+  },
+  {
+    name: "旧版资源总站",
+    url: "http://sky672.ysepan.com",
+    desc: "永硕 e盘，资源比较杂，登录密码请看网站内的提示。",
+  },
+  {
+    name: "123 网盘资源区",
+    url: "https://123pan.cn/s/LrH6Vv-sJIo",
+    desc: "123 网盘分享，下载速度还行。",
+    password: "见网盘提示",
+  },
+  {
+    name: "蓝奏云资源区",
+    url: "https://xiaochat.lanzn.com/b02jkdexc",
+    desc: "蓝奏云资源合集，小文件下载首选。",
+    password: "0000",
+  },
+];
+
+export const resourcePasswordHint = "所有资源区若有密码一律为 0000 或 Ab1234";
+
 export const navLinks = [
   { href: "#about", label: "关于" },
   { href: "#interests", label: "兴趣" },
   { href: "#projects", label: "项目" },
   { href: "#docs", label: "文档" },
   { href: "#blog", label: "随笔" },
+  { href: "#resources", label: "资源" },
   { href: "#contact", label: "联系" },
 ] as const;
 

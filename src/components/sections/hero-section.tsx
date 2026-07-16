@@ -1,12 +1,30 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, RefreshCw } from "lucide-react";
 
-const DAY_IMG = "/bg/day/sunset-terrace.jpg";
-const NIGHT_IMG = "/bg/night/cosmic-field.jpg";
+const DAY_IMAGES = [
+  "/bg/day/sunset-terrace.jpg",
+  "/bg/day/dreamy-birds.jpg",
+  "/bg/day/starry-lake.jpg",
+];
+const NIGHT_IMAGES = [
+  "/bg/night/cosmic-field.jpg",
+  "/bg/night/lantern-night.jpg",
+  "/bg/night/campfire-night.jpg",
+];
+
+function pickRandom<T>(pool: T[], avoid?: T): T {
+  if (pool.length === 1) return pool[0];
+  let next = pool[Math.floor(Math.random() * pool.length)];
+  // try to avoid repeating the same image
+  for (let i = 0; i < 5 && next === avoid; i++) {
+    next = pool[Math.floor(Math.random() * pool.length)];
+  }
+  return next;
+}
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
@@ -15,6 +33,54 @@ export function HeroSection() {
   const reduce = useReducedMotion();
 
   const showNight = mounted ? resolvedTheme === "dark" : true;
+  const pool = showNight ? NIGHT_IMAGES : DAY_IMAGES;
+
+  // Currently displayed image per theme (so switching back doesn't jump)
+  const [dayImg, setDayImg] = React.useState(DAY_IMAGES[0]);
+  const [nightImg, setNightImg] = React.useState(NIGHT_IMAGES[0]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  // Preload all images on mount
+  React.useEffect(() => {
+    [...DAY_IMAGES, ...NIGHT_IMAGES].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  // Pick a random image on first mount (per theme)
+  React.useEffect(() => {
+    if (!mounted) return;
+    setNightImg((prev) => (prev === NIGHT_IMAGES[0] ? pickRandom(NIGHT_IMAGES) : prev));
+    setDayImg((prev) => (prev === DAY_IMAGES[0] ? pickRandom(DAY_IMAGES) : prev));
+  }, [mounted]);
+
+  const currentImg = showNight ? nightImg : dayImg;
+
+  // Manual refresh — pick a new random image from current theme's pool
+  const refreshImage = React.useCallback(() => {
+    setRefreshing(true);
+    if (showNight) {
+      setNightImg((prev) => pickRandom(NIGHT_IMAGES, prev));
+    } else {
+      setDayImg((prev) => pickRandom(DAY_IMAGES, prev));
+    }
+    setTimeout(() => setRefreshing(false), 500);
+  }, [showNight]);
+
+  // When theme changes, pick a fresh random image from the new theme's pool
+  const prevThemeRef = React.useRef(showNight);
+  React.useEffect(() => {
+    if (!mounted) return;
+    if (prevThemeRef.current !== showNight) {
+      prevThemeRef.current = showNight;
+      if (showNight) {
+        setNightImg((prev) => pickRandom(NIGHT_IMAGES, prev));
+      } else {
+        setDayImg((prev) => pickRandom(DAY_IMAGES, prev));
+      }
+    }
+  }, [showNight, mounted]);
 
   const scrollNext = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -22,34 +88,29 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Background images — crossfade between day/night */}
-      <div className="absolute inset-0 -z-10">
-        <motion.img
-          src={NIGHT_IMG}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 1 }}
-          animate={{
-            opacity: showNight ? 1 : 0,
-            scale: reduce ? 1 : showNight ? 1.08 : 1.12,
-          }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          fetchPriority="high"
-        />
-        <motion.img
-          src={DAY_IMG}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: showNight ? 0 : 1,
-            scale: reduce ? 1 : showNight ? 1.12 : 1.08,
-          }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          fetchPriority="high"
-        />
+      {/* Background image — single visible layer with AnimatePresence crossfade */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={currentImg}
+            src={currentImg}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              scale: reduce ? 1 : 1.06,
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+              scale: { duration: 12, ease: "easeOut" },
+            }}
+            fetchPriority="high"
+          />
+        </AnimatePresence>
+
         {/* Readability overlay — adapts to theme */}
         <div className="absolute inset-0 bg-background/35 dark:bg-background/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
@@ -62,6 +123,18 @@ export function HeroSection() {
           }}
         />
       </div>
+
+      {/* Manual image refresh button */}
+      <button
+        onClick={refreshImage}
+        aria-label="换张背景图"
+        title="换张背景图"
+        className="group absolute right-4 top-20 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground/70 backdrop-blur-md transition-all duration-300 hover:border-foreground/30 hover:text-foreground sm:top-24"
+      >
+        <RefreshCw
+          className={`h-4 w-4 transition-transform duration-500 ${refreshing ? "rotate-180" : ""}`}
+        />
+      </button>
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">

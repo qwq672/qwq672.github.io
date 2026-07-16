@@ -112,7 +112,7 @@ export function DocsSection() {
 
         <div className="mt-12 grid gap-5 md:grid-cols-5">
           {/* Sidebar TOC */}
-          <Reveal className="md:col-span-2">
+          <Reveal className="min-w-0 md:col-span-2">
             <div className="md:sticky md:top-24">
               <div className="mb-3 flex items-center gap-2 px-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
                 <BookOpen className="h-3.5 w-3.5" />
@@ -178,7 +178,7 @@ export function DocsSection() {
           </Reveal>
 
           {/* Doc content */}
-          <Reveal delay={0.08} className="md:col-span-3">
+          <Reveal delay={0.08} className="min-w-0 md:col-span-3">
             <div className="relative min-h-[50vh] overflow-hidden rounded-3xl border border-border/60 bg-background/60 backdrop-blur-sm">
               {/* top bar */}
               <div className="flex items-center justify-between border-b border-border/50 px-5 py-3.5 sm:px-7">
@@ -197,7 +197,7 @@ export function DocsSection() {
 
               <div
                 ref={scrollRef}
-                className="styled-scroll max-h-[60vh] overflow-y-auto px-5 py-6 sm:px-8 sm:py-7"
+                className="styled-scroll max-h-[60vh] overflow-y-auto overflow-x-hidden px-5 py-6 sm:px-8 sm:py-7"
               >
                 <AnimatePresence mode="wait">
                   {loadingDoc || !doc ? (

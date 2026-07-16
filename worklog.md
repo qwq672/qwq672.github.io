@@ -138,3 +138,51 @@ Stage Summary:
 - 架构扩展完成: 文档支持多项目(注册表+目录+切换器)、博客支持搜索筛选应对文章增长
 - Arvgrid图标修正、移动端全屏菜单升级
 - 注: 沙箱会清理后台进程，dev server需用 nohup+disown 启动，跨调用可能需重启
+
+---
+Task ID: v4 (移动端修复 + 多图 + 头像 + 资源区)
+Agent: main
+Task: 5项修复：移动端溢出bug、主题切换动画、多图池、avatar、资源分享区
+
+Work Log:
+- avatar.jpg → 用 sharp 压缩为 avatar.webp (20KB)，加入 About 区头像（带渐变光晕）
+- 移动端溢出修复（根本原因）:
+  1. html/body 加 overflow-x: hidden 防止页面级横向滚动
+  2. MarkdownView: table 和 pre 各包一层 overflow-x-auto div（表格/代码块内部滚动）
+  3. .prose-warm 加 overflow-x: hidden + max-width: 100%，去掉 max-w-none
+  4. **关键**: docs section 的 CSS Grid 子项加 min-w-0（修复 min-width:auto 导致网格项不能缩小）
+  5. docs 内容滚动容器加 overflow-x-hidden
+  6. 表格 th 加 white-space:nowrap，td 加 word-break:break-word + vertical-align:top
+  → 结果：390px/320px 下 scrollWidth == clientWidth，表格 wrapperScrolls=true（可横向滚动）
+- 主题切换动画优化:
+  1. CSS: body/.glass/.theme-aware 加 background-color 0.45s + color 0.3s + border-color 0.4s 过渡
+  2. Hero 背景图改用 AnimatePresence mode=sync 单图层交叉淡入（opacity 0.9s + scale 12s Ken Burns）
+  3. 预加载全部 6 张图避免切换时解码卡顿
+  → 切换流畅不刺眼
+- Hero 多图池:
+  - 日间3张: sunset-terrace / dreamy-birds / starry-lake
+  - 夜间3张: cosmic-field / lantern-night / campfire-night
+  - 挂载时随机选图，切主题时从新主题池随机选，右上角加"换张图"按钮（RefreshCw 图标旋转动画）
+- 资源分享区块 (Blog 和 Contact 之间):
+  - 4个资源卡: 老设备兼容站(672.w0.am) / 永硕e盘 / 123网盘 / 蓝奏云
+  - 顶部密码提示横幅: "所有资源区若有密码一律为 0000 或 Ab1234"
+  - 蓝奏云卡标密码 0000，123网盘标"见网盘提示"
+  - navLinks 加"资源"项
+
+自检结果:
+- 390px: scrollWidth=390=clientWidth, 无溢出 ✓
+- 320px: scrollWidth=320=clientWidth, 无溢出 ✓
+- 文档表格: wrapperW=300, tableW=360, wrapperScrolls=true ✓（表格在容器内滚动）
+- 主题切换: dark→light→dark 流畅，背景图随主题切换 ✓
+- 换图按钮: 点击换图 ✓
+- avatar: About 区可见 ✓
+- 资源区: 4卡片+密码提示 ✓
+- 控制台: 无 error/warning ✓
+- 页面 errors: [] ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 移动端彻底修复（overflow-x:hidden + 表格包裹 + min-w-0 网格修复）
+- 6张背景图随机切换 + 手动换图按钮
+- 主题切换动画顺滑（CSS过渡+AnimatePresence交叉淡入+预加载）
+- About 加入头像，新增资源分享区块

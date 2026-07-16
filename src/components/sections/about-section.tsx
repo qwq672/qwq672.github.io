@@ -18,15 +18,34 @@ export function AboutSection() {
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-5">
-          {/* Main bio card */}
+          {/* Main bio card with avatar */}
           <Reveal className="md:col-span-3">
             <div className="group relative h-full overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/40 hover:shadow-[0_20px_60px_-30px_var(--glow)] sm:p-9">
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl transition-opacity duration-500 group-hover:opacity-150" />
               <div className="relative">
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  你好呀
+                {/* Avatar + greeting */}
+                <div className="mb-6 flex items-center gap-4">
+                  <div className="relative shrink-0">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent to-primary opacity-30 blur-md" />
+                    <img
+                      src="/avatar.webp"
+                      alt="qwq672 的头像"
+                      width={64}
+                      height={64}
+                      className="relative h-16 w-16 rounded-2xl border border-border/60 object-cover shadow-lg"
+                    />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      你好呀
+                    </div>
+                    <div className="mt-1.5 font-display text-lg font-semibold text-foreground">
+                      qwq672
+                    </div>
+                  </div>
                 </div>
+
                 <p className="text-[1.05rem] leading-[1.9] text-foreground/90">
                   我是 <span className="font-semibold text-foreground">qwq672</span>，一名学生。
                   平时喜欢玩玩游戏，也折腾一些老设备，

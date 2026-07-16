@@ -7,6 +7,7 @@ import { InterestsSection } from "@/components/sections/interests-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { DocsSection } from "@/components/sections/docs-section";
 import { BlogSection } from "@/components/sections/blog-section";
+import { ResourcesSection } from "@/components/sections/resources-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { SiteFooter } from "@/components/site-footer";
 import { PageIntro } from "@/components/page-intro";
@@ -34,6 +35,7 @@ export default function Home() {
         <ProjectsSection />
         <DocsSection />
         <BlogSection />
+        <ResourcesSection />
         <ContactSection />
       </main>
 

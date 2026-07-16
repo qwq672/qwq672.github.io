@@ -145,6 +145,8 @@
     /* Hide native scrollbar — we use a custom overlay scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
+    /* Prevent horizontal overflow from wide tables/images/etc. */
+    overflow-x: hidden;
   }
   html::-webkit-scrollbar {
     width: 0;
@@ -157,6 +159,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  /* Smooth, performant theme color transition — only colors, short duration,
+     avoids transitioning layout/transform properties. */
+  body,
+  .glass,
+  .theme-aware {
+    transition: background-color 0.45s ease, color 0.3s ease, border-color 0.4s ease;
   }
   ::selection {
     background-color: var(--accent);
@@ -299,6 +309,10 @@
   color: var(--foreground);
   line-height: 1.85;
   font-size: 0.975rem;
+  /* Constrain horizontal overflow so child overflow-x-auto wrappers
+     (tables, code blocks) scroll internally instead of expanding. */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 .prose-warm h1,
 .prose-warm h2,
@@ -356,7 +370,6 @@
   background-color: var(--muted);
   padding: 1em 1.2em;
   border-radius: var(--radius-md);
-  overflow-x: auto;
   margin: 1.2em 0;
   border: 1px solid var(--border);
 }
@@ -371,8 +384,11 @@
   max-width: 100%;
   height: auto;
 }
+/* Tables: wrapper provides horizontal scroll (added by MarkdownView).
+   Table itself uses min-width so columns keep readable sizes. */
 .prose-warm table {
   width: 100%;
+  min-width: 360px;
   border-collapse: collapse;
   margin: 1.2em 0;
   font-size: 0.9em;
@@ -382,10 +398,13 @@
   border: 1px solid var(--border);
   padding: 0.6em 0.8em;
   text-align: left;
+  vertical-align: top;
+  word-break: break-word;
 }
 .prose-warm th {
   background-color: var(--muted);
   font-weight: 600;
+  white-space: nowrap;
 }
 .prose-warm hr {
   border: none;
