@@ -5,13 +5,15 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
 import { InterestsSection } from "@/components/sections/interests-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
+import { DocsSection } from "@/components/sections/docs-section";
 import { BlogSection } from "@/components/sections/blog-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { SiteFooter } from "@/components/site-footer";
+import { PageIntro } from "@/components/page-intro";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div id="top" className="relative flex min-h-screen flex-col">
       {/* Ambient background — subtle moving glow that matches the theme */}
       <div
         aria-hidden="true"
@@ -22,6 +24,7 @@ export default function Home() {
         <div className="absolute left-[30%] top-[120%] h-[40vh] w-[40vh] rounded-full bg-accent/8 blur-[120px]" />
       </div>
 
+      <PageIntro />
       <SiteNavbar />
 
       <main className="flex-1">
@@ -29,6 +32,7 @@ export default function Home() {
         <AboutSection />
         <InterestsSection />
         <ProjectsSection />
+        <DocsSection />
         <BlogSection />
         <ContactSection />
       </main>

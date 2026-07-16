@@ -84,7 +84,7 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-6xl font-bold tracking-tight text-foreground drop-shadow-[0_4px_24px_rgba(0,0,0,0.25)] sm:text-7xl md:text-8xl"
         >
-          <span className="text-gradient">qwq672</span>
+          <span className="text-gradient-animate">qwq672</span>
         </motion.h1>
 
         <motion.p

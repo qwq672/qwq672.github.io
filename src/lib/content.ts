@@ -5,9 +5,7 @@ import {
   Music4,
   Globe,
   Clapperboard,
-  Blocks,
-  Rocket,
-  Wrench,
+  type LucideProps,
 } from "lucide-react";
 
 export interface Interest {
@@ -31,15 +29,9 @@ export const interests: Interest[] = [
     accent: "from-rose-500/20 to-amber-500/10",
   },
   {
-    icon: Blocks,
-    title: "Minecraft 模组",
-    desc: "正在开发 LavaArcade 模组，大概是我最花时间的东西了（powered by AI？）。",
-    accent: "from-emerald-500/20 to-teal-500/10",
-  },
-  {
     icon: Music4,
-    title: "音乐创作",
-    desc: "用 FL Studio 把一些歌重制成 MIDI 版本，小白一个，也懂点 Hi-Fi 的小知识。",
+    title: "音乐 & MIDI",
+    desc: "用 FL Studio 把一些歌重制成 MIDI 版本，也在做 Arvgrid 这个网页端 MIDI 编曲工具。",
     accent: "from-violet-500/20 to-fuchsia-500/10",
   },
   {
@@ -56,39 +48,53 @@ export const interests: Interest[] = [
   },
 ];
 
+export type ProjectLogoKind = "img" | "svg";
+
 export interface Project {
-  icon: LucideIcon;
+  slug: string;
   name: string;
   tagline: string;
-  status: "开发中" | "进行中" | "已发布";
+  status: "开发中" | "进行中" | "接近正式版";
   desc: string;
   tags: string[];
+  website: { url: string; label: string };
+  logo: { src: string; kind: ProjectLogoKind };
+  accent: string;
 }
 
 export const projects: Project[] = [
   {
-    icon: Blocks,
+    slug: "lavaarcade",
     name: "LavaArcade",
-    tagline: "Minecraft 模组",
+    tagline: "Minecraft 模组 · AI + 离线多人小游戏",
     status: "开发中",
-    desc: "大概是我最花时间来开发完成的模组。除了这里和少数几个地方一般不会宣传。",
-    tags: ["Minecraft", "Mod", "Java"],
+    desc: "一个把 AI 智能玩家和离线多人小游戏塞进 Minecraft 的模组。项目特别大，涉及多个方面，机器学习都已经涉及了，所以进度不算快——但确实在一点点推进。",
+    tags: ["Minecraft", "Mod", "AI", "Fabric"],
+    website: { url: "https://lava.awa.lat", label: "lava.awa.lat" },
+    logo: { src: "/logo/lavaarcade.png", kind: "img" },
+    accent: "from-orange-500/25 to-amber-500/10",
   },
   {
-    icon: Rocket,
-    name: "TinyCraft Launcher",
-    tagline: "启动器",
+    slug: "tinycraft",
+    name: "TinyCraft",
+    tagline: "C 语言命令行迷你启动器",
     status: "开发中",
-    desc: "正在做的 Minecraft 启动器，轻量向，目标是又小又好用。",
-    tags: ["Minecraft", "Launcher"],
+    desc: "用 C 语言写的 Minecraft 命令行迷你启动器，主打一个轻量。目前卡在 Minecraft 登录的 API 申请那边，等搞定继续推进。",
+    tags: ["Minecraft", "Launcher", "C"],
+    website: { url: "https://tinycraft.awa.lat", label: "tinycraft.awa.lat" },
+    logo: { src: "/logo/tinycraft.png", kind: "img" },
+    accent: "from-zinc-400/20 to-slate-500/10",
   },
   {
-    icon: Wrench,
+    slug: "arvgrid",
     name: "Arvgrid",
-    tagline: "工具",
-    status: "进行中",
-    desc: "一个正在折腾的小工具项目，细节以后再慢慢补。",
-    tags: ["Tool"],
+    tagline: "网页端 MIDI 编曲 & 编辑 GUI 工具",
+    status: "接近正式版",
+    desc: "最接近正式版阶段的项目。一个网页端的 MIDI 编曲及编辑 GUI 工具，支持多端，还能导入 SF 音色库文件，拿来编曲或修 MIDI 都挺顺手。",
+    tags: ["Web", "MIDI", "Audio", "SF2"],
+    website: { url: "https://grid.awa.lat", label: "grid.awa.lat" },
+    logo: { src: "/logo/arvgrid.svg", kind: "svg" },
+    accent: "from-emerald-500/20 to-teal-500/10",
   },
 ];
 
@@ -96,7 +102,7 @@ export interface SocialLink {
   label: string;
   handle: string;
   href: string;
-  icon: string; // lucide name, mapped in component
+  icon: string;
   note?: string;
 }
 
@@ -142,6 +148,9 @@ export const navLinks = [
   { href: "#about", label: "关于" },
   { href: "#interests", label: "兴趣" },
   { href: "#projects", label: "项目" },
+  { href: "#docs", label: "文档" },
   { href: "#blog", label: "随笔" },
   { href: "#contact", label: "联系" },
 ] as const;
+
+export type IconComponent = (props: LucideProps) => JSX.Element;

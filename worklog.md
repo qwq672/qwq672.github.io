@@ -70,3 +70,36 @@ Stage Summary:
 - 全站构建完成并通过端到端可视化自检
 - 8 篇博客文章可通过 API 读取并在弹窗中渲染
 - 深浅色双主题完整可用，背景图随主题切换
+
+---
+Task ID: 8-10 (v2 迭代)
+Agent: main
+Task: 文章独立页 + 文档板块 + 项目logo + 加载动画 + 导航修复 + UI优化
+
+Work Log:
+- 解压 project-logo.zip (LavaArcade.png/TinyCraft.png/namemc.svg→arvgrid.svg) + LavaArcade文档(6篇)
+- 用 sharp 压缩 logo；arvgrid.svg 改为 currentColor 适配主题
+- 新建文档数据层 lib/docs.ts (有序 TOC) + API /api/docs + /api/docs/[slug]
+- 文章改为独立页面 /posts/[slug] (服务端渲染 markdown)，删除原弹窗 PostDialog
+- 博客区块卡片改为 <Link> 跳转独立文章页
+- 新建 DocsSection: 页内双栏浏览器(左侧序号目录 sticky + 右侧 markdown 渲染，移动端目录横滚)，切换文档有 AnimatePresence 过渡
+- content.ts 更新: 项目准确描述(LavaArcade=AI+离线多人小游戏模组/TinyCraft=C语言命令行启动器/Arvgrid=网页端MIDI编曲工具)+官网链接+logo引用；兴趣改为5项；navLinks 加"文档"
+- ProjectsSection 用 ProjectLogo 组件(PNG用img，SVG内联渲染支持currentColor)
+- 新建 PageIntro: 首次加载遮罩(672 mark + 进度线)上滑消失，sessionStorage 防重复
+- 重写 SiteNavbar: 改用 rAF 滚动检测确定 active 段落(不再用IO抖动)+ 滚动下隐藏/滚动上显示 + 更高弹簧刚度防lag
+- globals.css: 加 text-gradient-animate(8s渐变缓动)、focus-visible 精致环、styled-scroll 内部滚动条样式
+- Hero 标题改用 text-gradient-animate 活力渐变
+- 文档区内容容器加 styled-scroll
+
+自检结果 (Agent Browser):
+- 首次加载 intro 遮罩 ✓ → 上滑露出 hero
+- Projects 三个 logo 亮/暗模式均清晰显示(Arvgrid SVG 内联渲染为琥珀色)✓
+- 文档板块目录切换 ✓ markdown 表格正确渲染 ✓ 移动端目录横滚 ✓
+- 独立文章页 /posts/[slug] ✓ 顶栏返回+站点标识+文章头+正文+标签+返回
+- 导航栏 active 跟踪稳定不再跳跃 ✓ 滚动下隐藏/上显示 ✓
+- 控制台 errors:[] ✓ lint 0 error ✓
+- 移动端 hero/about/docs 均正常 ✓
+
+Stage Summary:
+- v2 迭代完成: 文章独立页化、新增文档板块、项目logo与准确信息、丝滑intro动画、导航修复、UI精细优化
+- 全站通过端到端自检

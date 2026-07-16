@@ -11,37 +11,69 @@ export function SiteNavbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState<string>("");
+  const [hidden, setHidden] = React.useState(false);
 
+  // Scroll handler: scrolled state + hide-on-scroll-down/show-on-scroll-up
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
+    let lastY = window.scrollY;
+    let ticking = false;
+    let lastActive = "";
+
+    const update = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+
+      // Hide/show navbar based on scroll direction (only after some scroll)
+      if (y > 200) {
+        if (y > lastY + 6 && !open) {
+          setHidden(true);
+        } else if (y < lastY - 6) {
+          setHidden(false);
+        }
+      } else {
+        setHidden(false);
+      }
+      lastY = y;
+
+      // --- Deterministic active-section tracking ---
+      // Pick the section whose top is at or just above a target line
+      // (a bit below the navbar). Tie-break by closest to the line.
+      const target = y + 140;
+      let best: { id: string; dist: number } | null = null;
+      for (const link of navLinks) {
+        const el = document.getElementById(link.href.slice(1));
+        if (!el) continue;
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        // section must contain or be below the target line
+        if (bottom < target) continue;
+        const dist = Math.abs(top - target);
+        if (!best || dist < best.dist) {
+          best = { id: link.href, dist };
+        }
+      }
+      const next = best?.id ?? "";
+      if (next && next !== lastActive) {
+        lastActive = next;
+        setActive(next);
+      }
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Active section tracking via IntersectionObserver
-  React.useEffect(() => {
-    const ids = navLinks.map((l) => l.href.slice(1));
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(`#${visible[0].target.id}`);
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
+  }, [open]);
 
   const handleNav = (href: string) => {
     setOpen(false);
+    setHidden(false);
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -52,6 +84,10 @@ export function SiteNavbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-5 sm:pt-4"
+      style={{
+        transform: hidden ? "translateY(-130%)" : "translateY(0)",
+        transition: "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)",
+      }}
     >
       <nav
         className={cn(
@@ -63,11 +99,14 @@ export function SiteNavbar() {
       >
         {/* Logo */}
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            setHidden(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="group flex items-center gap-2.5"
           aria-label="回到顶部"
         >
-          <span className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-primary text-[0.7rem] font-bold text-primary-foreground shadow-lg shadow-accent/20">
+          <span className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-primary text-[0.7rem] font-bold text-primary-foreground shadow-lg shadow-accent/20 transition-transform duration-300 group-hover:scale-105">
             672
           </span>
           <span className="font-display text-[0.95rem] font-semibold tracking-tight text-foreground">
@@ -76,7 +115,7 @@ export function SiteNavbar() {
         </button>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 md:flex">
           {navLinks.map((link) => (
             <button
               key={link.href}
@@ -91,8 +130,8 @@ export function SiteNavbar() {
               {active === link.href && (
                 <motion.span
                   layoutId="nav-active"
-                  className="absolute inset-0 -z-10 rounded-full bg-accent/15 ring-1 ring-accent/20"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  className="absolute inset-0 -z-10 rounded-full bg-accent/15 ring-1 ring-accent/25"
+                  transition={{ type: "spring", stiffness: 520, damping: 38 }}
                 />
               )}
               {link.label}
