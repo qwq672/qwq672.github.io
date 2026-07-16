@@ -1,0 +1,1180 @@
+===== 2025-05-03-First.md =====
+---
+title: 网站第一篇文章
+date: 2025-05-03 21:48:00 +0800
+categories: [测试]
+tags: [测试]     # TAG names should always be lowercase
+description: 这是这个网站的第一篇文章？
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+这是这个网站的第一篇文章，不知道要说些什么。。。。
+资源分享：sky672.ysepan.com
+
+===== 2025-05-04-ShareLink.md =====
+---
+title: 所有资源分享网站链接
+date: 2025-05-04 13:48:00 +0800
+categories: [网站]
+tags: [网站]     # TAG names should always be lowercase
+description: 这是这个网站的第二篇文章？
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+这篇文章是关于我建立的所有资源分享网站/链接。
+如果未来有新的资源分享链接/网站，这篇文章**可能**会更新。
+1. [百度网盘](https://wait)
+2. [123网盘](https://www.123pan.com/s/LrH6Vv-sJIo)
+3. 永硕e盘（1区）：http://sky672.ysepan.com
+4. [蓝奏云（密码0000）](https://xiaochat.lanzn.com/b02jkdexc)
+5. [Huang1111网盘](https://pan.huang1111.cn/s/qgYeVu3)
+6. 永硕e盘（自由上传）：http://672upload-01.ysepan.com/
+
+暂时没其他了qwq
+
+===== 2025-05-06-GetIncentiveCape.md =====
+---
+title: Minecraft Incentive 披风（Common 披风）现在可以获取了！（原先叫做Idaho cape）
+date: 2025-05-06 13:50:00 +0800
+categories: [Minecraft 披风]
+tags: [游戏]     # TAG names should always be lowercase
+description: Minecraft Incentive 披风现在可以获取了！不过源文件早已泄露了？
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+
+## 开始
+
+从现在开始（2025年5月6日），Incentive 披风（Common 披风）可以获取了！（最开始泄露时叫做Idaho cape）
+
+## 介绍
+
+![cape](https://img.picui.cn/free/2025/05/09/681dc64879e8a.png)
+
+![elytra](https://img.picui.cn/free/2025/05/09/681dc64857fd3.png)
+
+此披风的占位符纹理可在 Bedrock Edition 游戏文件中找到。游戏文件中的文字写着“使用您的 Microsoft 帐户登录，选择一件免费的披风永久保留！”，稀有程度与其他披风不同，Incentive 披风（Common 披风）的稀有程度为普通。
+
+## 活动时间与操作步骤
+
+只需要打开你的Minecraft 基岩版，随后登陆你的 Microsoft 账户（账户里面没有正版Minecraft的话可能就只能领到基岩版的了），如果有领取披风成功的通知，就代表你成功获得披风了！
+
+**说简单点的：打开基岩版并登录就行**
+
+活动时间：**2025年5月6日--2026年5月6日**
+
+> 注意：**位于东八区的玩家需要等到5月7日凌晨0点才可获取。（例如中国大陆）**
+
+只要你在这一年间上过一次Minecraft基岩版，就可以领到！
+
+## 最后
+
+> 小tip: "Incentive Cape"翻译过来就是激励披风！（其实官方正式翻译为普通披风）
+
+预先版披风可从[LittleSkin 链接处](https://littleskin.cn/skinlib/show/547542)下载。（不推荐！虽然是本人制作）
+
+===== 2025-05-09-BedrockCapeToJava.md =====
+---
+title: Minecraft 大披肩披风（The Pan Cape）包括其他基岩版披风现已同步到Java版！
+date: 2025-05-09 18:59:00 +0800
+categories: [Minecraft 披风]
+tags: [游戏]     # TAG names should always be lowercase
+description: Minecraft 大披肩披风及其其他的基岩版独占披风现已同步到Java版！
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+
+## 开头
+
+**Minecraft 大披肩披风（The Pan Cape）及其大部分的基岩版独占披风现已同步到Java版！**
+
+## 介绍
+
+从2025年5月8日起，大披肩及其大部分基岩版独占披风已经**同步**到了Minecraft Java版里。
+
+## 获取步骤
+
+无获取步骤，因为从从5月8日起玩家拥有的基岩版披风（不包括基岩&Java双版本披风）将会逐渐同步到所有Java版玩家的披风库里了，所以无需进行任何操作，唯一一个条件就是你的账户下有Minecraft Java版正版，以方便将披风同步到您的Java版账户上。
+
+## 注意
+
+如果你的基岩版披风库里有那些基岩版独占披风，那么它将同步到你的Java版披风库里，反之如果你没有，那么它们将不会同步到你的Java版披风库里。
+
+如果你的基岩版披风没同步到Java版，请等待一段时间。
+
+你的账户下可能需要一个Minecraft基岩版正版，这样基岩版披风将会同步到你的Java版账户上。
+
+## 其他
+
+对于官方为什么要分别在5月6日至5月8日发布1个披风，还将基岩版的独占披风同步到Java版，个人猜测应该是想给玩家福利？
+
+进步骄傲披风（俗称彩虹披风）可能不会同步到Java版。
+
+对于大披肩是否能同步到每个玩家的Java版披风库里，个人猜测除非没有基岩版账户，不然极大概率会同步到所有玩家的Java版披风库上。
+
+===== 2025-07-21-MinecraftBE.md =====
+---
+title: 如何注册Xbox账户、安装Minecraft 基岩版并登录
+date: 2025-07-21 00:06:00 +0800
+categories: [Minecraft]
+tags: [游戏]     # TAG names should always be lowercase
+description: 本教程指导你如何注册xbox账户与下载并安装Minecraft 基岩版并登录。
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+
+## 注册账户
+
+### 注册
+
+如果你**已经注册**了微软账户，请直接在[Xbox官网](https://www.xbox.com/zh-CN/)登录您的账户以**填写Xbox个人资料**。
+
+首先，请打开[Xbox官网](https://www.xbox.com/zh-CN/)，点击“登录”按钮（或图中被标记的按钮）。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/xbox.png)
+
+接着，再次页面，点击同意。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/a.png)
+
+进入登录界面，如果您已经拥有微软账户，请直接登录（好像是不是又说了一遍？）并跳过这几步，如果你没有，请点击“创建账户”按钮。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/login.png)
+
+进入到注册页面，请输入电子邮箱地址。
+
+![输入电子邮件地址的页面](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/mail.png)
+
+#### 如果你拥有电子邮件地址
+
+如果您拥有电子邮件地址（例如QQ邮箱或163邮箱），那么请输入您的电子邮件地址，然后点击“下一步”。
+
+接着，系统将会把验证码邮件发送到您的电子邮件地址。请检查收件箱或垃圾邮件，随后按照邮件上的代码（验证码）在输入框输入验证码，输入后将自动跳转下一步。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/other_email.png)
+
+#### 如果你没有电子邮箱地址
+
+如果你没有电子邮箱地址，那么您可以在输入框“xxx@outlook.com”，不包括引号！！！（也就是“”），例如microsoft@outlook.com、a114514@outlook.com等，如果您输入了“@outlook.com”后缀，那么将会变成以下界面（以qwq672@outlook.com为例）：
+
+![](
+https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/reg_outlook.png)
+
+注意，邮箱地址一定是以字母开头，如果提示被占用，请换个名字，注意，请记住你输入的电子邮箱地址。
+
+### 输入密码
+
+进入到“输入密码”界面，请输入好记且安全的密码。具体要求可在图中看到，如果ⓘ（也就是带圆圈的i）变成了✔（打勾），那么则代表你的密码符合要求。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/password.png)
+
+### 填写详细信息
+
+进入到“添加一些详细信息”页面，国家或地区可任选（最好是默认，不要改）。
+
+出生年月填大于18岁即可（例如现在是2025年7月20日，可填2007年7月19日），如果想要保险一些则可以填大于21岁甚至24岁（例如现在是2025年7月20日，可填2004年7月19日或2001年7月19日）
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/more_info.png)
+
+### 添加姓名、证明你不是机器人、是否使用通行密钥登录
+
+此段不详细表达，姓名随便填，照着做就行。
+
+来到“使用人脸、指纹或 PIN 更快地登录”页面，随便，想更安全就点“下一个”，不想搞可以点“暂时跳过”。本文不详细描述点击“下一步”后应该做什么。
+
+### 填写Xbox个人资料
+
+来到“欢迎来到Xbox”页面，点击编辑按钮可以编辑头像与自己的游戏名，默认来说系统已经为你设置了头像与游戏名，如果想换一个可以点击“随机”来换头像与游戏名。如果觉得可以了点击保存并继续即可。
+
+
+![](
+https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/xbox_p.png)
+
+随后，点击“现在就开始吧”即可完成注册。
+
+## 下载并安装 Minecraft 基岩版
+
+### 正版
+
+如果你已经购买了Minecraft 正版，那么仅需打开微软商店，登录已购买正版的账户，搜索“Minecraft”，点击安装，就完成了。
+
+如果你没有购买电脑版正版，请先购买一个正版。[前往购买页面（中国大陆）](https://www.xbox.com/zh-cn/games/store/minecraft-java-bedrock-edition-for-pc/9nxp44l49shjc)
+
+对于安卓正版，你需要一个梯子（ⓋⓅⓃ），并且你的Android设备需要支持谷歌服务才能打开Google Play商店，才能购买，另外，你可能还需要额外准备一个支持海外的银行卡。
+
+对于iOS正版，你需要一个外区Apple账户（Apple id），但无需梯子（ⓋⓅⓃ）即可访问外区App store，同样，你需要额外准备一个支持海外的银行卡。
+
+### 没钱！有钱也买不了！
+
+如果你没有经济能力购买正版，你也可以以后补票。
+
+对于安卓设备（例如小米、荣耀、oppo等），你可以前往[MCApks（推荐）](https://mcapks.net/)、[Minebbs（网站崩了？）](https://mc.minebbs.com/)、[Minecraft for Android 版本库](https://zihao.fengqingwu.top/)来下载apk安装包。对于部分厂商的机型，你需要勾选“允许未知来源安装”或类似的按钮等，才可正常安装。
+
+对于iOS设备，可以去下载破解过的ipa安装包或寻找共享的已购买Minecraft的Apple账户（这里不详细描述，自己搜）。
+
+#### 在Windows设备上安装Minecraft基岩版
+
+对于Windows 10及以上系统的设备，可以前往[Minecraft for Windows版本库](https://www.mcappx.com/index.html)获取Appx安装包或前往Microsoft Store安装免费试用版。[前往MCAppx 帮助中心以查看详细基岩版Appx安装包安装教程。](https://www.mcappx.com/help/#windows)
+
+##### 通过Appx安装包安装
+
+下载好Appx安装包后，在打开前。你还需要安装运行库。点击[下载运行库安装包（中国节点，推荐）](https://dl.mcappx.com/mc-framework-cn)与[下载运行库安装包（日本节点）](https://dl.mcappx.com/mc-framework-jp)，这里仅提供x86、x64的安装包。
+
+安装好运行库后，就可以打开appx安装包并安装了。
+
+**注意*：Minecraft for Windows版本库提供的appx安装包里均有正版验证机制，需要自行登录已购买Minecraft的微软账户，无法立即游玩完整版。
+
+##### 通过Microsoft Store下载免费试用版
+
+十分简单。仅需打开Microsoft Store，搜索“Mnecraft: Java & Bedrock Edition For PC”，点开并找到“Minecraft For Windows”，点开，点击“免费试用版”即可下载安装。
+
+**注意**：Minecraft 电脑基岩版最低Windows版本号为19041（Windows 10 版本 2004），最好在安装前检查您的操作系统版本。（通过Windows + R快捷键打开“运行”，输入“winver”，按下键盘上的回车键以查看系统版本。）
+
+##### 破解
+
+**注意**：在安装Minecraft 基岩版后
+
+写不下去了。。。直接转载教程和工具吧：
+
+[Minecraft Unlock.exe](https://www.123pan.com/s/RCrbVv-7NCEd.html)：打开程序后点击“开始执行”即可。
+
+[【免费下载】 Minecraft-Unlock 项目使用教程](https://blog.csdn.net/gitblog_00131/article/details/142239785)：如上。
+
+[MC电脑基岩版和教育版最详细下载破解教程!全版本支持win10,11!Minecraft Unlock++Up制作，白嫖MC基岩版白嫖MC教育版](https://www.bilibili.com/video/BV14CcweLExe/)
+
+[（白嫖党欢喜）Minecraft破解教程](https://www.bilibili.com/opus/892406797273399302)
+
+## 登录
+
+打开基岩版，此时游戏会弹出以下弹窗，点击“立即登录”即可。
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/mc_login.png)
+
+此时，游戏会要求你登录账户，
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/mobile_mc.png)（手机端登录图片）
+
+点击“登录”，输入您创建微软账户的电子邮件地址与账户密码，之后进入xbox页面，点击“现在就开始吧”即可。
+
+如果是Windows端，如果你在Windows上登录了其他微软账户而非您刚刚创建的微软账户，你可能需要在xbox客户端注销该微软账户，随后登录你自己刚刚创建的微软账户。进入游戏后，游戏将自动登录。
+
+如果登录出现错误，请检查您的网络，xbox组件是否齐全，检查系统是否有问题，或者重新安装。如果还是不行，可以自己上网搜自己的Minecraft登录错误代码。
+
+登录成功后，你看到的应该是这副画面（左下角有档案与你设置的xbox头像，右边有你设置的游戏名，此图片为示例图像，可能不是你完全实际看到的画面）：
+
+![](https://d.feiliupan.com/t/103105630625075200/xbox注册+基岩版登录教程/mc.png)
+
+## 最后
+
+最后，如果有什么错误点的话，还请多多指正awa
+
+神秘小视频：[0-7-2-1?](https://www.bilibili.com/video/BV1Us4y147x3)
+
+===== 2025-10-03-MCForum.md =====
+---
+title: 来自于Microsoft Teams的Minecraft社区（玩家创建）
+date: 2025-10-03 18:58:20 +0800
+categories: [Minecraft]
+tags: [游戏]     # TAG names should always be lowercase
+description: 在 Teams 上的Minecraft社区
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+
+## 介绍
+
+这是一个来自于Microsoft Teams的Minecraft社区，虽然这是其中一个，但我们还是欢迎你来加入！
+
+当然，这不是官方社区，而是我本人创建的。
+
+你可以在这里闲聊，分享一些文件，分享有趣的事情，询问其他人问题，总之怎么样都行！
+
+> 当然，请不要分享或传达违规或诈骗内容！！
+
+## 加入
+
+如果你想加入社区，请点击[此处](https://teams.live.com/l/community/FBAB9Ha7ZnI8vlh3AM)或扫描以下的二维码。
+
+![二维码](https://d.feiliupan.com/t/103105630625075200/tmp_71dae3bd-f31c-4092-823f-7d38ea3f1370.jpg)
+
+===== MinecraftLIVEMar26.md =====
+---
+title: Minecraft LIVE 2026 March 直播总结
+date: 2026-05-24 14:00:00 +0800
+categories: [游戏]
+tags: [游戏]     # TAG names should always be lowercase
+description: 有关Minecraft LIVE 2026 March 直播的总结
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+# Minecraft Live 2026三月场次内容汇总
+本次直播时长总共58分45秒，目前来讲是历届MC Live里时间最短的一场。整场直播仍然没有设置生物投票环节（毕竟官方都说了以后没有生物投票了），一次性公布了当下正式版本更新、后续大型版本规划、衍生游戏以及各类线下相关项目，好像是不是有一丢丢的开幕雷击了？
+
+## 一、26.1版本 小鬼当家更新
+该版本确定在3月24日正式上线，本次更新核心围绕幼年生物改版展开，同时也增添不少实用功能，优化日常游戏体验。
+1. **幼年生物整体翻新**
+游戏里所有幼年生物都迎来全新改动，不再只是简单把成年生物模型缩小。全部幼体都更换了专属外观模型、皮肤纹理、动作动画还有专属叫声音效。
+像小村民、幼年僵尸、小猪灵以及各类家养小动物，都会新增追逐、打闹、结伴玩耍的行为动作，整个游戏世界的氛围变得鲜活不少，喜欢饲养生物、打造动物园玩法的体验感会提升很多。
+
+2. **命名牌开放合成制作**
+以往只能靠开宝箱、钓鱼随机获取的命名牌，现在可以直接合成。合成配方为一张纸，搭配铁粒、金粒、铜粒其中任意一种材料就行。
+往后生存模式中可以按需制作，不用再靠运气收集，随时随地都能给自己饲养的生物自定义名字。
+
+3. **趣味道具金色蒲公英实装**
+这款道具是玩家社区里人气很高的趣味内容，这次正式加入游戏当中。对着任意幼年生物使用金色蒲公英，就能永久锁定生物的幼体形态，生物后续不会再自然长大。
+不管是留存可爱的宠物、搭建特色场景，还是游戏内拍照留念，这个道具都能派上用场。
+
+4. **多项细节功能优化**
+官方重新调整了村民的交易体系，修正不合理的兑换价格与物品配比，村民交易变得更加均衡合理。同时新增专属游戏指令，开启后可以让游戏内的昼夜时间，和现实世界时间保持同步。
+Java版本上线Vulkan渲染器，有效提升游戏帧率，减少画面卡顿问题，整体画面运行更加稳定流畅。基岩版则针对联机匹配、私人派对、领域房间这些社交玩法优化，组队联机游玩的时候延迟更低，连接也更稳定。
+
+## 二、未来大型更新 混沌立方体预告
+这款大型新版本具体上线时间还未确定，直播中放出了不少抢先内容，包含全新地下群系和机制特别的全新生物。
+1. **全新群系：硫磺洞穴**
+这是生成在主世界地下的全新洞穴地形，区域整体带着地热地貌特征，色调以黄、红色为主，和现有的繁茂洞穴、深邃洞穴风格区分明显。
+群系内附带两套完整的专属建筑方块，分别是硫磺方块与辰砂方块，每种方块都配套做出楼梯、台阶、围墙等衍生样式，给建筑玩家提供更多创作素材。
+这片区域存在危险特性，天然生成的硫磺物质接触到水源后，会释放出有毒气体，玩家靠近就会触发反胃负面效果，日常探索这片区域需要多加留意规避风险。
+
+2. **全新生物：硫磺立方**
+外形看起来和史莱姆比较相似，该生物拥有无敌特性，任何攻击手段都无法对它造成伤害。
+它有着独特的方块吸收能力，触碰吸收不同材质的方块后，自身物理特性也会跟着改变。吸收木质方块会变得富有弹性，弹跳能力变强；吸收冰块滑行速度大幅提升；吸收铁块体型会变得沉重，很难被外力推动。
+当玩家攻击它时，受到的冲击力会直接转化为推力，攻击的力度越大，硫磺立方被弹飞的距离也就越远。这个生物并不偏向战斗用途，主要用来游玩解谜、趣味互动以及创意建造。
+
+3. **补充说明**
+直播现场演示的硫磺立方竞速小游戏，仅仅只是用来展示生物效果，并不会正式加入到游戏内容里。
+
+## 三、衍生游戏 我的世界地下城2
+这是我的世界地下城的正统续作，游戏支持四名玩家一同联机闯关，属于动作冒险类RPG游戏。
+新作搭载了全新的剧情故事路线，搭配全新的冒险地图、怪物种类，同时更新大量武器装备与技能体系，整体玩法内容和游玩难度都比前作更加丰富。
+游戏预计在2026年秋季面向全平台发售，上线之后也会同步加入XGP会员游戏库中。
+
+## 四、线下相关项目规划
+1. **我的世界主题乐园**
+由游戏官方和知名娱乐公司联合打造，乐园选址在英国伦敦，计划2027年正式对外开放。园区内部1:1还原游戏里的方块世界场景，还设置了专属过山车游乐项目、官方周边商店、主题餐饮区，还有可以近距离互动的生物游玩区域。
+
+2. **沉浸式线下体验活动**
+经典的村民救援线下体验活动目前已经对外开放，后续还会陆续登陆丹麦、新加坡、墨西哥、芝加哥等多个城市。
+另外新增户外夜间探险项目月光小径，活动首站设置在阿根廷布宜诺斯艾利斯，结束首站后会开启全球巡回体验。
+玩家只要参与并且完整通关月光小径活动，就可以领取专属的月光足迹限定披风，披风带有好看的星月发光特效。奖励会以兑换码的形式发放，现阶段优先在基岩版游戏中使用，后续也会开放Java版的兑换权限。
+
+## 五、整体总结
+整场直播砍掉了多余繁琐的流程，干货内容充足，能明显看出官方后续调整了更新节奏，改成按季度更新的模式。
+2026年春季上线这次偏向优化改动的小型版本，等到下半年就会推出混沌立方体这款体量庞大的全新更新。
+幼年生物全面改版、设计新颖的硫磺立方生物，还有稀有限定的线下披风奖励（你要是在国内没时间的话就别想着去了），都收获了玩家们不错的口碑，本次规划的更新内容整体新意十足。
+### 核心信息简表
+|分类|内容要点|
+| ---- | ---- |
+|直播概况|时长58分45秒，无生物投票，内容精简干货多|
+|当前更新|26.1小鬼当家，幼体重做、命名牌可合成、多项体验优化|
+|未来版本|硫磺洞穴新群系、无敌机制生物硫磺立方|
+|衍生作品|地下城2，四人联机RPG，2026年秋季上线|
+|线下福利|参与月光小径活动，获取专属限定披风|
+
+本文章于2026年3月22日01:56在b站发布，于2026年5月24日二改。
+===== MinecraftLIVEMay26.md =====
+---
+title: Minecraft LIVE 2026 May 直播总结
+date: 2026-05-31 11:00:00 +0800
+categories: [游戏]
+tags: [MinecraftLIVE]     # TAG names should always be lowercase
+description: 有关Minecraft LIVE 2026 May 直播的总结
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+# Minecraft Live 2026 五月特别场 内容汇总
+本次属于小型专场直播，虽然它小，但整体时长达到了恐怖的约6小时25分钟，算是目前MC相关官方直播里时长最长的一场。前面的速通比赛说是预热场，但却占了绝大部分的时段（而就是说6小时25分里可能6小时都是这个场），官方内容发布环节较短，水分特别大，同时直播甚至出现了竖屏版本完整收尾、横屏版本没说完就提前结束的小问题，算是ojang神人操作了（）算了，不多说，以下是正式内容。
+
+## 一、混沌立方体（Chaos Cubed）更新
+本次正式敲定该版本上线时间，并补充了大量玩法细节，是本场重点讲解内容。
+1. **上线时间**：2026年6月16日，Java、基岩全平台同步更新
+2. **硫磺洞穴群系**
+    全新地下群系以暖黄色调为主，地表生成硫磺石、硫磺砂、朱砂块等特有方块，区域内存在硫磺池，玩家靠近后会触发**恶心**负面效果，搭配空中飘散的硫磺颗粒，整体探索氛围偏向危险。
+3. **硫磺立方体**
+    群系专属新生物，外形为黄色半透明立方体，核心特色是可以吞噬各类方块并获得对应属性：吞食木头会大幅提升弹跳力；吞食冰块后移动会变得顺滑难以制动；吞食TNT则会附带爆炸效果；吞食砂石类方块会增加自身重量。玩家可使用硫磺相关方块对其投喂，也能通过拴绳牵引，可灵活运用于红石机关、陷阱以及趣味玩法地图中。
+4. **地形机制**
+    新增间歇泉与岩浆超级立方体两种自然结构。间歇泉会不定时喷射蒸汽，可将玩家与方块推至高空；岩浆超级立方体是地下巨型岩浆构造，遭到破坏后会引发大范围岩浆溢流，进一步提升地下探索的风险与随机性。
+5. **联动附加包**
+    联合创作者Tubbo打造专属速通附加组件，**仅基岩版免费上线**，内含定制速通规则、专属挑战地图、成就系统与排行榜，Java版暂无上线计划。
+
+## 二、我的世界：地下城2
+本场曝光了全新BOSS与乐高联动相关内容，同时重申了发售时间。
+1. **全新BOSS：扭曲典狱长**
+    暗影风格终局BOSS，战斗分为三个阶段：第一阶段释放远程暗影箭，同时召唤暗影小怪协助作战；第二阶段割裂场地并生成黑暗屏障，限制玩家活动范围；第三阶段暴露核心弱点，释放高额伤害攻击并触发全屏震荡效果。击败BOSS可掉落外观为黑底紫光的暗影套装。
+2. **乐高联动内容**
+    官方推出全新乐高实体套装，包含史蒂夫、爱丽克丝、苦力怕、村民等人仔与地下城主题组件，预计2026年底正式发售。另外面向基岩版玩家免费开放乐高风格小鸡坐骑附加包，所有玩家均可领取使用。
+3. **发售计划**：2026年秋季正式推出。
+
+## 三、全新区域与建筑方块更新
+本次首次完整公布秋季版本相关内容，也是建筑玩家十分关注的板块。
+1. **斑驳森林新群系**
+    主打秋季风格，整体色调以暖棕、金黄、暗红为主，区域内生成白杨树、红色灌木丛以及依附倒木生长的蘑菇。同步上线整套杨木系列方块，涵盖原木、木板、楼梯、台阶、门、栅栏等。
+2. **羊毛楼梯&羊毛台阶**
+    全16种配色的羊毛楼梯、羊毛台阶正式确认加入游戏，补齐了长期以来彩色建筑的短板，能够轻松制作彩色屋顶、渐变墙面、精致内饰等细节造型。
+3. **野外新结构**
+    斑驳森林中会自然生成废弃营地，结构由羊毛楼梯搭建出帐篷造型，搭配篝火与战利品宝箱，为生存探索增加额外资源与趣味彩蛋。
+4. **测试与上线时间**：2026年夏末开启测试版/快照，2026年底正式实装。
+
+## 四、我的世界大电影2
+本场补充完善了演员阵容、拍摄进度等关键信息。
+1. **基础信息**：影片正式定名《A Minecraft Movie: Squared》，2027年7月23日在北美上映，目前于新西兰实景拍摄中。
+2. **演员阵容**
+    原版主演杰克·布莱克、杰森·莫玛等悉数回归；**克尔斯滕·邓斯特**饰演爱丽克丝，该角色也从前作彩蛋身份升级为核心主角之一。
+3. **玩家活动**：开启全球建造挑战，优秀参赛作品有机会出现在电影正片当中，创作者可登上片尾鸣谢名单，参与活动即可领取游戏限定披风。
+
+## 五、其他补充资讯（上场直播就包含，应该没什么好看的）
+1. **MC主题乐园**：与默林娱乐合作打造Minecraft World主题乐园，选址英国伦敦，规划有过山车、主题商店、互动体验区等设施，预计2027年开业。
+2. **生物模型优化**：Tiny Takeover内容此前已上线，本场仅简要提及，该内容对婴儿村民、婴儿僵尸、婴儿苦力怕等幼年生物模型进行重制，摆脱单纯缩小成年模型的设计。
+
+## 内容总览表
+| 内容板块 | 本场新增/细化内容 | 上线/推出时间 | 适用平台 |
+| ---- | ---- | ---- | ---- |
+| 混沌立方体更新 | 硫磺洞穴、硫磺立方体完整机制、间歇泉、岩浆超级立方体、Tubbo速通组件 | 2026年6月16日正式上线 | Java、基岩版 |
+| 我的世界：地下城2 | 扭曲典狱长BOSS、乐高实体套装、免费乐高小鸡坐骑 | 2026年秋季发售；乐高套装2026年底发售 | 全游戏平台 |
+| 新群系&建筑方块 | 斑驳森林、全套杨木方块、16色羊毛楼梯/台阶、野外废弃营地 | 2026年夏末测试，年底正式上线 | Java、基岩版 |
+| 我的世界大电影2 | 爱丽克丝饰演演员敲定、片场花絮、玩家建造挑战 | 2027年7月23日北美上映 | 影视 |
+| 生态与线下项目 | 取消生物投票、Minecraft World主题乐园规划 | 乐园2027年开业 | 全平台/线下 |
+
+## 总结
+本场小型直播虽然官方干货环节时长较短，但补充和公布的内容覆盖面较广。既有即将上线的混沌立方体版本细节，也有地下城2、乐高联动、真人电影等联动企划，而羊毛楼梯、台阶的加入，以及全新秋季主题群系，也给建筑和生存玩家带来了新的游玩内容。同时官方也调整了后续更新模式，取消传统生物投票，改为高频次内容推送，整体后续更新节奏更加灵活。
+===== about.md =====
+
+---
+title: 来自于Microsoft Teams的Minecraft社区（玩家创建）1111
+date: 2025-10-03 18:58:20 +0800
+categories: [Minecraft]
+tags: [游戏]     # TAG names should always be lowercase
+description: 在 Teams 上的Minecraft社区
+# the default layout is 'page'
+icon: fas fa-info-circle
+order: 4
+---
+
+
+## 关于本人
+
+这里是关于我的网页，只不过没什么好**介绍**的啦awa
+
+算了不管了（）
+
+本人不事24岁，是学生，居住在广东省深圳市，比较常玩Minecraft、极限竞速地平线5、Phigros等游戏，对计算机较感兴趣
+
+关于我的账号的话，有时会比较抽象，又有点地狱，可能会发一些较为抽象以及比较地狱的视频（例如pig god打电话），有时也可能会搬运或发布一些正常视频。
+
+我有多个设备（拥有多个老设备、电脑、手机等），有时可能会购买一些老设备用来折腾、越狱、root、玩老游戏啥的
+
+~~其实这里想说啥的，但是没什么好说的？（是不是有点废话文学了）~~
+
+> 提前声明：不要发骚扰信息！不要发垃圾信息！
+{: .prompt-warning }
+
+
+## 联系方式（几乎所有）
+### 电子邮箱
+如果需要通过电子邮箱联系我，请看如下：
+
+以下为主用电子邮箱地址（**非节假日建议联系**）：
+
+> 警告：不要发垃圾邮件！
+
+1. <i1tl@qq.com>: QQ邮箱，这个邮箱永久使用！可以复制这个邮箱，亦或者是点击旁边的邮箱按钮、点击这里的按钮来打开邮箱应用。
+2. <b167963232@163.com>: 163邮箱，替选或备用。如果QQ邮箱长期未得到回复请对这个邮箱写邮件。
+
+以下为非主用电子邮箱地址：
+3. <00q45r@gmail.com>: 这个邮箱因为在海外，不一定来得及回复！且非节假日时段一定不回复。
+4. <q45_r@outlook.com>: 海外！虽然国内也可以用，但非节假日时段不回复。
+5. <ii672@icloud.com>: 海外，icloud邮箱。
+
+### 手机
+不提供手机号联系方式，因为担心会被短信轰炸或被打扰啥的qwq
+
+## 个人社交主页+其他联系方式
+若想查看我的更多个人主页，请看以下：
+1. [Bilibili](https://space.bilibili.com/700347223)：uid为700347223，名字可能会换所以不在这说，可以从左边的图标或者点击此链接进入。
+2. [NameMC](https://namemc.com/pwpqwq)：目前Minecraft Java版游戏id为~~pwpawa~~pwpqwq。
+3. [百度贴吧](https://tieba.baidu.com/home/main?id=tb.1.49690218.K2PGvGVTyjnyGGjQ8xIVQQ)：目前呢称为2o_0，后续估计会改吧？
+4. [Youtube](https://youtube.com/@qwqawa)：Youtube主页，不会发视频，只是用这个账号看视频或者搬运视频到b站而已（）
+5. [Steam](https://steamcommunity.com/id/qwq00/): Steam主页，先不怎么展示了（）
+6. QQ&微信: QQ与微信由于隐私等各方面的问题（怕开盒），除比较信任的人外暂不透露联系方式。
+7. [Microsoft teams](https://teams.live.com/l/invite/FEAJU8ZgWxzwQqgjQM?v=g1): Teams，因为没被墙，要聊可以从这聊。**不要发骚扰信息！**
+8. [Telegram](https://t.me@qwq_awa): Telegram早已被墙，不建议，但要发私密消息可以在这发，很少会看回复。
+9. [Github](https://github.com/iiqwq): Gtihub个人主页，关于此网站的仓库可以点击[这个按钮](https://github.com/iiqwq/iiqwq.github.io)来访问。
+## 游戏
+- Xbox: ~~b1141350~~ lyijqwq
+- Minecraft Java版（目前）: ~~pwpawa~~ pwpqwq
+
+暂时展示这些了...
+
+## 最后
+另外，有关所有资源分享的网站链接将会在另一篇文章中提到。**[点击这里](https://iiqwq.github.io/posts/ShareLink/)**
+
+.
+
+.
+
+.
+
+.
+
+.
+
+神秘小链接：[？？](https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4?authorization=bce-auth-v1%2F40f207e648424f47b2e3dfbb1014b1a5%2F2021-07-12T02%3A14%3A24Z%2F-1%2Fhost%2F530146520a1c89fb727fbbdb8a0e0c98ec69955459aed4b1c8e00839187536c9)
+
+===== my-first-post.md =====
+---
+title: "第一篇博客"
+date: 2026-05-03
+draft: false
+---
+
+这是测试内容。
+
+```html
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>流光映像 · 林述光 | 多列自动照片墙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 主题变量 */
+        :root {
+            --bg-page: #0f0e0c;
+            --surface: rgba(25, 22, 20, 0.7);
+            --text-primary: #f2eee9;
+            --text-secondary: #cdc5b8;
+            --accent: #e0863a;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --shadow-md: 0 12px 24px rgba(0,0,0,0.3);
+            --card-radius: 20px;
+        }
+
+        body.light {
+            --bg-page: #f5f2ef;
+            --surface: rgba(245, 240, 235, 0.8);
+            --text-primary: #1f1c19;
+            --text-secondary: #5a524a;
+            --accent: #e0863a;
+            --border-light: rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            transition: background 0.3s ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 静态背景氛围 */
+        .bg-ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(224,134,58,0.08), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 主内容区（顶部介绍部分） */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 导航栏 - 无圆角，顶层 */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.8rem 1.8rem;
+            background: rgba(15, 14, 12, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            width: 100%;
+        }
+        body.light .navbar {
+            background: rgba(245, 240, 235, 0.85);
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(125deg, var(--text-primary), var(--accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        .theme-switch-nav {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 1.2rem;
+            padding: 0 0.2rem;
+            transition: transform 0.2s;
+        }
+        .theme-switch-nav:hover {
+            transform: scale(1.05);
+        }
+
+        /* 两栏简介布局 */
+        .two-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .info-card {
+            flex: 1;
+            min-width: 260px;
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border-radius: var(--card-radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: transform 0.2s;
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+        .avatar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .avatar-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent), #9f4a1a);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-icon i {
+            font-size: 1.8rem;
+            color: #fff2e2;
+        }
+        .name h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .name .title {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        .bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            border-left: 2px solid var(--accent);
+            padding-left: 0.8rem;
+        }
+        .section {
+            margin-bottom: 1.2rem;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tag {
+            background: rgba(224, 134, 58, 0.12);
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            border: 0.5px solid rgba(224, 134, 58, 0.3);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+        }
+        .contact-item i {
+            width: 24px;
+            color: var(--accent);
+        }
+        .social {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+        .social-link {
+            width: 38px;
+            height: 38px;
+            background: rgba(224, 134, 58, 0.12);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-light);
+            color: var(--accent);
+            font-size: 1rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .social-link:hover {
+            background: var(--accent);
+            color: #1e120c;
+            transform: translateY(-2px);
+        }
+
+        /* ---------- 照片墙分区（铺满屏幕宽度，多行多列，无间隔，自动缓慢平移） ---------- */
+        .photo-wall-section {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 1.5rem 0 0;
+            padding: 0;
+            overflow: hidden;
+            background: transparent;
+        }
+        /* 暗角效果 */
+        .photo-wall-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.45) 100%);
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.3);
+        }
+
+        /* 滚动容器：溢出隐藏，鼠标可拖拽暂停 */
+        .wall-scroll {
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
+            cursor: grab;
+            user-select: none;
+        }
+        .wall-scroll:active {
+            cursor: grabbing;
+        }
+
+        /* 多列布局核心：使用 column-count 实现多行多列瀑布墙 */
+        .wall-track {
+            column-gap: 0;          /* 列之间无间隔 */
+            column-fill: auto;
+            break-inside: avoid;
+            width: max-content;
+            animation: slowPanLinear 100s linear infinite;
+            will-change: transform;
+        }
+        /* 鼠标悬浮时暂停移动 */
+        .photo-wall-section:hover .wall-track {
+            animation-play-state: paused;
+        }
+
+        /* 单个图片项：无任何卡片样式，内部图片自适应宽度 */
+        .wall-track .photo-item {
+            display: inline-block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            box-shadow: none;
+            line-height: 0;
+            break-inside: avoid;
+        }
+        .wall-track img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: #2a241e;    /* 占位色，避免加载闪烁 */
+            transition: filter 0.2s;
+        }
+        .wall-track img:hover {
+            filter: brightness(1.02);
+        }
+
+        /* 慢速水平平移动画（极缓移动，像墙在呼吸） */
+        @keyframes slowPanLinear {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* 底部脚注 */
+        .footer-note {
+            text-align: left;
+            max-width: 1400px;
+            margin: 2rem auto 1rem;
+            padding: 1rem 1.8rem 1.5rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ---------- 响应式：不同设备自动调整列数 ---------- */
+        /* 通过动态 column-count 实现自适应，移动端减少列数，保证可读性 */
+        @media (min-width: 1400px) {
+            .wall-track {
+                column-count: 8;
+            }
+        }
+        @media (max-width: 1399px) and (min-width: 1024px) {
+            .wall-track {
+                column-count: 6;
+            }
+        }
+        @media (max-width: 1023px) and (min-width: 768px) {
+            .wall-track {
+                column-count: 4;
+            }
+        }
+        @media (max-width: 767px) and (min-width: 480px) {
+            .wall-track {
+                column-count: 3;
+            }
+        }
+        @media (max-width: 479px) {
+            .wall-track {
+                column-count: 2;
+            }
+        }
+
+        /* 导航栏移动端适配 */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .navbar {
+                padding: 0.5rem 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .info-card {
+                padding: 1.2rem;
+            }
+            .avatar-icon {
+                width: 52px;
+                height: 52px;
+            }
+            .name h1 {
+                font-size: 1.5rem;
+            }
+        }
+        /* 高PPI优化 */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .wall-track img {
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-ambient"></div>
+
+<!-- 导航栏（无圆角，深色模式开关在右侧） -->
+<nav class="navbar">
+    <div class="logo">流光映像 · 林述光</div>
+    <div class="nav-links">
+        <a href="#">主页</a>
+        <a href="#">作品</a>
+        <a href="#">摄影</a>
+        <a href="#">关于</a>
+        <button class="theme-switch-nav" id="navThemeToggle" aria-label="切换主题">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="main-content">
+    <div class="two-col">
+        <div class="info-card">
+            <div class="avatar">
+                <div class="avatar-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="name">
+                    <h1>林述光</h1>
+                    <div class="title">暖域叙事 · 光之构筑师</div>
+                </div>
+            </div>
+            <div class="bio">
+                在数字与感知的交界，用光与色编织情绪的栖息地。每一束暖光，都是一段沉默而有力的对话。
+            </div>
+            <div class="section">
+                <div class="section-label">创作光谱</div>
+                <div class="tags">
+                    <span class="tag">沉浸式光域</span>
+                    <span class="tag">粒子美学</span>
+                    <span class="tag">生成艺术</span>
+                    <span class="tag">氛围交互</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-label">进行时</div>
+                <div class="tags">
+                    <span class="tag">《琥珀纪》文献</span>
+                    <span class="tag">动态光效装置</span>
+                    <span class="tag">AI 暖色调引擎</span>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i> <span>杭州 · 上海</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-globe"></i> <span>shuguang.space</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i> <span>hello@shuguang.space</span>
+            </div>
+            <div class="social">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="section-label" style="margin-bottom: 1rem;">✨ 正在创作</div>
+            <div class="bio" style="border-left-color: var(--accent); margin-bottom: 0;">
+                最新系列《琥珀色记忆》—— 用光影捕捉时间的温度，即将呈现。
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 多行多列自动照片墙（铺满屏幕宽度） -->
+<div class="photo-wall-section">
+    <div class="wall-scroll" id="wallScroll">
+        <div class="wall-track" id="wallTrack">
+            <!-- 图片由js动态生成（双倍内容实现无缝循环） -->
+        </div>
+    </div>
+</div>
+
+<div class="footer-note">
+    <i class="fas fa-feather-alt"></i> 光是暖的，慢下来才会看见形状。
+</div>
+
+<script>
+    // ---------- 图片池：不同比例，无边框，无卡片 ----------
+    // 使用不同比例的高质量图片，确保多列瀑布墙自然错落
+    const rawImages = [
+        { url: 'https://picsum.photos/id/104/500/750', w: 500, h: 750 },   // 竖向
+        { url: 'https://picsum.photos/id/106/800/600', w: 800, h: 600 },
+        { url: 'https://picsum.photos/id/107/600/900', w: 600, h: 900 },
+        { url: 'https://picsum.photos/id/116/700/500', w: 700, h: 500 },
+        { url: 'https://picsum.photos/id/119/600/600', w: 600, h: 600 },
+        { url: 'https://picsum.photos/id/127/650/850', w: 650, h: 850 },
+        { url: 'https://picsum.photos/id/155/900/600', w: 900, h: 600 },
+        { url: 'https://picsum.photos/id/169/480/720', w: 480, h: 720 },
+        { url: 'https://picsum.photos/id/186/750/500', w: 750, h: 500 },
+        { url: 'https://picsum.photos/id/200/600/800', w: 600, h: 800 },
+        { url: 'https://picsum.photos/id/201/700/700', w: 700, h: 700 },
+        { url: 'https://picsum.photos/id/203/850/550', w: 850, h: 550 },
+        { url: 'https://picsum.photos/id/210/580/780', w: 580, h: 780 },
+        { url: 'https://picsum.photos/id/215/620/620', w: 620, h: 620 },
+        { url: 'https://picsum.photos/id/219/720/480', w: 720, h: 480 },
+        { url: 'https://picsum.photos/id/225/680/900', w: 680, h: 900 },
+        { url: 'https://picsum.photos/id/238/800/800', w: 800, h: 800 },
+        { url: 'https://picsum.photos/id/239/550/820', w: 550, h: 820 }
+    ];
+
+    // 生成足够数量的图片（复制多份，保证滚动墙内容足够长），并随机排序
+    let allImages = [];
+    for (let i = 0; i < 6; i++) {  // 重复6遍增强长度
+        const shuffled = [...rawImages];
+        for (let j = shuffled.length - 1; j > 0; j--) {
+            const rand = Math.floor(Math.random() * (j + 1));
+            [shuffled[j], shuffled[rand]] = [shuffled[rand], shuffled[j]];
+        }
+        allImages = allImages.concat(shuffled);
+    }
+    // 最终随机打乱顺序，使不同尺寸交替出现
+    for (let i = allImages.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allImages[i], allImages[j]] = [allImages[j], allImages[i]];
+    }
+
+    // 构建双倍内容实现无缝无限滚动（因为动画移动距离为总宽度的一半）
+    const track = document.getElementById('wallTrack');
+    function buildWall(images) {
+        const doubleImages = [...images, ...images];
+        let html = '';
+        doubleImages.forEach(img => {
+            // 图片使用原始宽高比例，在CSS中宽度由容器决定（100%），高度自动
+            // 添加 loading="lazy" 优化性能
+            html += `<div class="photo-item">
+                        <img src="${img.url}" style="aspect-ratio: ${img.w} / ${img.h};" loading="lazy" alt="">
+                     </div>`;
+        });
+        track.innerHTML = html;
+    }
+    buildWall(allImages);
+
+    // 调整动画速度：根据屏幕宽度适当微调移动端速度，但整体已经较慢（100s缓慢平移）
+    // CSS 中已设置 100s，符合用户“稍微慢一丢丢”需求。
+
+    // 拖拽互动：鼠标/触摸可以暂停移动并手动拖动，感知更精致
+    const scrollContainer = document.getElementById('wallScroll');
+    let isDragging = false;
+    let startX = 0, startScrollLeft = 0;
+    let trackEl = document.querySelector('.wall-track');
+
+    if (scrollContainer && trackEl) {
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - scrollContainer.offsetLeft;
+            startScrollLeft = scrollContainer.scrollLeft;
+            scrollContainer.style.cursor = 'grabbing';
+            trackEl.style.animationPlayState = 'paused';  // 暂停移动
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.2;
+            scrollContainer.scrollLeft = startScrollLeft - walk;
+        });
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                scrollContainer.style.cursor = 'grab';
+                if (!scrollContainer.matches(':hover')) {
+                    trackEl.style.animationPlayState = 'running';
+                }
+            }
+        });
+        // 触摸事件
+        scrollContainer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX - scrollContainer.offsetLeft;
+            startScrollLeft = scrollContainer.scrollLeft;
+            trackEl.style.animationPlayState = 'paused';
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.2;
+            scrollContainer.scrollLeft = startScrollLeft - walk;
+        });
+        window.addEventListener('touchend', () => {
+            if (isDragging) {
+                isDragging = false;
+                if (!scrollContainer.matches(':hover')) {
+                    trackEl.style.animationPlayState = 'running';
+                }
+            }
+        });
+        // 鼠标离开容器时恢复自动移动（若无拖拽）
+        scrollContainer.addEventListener('mouseleave', () => {
+            if (!isDragging) {
+                trackEl.style.animationPlayState = 'running';
+            }
+        });
+    }
+
+    // 图片加载优化：为避免初次加载堆积请求，可设置懒加载已通过 loading="lazy" 实现
+    // 添加占位背景色，图片加载后覆盖
+
+    // 主题切换 (导航栏按钮)
+    const themeBtn = document.getElementById('navThemeToggle');
+    const body = document.body;
+    let isDark = true;
+    function setTheme(dark) {
+        if (dark) {
+            body.classList.remove('light');
+            themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('ui_theme', 'dark');
+        } else {
+            body.classList.add('light');
+            themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('ui_theme', 'light');
+        }
+    }
+    const savedTheme = localStorage.getItem('ui_theme');
+    if (savedTheme === 'light') setTheme(false);
+    else setTheme(true);
+    themeBtn.addEventListener('click', () => {
+        const isLight = body.classList.contains('light');
+        setTheme(isLight);
+    });
+
+    // 确保照片墙适应不同设备后的列数刷新（无额外操作，CSS媒体查询自动处理）
+    // 增加一小段处理，避免图片加载后布局抖动（重绘）
+    window.addEventListener('load', () => {
+        // 可触发一次轻微重绘，确保列宽准确
+        if (trackEl) {
+            trackEl.style.transform = 'translateX(0.01px)';
+            setTimeout(() => { trackEl.style.transform = ''; }, 50);
+        }
+    });
+</script>
+</body>
+</html>
+```
