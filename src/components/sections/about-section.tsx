@@ -26,13 +26,13 @@ export function AboutSection() {
                 {/* Avatar + greeting */}
                 <div className="mb-6 flex items-center gap-4">
                   <div className="relative shrink-0">
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent to-primary opacity-30 blur-md" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-primary opacity-30 blur-md" />
                     <img
                       src="/avatar.webp"
                       alt="qwq672 的头像"
                       width={64}
                       height={64}
-                      className="relative h-16 w-16 rounded-2xl border border-border/60 object-cover shadow-lg"
+                      className="relative h-16 w-16 rounded-full border border-border/60 object-cover shadow-lg"
                     />
                   </div>
                   <div>

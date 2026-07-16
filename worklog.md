@@ -186,3 +186,39 @@ Stage Summary:
 - 6张背景图随机切换 + 手动换图按钮
 - 主题切换动画顺滑（CSS过渡+AnimatePresence交叉淡入+预加载）
 - About 加入头像，新增资源分享区块
+
+---
+Task ID: v5 (5项修复)
+Agent: main
+Task: 移动端菜单溢出、主题切换性能、删刷新按钮、头像圆+导航栏+favicon、iPhone4战绩
+
+Work Log:
+- favicon: 用 avatar.jpg 生成 icon-48.webp + apple-touch-icon.png(180px)，layout 更新引用，删除旧 favicon.svg(namemc)
+- 导航栏 logo: "672"文字徽章 → 圆形头像图(avatar.webp)，rounded-full + overflow-hidden
+- About 头像: rounded-2xl → rounded-full，渐变光晕也改 rounded-full
+- 移动端全屏菜单修复:
+  - nav links 容器加 pt-24（让内容从导航栏下方开始）
+  - 加 overflow-y-auto + pb-8（7项过多时可滚动）
+  - 字号 text-2xl → text-xl，间距 gap-2 → gap-1.5，padding py-4 → py-3（7项更紧凑）
+  - footer hint 加 shrink-0 防止被挤
+  → 7项全部 inView:true，top:230~630 在844px视口内
+- 主题切换性能优化（15fps→流畅）:
+  1. CSS: 只过渡 body 的 background-color/color(0.3s)，移除 .glass/.theme-aware 的过渡（避免大量 backdrop-filter 元素同步重绘）
+  2. Hero 图片: 去掉 scale Ken Burns 动画(12s GPU重绘大户)，改纯 opacity 0.6s 交叉淡入 + willChange:opacity
+  3. ThemeToggle SVG: cx/cy 属性动画 → transform translate(GPU合成层)，加 willChange
+  → 控制台无 warning/error，3次连续切换流畅
+- 删除 Hero 刷新按钮（RefreshCw 图标 + refreshImage 逻辑）
+- 老设备折腾项加 iPhone4 战绩: "最近还把 iPhone 4（Rev A）从 iOS 7.1.2「完美」降级到了 iOS 6.1.3 并越狱成功！"
+
+自检结果:
+- favicon: icon-48.webp（头像）✓ 不再用 namemc
+- 导航栏头像: AVATAR ✓
+- About 头像: borderRadius 巨大值=完美圆形 ✓
+- 移动端菜单: 7项全部 inView:true，不被导航栏遮挡 ✓
+- 刷新按钮: REMOVED ✓
+- iPhone4: FOUND ✓
+- 主题切换3次: 控制台 CLEAN，页面 errors:[] ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 5项全部修复完成，等用户后续提供新 hero 图片（含移动端专用版）

@@ -161,12 +161,11 @@
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
-  /* Smooth, performant theme color transition — only colors, short duration,
-     avoids transitioning layout/transform properties. */
-  body,
-  .glass,
-  .theme-aware {
-    transition: background-color 0.45s ease, color 0.3s ease, border-color 0.4s ease;
+  /* Smooth, performant theme color transition — only transition the body
+     background (a single paint). Other elements use CSS variables and change
+     instantly, avoiding a storm of simultaneous repaints that causes jank. */
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   ::selection {
     background-color: var(--accent);

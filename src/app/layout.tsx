@@ -45,7 +45,8 @@ export const metadata: Metadata = {
   keywords: ["qwq672", "个人网站", "Minecraft", "LavaArcade", "老设备", "复古", "博客"],
   authors: [{ name: "qwq672" }],
   icons: {
-    icon: "/favicon.svg",
+    icon: "/icon-48.webp",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "qwq672 · 随笔与小破站",

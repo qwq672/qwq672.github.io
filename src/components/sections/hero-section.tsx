@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import { ChevronDown, RefreshCw } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const DAY_IMAGES = [
   "/bg/day/sunset-terrace.jpg",
@@ -19,7 +19,6 @@ const NIGHT_IMAGES = [
 function pickRandom<T>(pool: T[], avoid?: T): T {
   if (pool.length === 1) return pool[0];
   let next = pool[Math.floor(Math.random() * pool.length)];
-  // try to avoid repeating the same image
   for (let i = 0; i < 5 && next === avoid; i++) {
     next = pool[Math.floor(Math.random() * pool.length)];
   }
@@ -33,12 +32,9 @@ export function HeroSection() {
   const reduce = useReducedMotion();
 
   const showNight = mounted ? resolvedTheme === "dark" : true;
-  const pool = showNight ? NIGHT_IMAGES : DAY_IMAGES;
 
-  // Currently displayed image per theme (so switching back doesn't jump)
   const [dayImg, setDayImg] = React.useState(DAY_IMAGES[0]);
   const [nightImg, setNightImg] = React.useState(NIGHT_IMAGES[0]);
-  const [refreshing, setRefreshing] = React.useState(false);
 
   // Preload all images on mount
   React.useEffect(() => {
@@ -56,17 +52,6 @@ export function HeroSection() {
   }, [mounted]);
 
   const currentImg = showNight ? nightImg : dayImg;
-
-  // Manual refresh — pick a new random image from current theme's pool
-  const refreshImage = React.useCallback(() => {
-    setRefreshing(true);
-    if (showNight) {
-      setNightImg((prev) => pickRandom(NIGHT_IMAGES, prev));
-    } else {
-      setDayImg((prev) => pickRandom(DAY_IMAGES, prev));
-    }
-    setTimeout(() => setRefreshing(false), 500);
-  }, [showNight]);
 
   // When theme changes, pick a fresh random image from the new theme's pool
   const prevThemeRef = React.useRef(showNight);
@@ -88,25 +73,22 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Background image — single visible layer with AnimatePresence crossfade */}
+      {/* Background image — single visible layer, pure opacity crossfade (no
+          scale animation for performance). will-change: opacity hints the
+          browser to composite on the GPU. */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <AnimatePresence mode="sync">
+        <AnimatePresence>
           <motion.img
             key={currentImg}
             src={currentImg}
             alt=""
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
+            style={{ willChange: "opacity" }}
             initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              scale: reduce ? 1 : 1.06,
-            }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{
-              opacity: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-              scale: { duration: 12, ease: "easeOut" },
-            }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             fetchPriority="high"
           />
         </AnimatePresence>
@@ -123,18 +105,6 @@ export function HeroSection() {
           }}
         />
       </div>
-
-      {/* Manual image refresh button */}
-      <button
-        onClick={refreshImage}
-        aria-label="换张背景图"
-        title="换张背景图"
-        className="group absolute right-4 top-20 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground/70 backdrop-blur-md transition-all duration-300 hover:border-foreground/30 hover:text-foreground sm:top-24"
-      >
-        <RefreshCw
-          className={`h-4 w-4 transition-transform duration-500 ${refreshing ? "rotate-180" : ""}`}
-        />
-      </button>
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">

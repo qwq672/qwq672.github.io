@@ -114,7 +114,7 @@ export function SiteNavbar() {
               : "border-transparent bg-transparent"
           )}
         >
-          {/* Logo */}
+          {/* Logo — avatar image */}
           <button
             onClick={() => {
               setHidden(false);
@@ -124,8 +124,12 @@ export function SiteNavbar() {
             className="group flex items-center gap-2.5"
             aria-label="回到顶部"
           >
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-primary text-[0.7rem] font-bold text-primary-foreground shadow-lg shadow-accent/20 transition-transform duration-300 group-hover:scale-105">
-              672
+            <span className="relative h-8 w-8 overflow-hidden rounded-full border border-border/60 shadow-lg shadow-accent/10 transition-transform duration-300 group-hover:scale-105">
+              <img
+                src="/avatar.webp"
+                alt="qwq672"
+                className="h-full w-full object-cover"
+              />
             </span>
             <span className="font-display text-[0.95rem] font-semibold tracking-tight text-foreground">
               qwq672
@@ -172,7 +176,7 @@ export function SiteNavbar() {
         </nav>
       </motion.header>
 
-      {/* Full-screen mobile menu */}
+      {/* Full-screen mobile menu — z-45, below navbar(z-50) so X stays clickable */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -199,8 +203,8 @@ export function SiteNavbar() {
               <div className="absolute right-[-10%] bottom-[10%] h-[35vh] w-[35vh] rounded-full bg-primary/15 blur-[100px]" />
             </div>
 
-            {/* nav links */}
-            <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-2 px-8">
+            {/* nav links — scrollable, padded below navbar */}
+            <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-1.5 overflow-y-auto px-6 pb-8 pt-24">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
@@ -210,17 +214,17 @@ export function SiteNavbar() {
                   exit={{ opacity: 0, y: 12 }}
                   transition={{
                     duration: reduce ? 0 : 0.4,
-                    delay: reduce ? 0 : 0.1 + i * 0.06,
+                    delay: reduce ? 0 : 0.1 + i * 0.05,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className={cn(
-                    "group relative flex w-full max-w-xs items-center justify-between rounded-2xl px-6 py-4 text-left transition-colors",
+                    "group relative flex w-full max-w-xs items-center justify-between rounded-2xl px-5 py-3 text-left transition-colors",
                     active === link.href
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  <span className="font-display text-2xl font-semibold tracking-tight">
+                  <span className="font-display text-xl font-semibold tracking-tight">
                     {link.label}
                   </span>
                   <span
@@ -248,7 +252,7 @@ export function SiteNavbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ delay: reduce ? 0 : 0.4, duration: reduce ? 0 : 0.4 }}
-              className="relative z-10 px-8 pb-10 text-center text-xs text-muted-foreground"
+              className="relative z-10 shrink-0 px-8 pb-8 text-center text-xs text-muted-foreground"
             >
               点按任意项跳转 · 或按 Esc 关闭
             </motion.div>

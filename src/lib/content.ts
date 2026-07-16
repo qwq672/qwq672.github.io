@@ -25,7 +25,7 @@ export const interests: Interest[] = [
   {
     icon: Smartphone,
     title: "老设备折腾",
-    desc: "iPod touch 4、安卓 4.2 的古董机……越狱、root、装老游戏，折腾老设备本身比用它们还有意思。",
+    desc: "iPod touch 4、安卓 4.2 的古董机……最近还把 iPhone 4（Rev A）从 iOS 7.1.2「完美」降级到了 iOS 6.1.3 并越狱成功！越狱、root、装老游戏，折腾本身比用它们还有意思。",
     accent: "from-rose-500/20 to-amber-500/10",
   },
   {
