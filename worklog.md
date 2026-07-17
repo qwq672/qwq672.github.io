@@ -342,3 +342,30 @@ Work Log:
 
 Stage Summary:
 - 9项全部完成, 导航居中毛玻璃、照片墙限高随机暗角、Hero预加载、头像替换、博客分页、文章上下篇导航
+
+---
+Task ID: v9 (照片墙铺满 + Hero刷新换图 + 清理)
+Agent: main
+Task: 照片墙铺满多行多列、高度改7/6、Hero刷新随机换图、删除文档提示语
+
+Work Log:
+- 照片墙铺满修复:
+  - 根因: column-fill:auto 在限高容器里只填满第一列就显示一行
+  - 改为 column-fill:balance + height:100%(继承父容器), 图片在所有限高内均衡分布到所有列
+  - 高度: calc(100vh + 12.5vh) → calc(100vh * 7 / 6) = 1.167vh
+  - 验证: 桌面1050/900=1.167, 移动985/844=1.167, 6列多行铺满 ✓
+- Hero 刷新同图修复:
+  - 根因: pickedDay/pickedNight 存在 sessionStorage, 刷新后 sessionStorage 不清除, 读取的还是上次的图
+  - 改为模块级变量(pickedDay/pickedNight), 每次刷新页面重新执行模块 = 重新选图
+  - sessionStorage 只保留 __intro_seen 标志(控制是否显示intro动画)
+  - 验证: 桌面3次刷新3张不同夜间图 ✓, 移动端加载移动版竖图 ✓
+- 删除项目区"LavaArcade 有专门文档，往下翻翻就能看到 awa" + 清理未用 Reveal import
+
+自检结果:
+- 照片墙: 桌面6列多行铺满, 移动2列, 高度1.167vh, 无溢出 ✓
+- Hero: 桌面刷新3次3张不同图 ✓, 移动端加载竖版图 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 照片墙铺满多行多列(7/6高度), Hero刷新每次随机换图, 清理文档提示

@@ -13,17 +13,15 @@ interface PhotoItem {
 
 /**
  * Shuffle but avoid placing same-ratio items next to each other.
- * Ratios are bucketed to 1 decimal place so "similar enough" counts as same.
+ * Ratios are bucketed (0.5 steps) so "similar enough" counts as same.
  */
 function smartShuffle<T extends { ratio: number }>(arr: T[]): T[] {
-  const bucket = (r: number) => Math.round(r * 2) / 2; // 0.5 steps
+  const bucket = (r: number) => Math.round(r * 2) / 2;
   const pool = [...arr];
-  // initial random shuffle
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  // rearrange: if a neighbor has the same bucket, swap with next different
   const result: T[] = [];
   const used = new Set<number>();
   let lastBucket = -1;
@@ -37,7 +35,6 @@ function smartShuffle<T extends { ratio: number }>(arr: T[]): T[] {
         break;
       }
     }
-    // if all remaining have same bucket, just take the first
     if (picked === -1) {
       for (let i = 0; i < pool.length; i++) {
         if (!used.has(i)) {
@@ -75,12 +72,6 @@ export function PhotoWallSection() {
     };
   }, []);
 
-  // Re-shuffle on manual refresh (triggered by section heading click)
-  const reshuffle = React.useCallback(() => {
-    setPhotos((prev) => smartShuffle(prev));
-    setLoaded(new Set());
-  }, []);
-
   const onImgLoad = (i: number) => {
     setLoaded((prev) => new Set(prev).add(i));
   };
@@ -99,9 +90,9 @@ export function PhotoWallSection() {
         />
       </div>
 
-      {/* Full-width masonry wall with fixed height (100vh + 12.5vh = 112.5vh).
-          Overflow hidden so it's a window into the wall. Vignette overlay
-          adds a cinematic, story-like feel. */}
+      {/* Full-width masonry wall with fixed height = 100vh * 7/6.
+          column-fill: balance distributes images across all columns evenly
+          so the wall fills multi-row, multi-col within the height limit. */}
       <div className="mt-12 w-full">
         {photos.length === 0 ? (
           <div className="mx-auto flex max-w-5xl items-center justify-center px-6">
@@ -113,7 +104,7 @@ export function PhotoWallSection() {
         ) : (
           <div
             className="relative w-full overflow-hidden"
-            style={{ height: "calc(100vh + 12.5vh)" }}
+            style={{ height: "calc(100vh * 7 / 6)" }}
           >
             {/* Masonry wall */}
             <div className="masonry-wall">
@@ -141,7 +132,7 @@ export function PhotoWallSection() {
               ))}
             </div>
 
-            {/* Cinematic vignette — top + bottom fade, plus radial darkening */}
+            {/* Cinematic vignette */}
             <div
               className="pointer-events-none absolute inset-0"
               style={{
@@ -158,7 +149,10 @@ export function PhotoWallSection() {
       <style>{`
         .masonry-wall {
           column-gap: 0;
-          column-fill: auto;
+          column-fill: balance;
+          /* The wall height = parent height; balance fills all columns
+             evenly within this height, producing multi-row layout. */
+          height: 100%;
         }
         .masonry-item {
           break-inside: avoid;

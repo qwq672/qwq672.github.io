@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Reveal, SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
+import { SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
 import { projects } from "@/lib/content";
 import { ProjectLogo } from "@/components/project-logo";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
@@ -96,12 +96,6 @@ export function ProjectsSection() {
             </motion.article>
           ))}
         </motion.div>
-
-        <Reveal delay={0.1}>
-          <p className="mt-8 text-center text-sm text-muted-foreground">
-            LavaArcade 有专门文档，往下翻翻就能看到 awa
-          </p>
-        </Reveal>
       </div>
     </section>
   );

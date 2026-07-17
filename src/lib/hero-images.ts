@@ -2,6 +2,10 @@
  * Shared hero image selection. PageIntro preloads one day + one night
  * image, stores them, and HeroSection reads them as initial images.
  * This ensures the page only reveals after the hero images are ready.
+ *
+ * IMPORTANT: picked images live in module-level variables (not sessionStorage
+ * for the image src) so that a browser refresh always picks fresh random
+ * images. sessionStorage is only used for the "intro seen" flag.
  */
 
 const DAY_DESKTOP = [
@@ -75,25 +79,20 @@ export function preloadOne(src: string): Promise<void> {
   });
 }
 
-const DAY_KEY = "__hero_day_img";
-const NIGHT_KEY = "__hero_night_img";
+// Module-level storage for picked images. A fresh page load (including
+// browser refresh) re-runs the module so these reset, giving a new random
+// pick every refresh.
+let pickedDay: string | null = null;
+let pickedNight: string | null = null;
 
 /** Pick + store initial images (called by PageIntro before reveal). */
 export function pickInitialImages(isMobile: boolean) {
-  const day = pickRandom(getDayPool(isMobile));
-  const night = pickRandom(getNightPool(isMobile));
-  if (typeof window !== "undefined") {
-    sessionStorage.setItem(DAY_KEY, day);
-    sessionStorage.setItem(NIGHT_KEY, night);
-  }
-  return { day, night };
+  pickedDay = pickRandom(getDayPool(isMobile));
+  pickedNight = pickRandom(getNightPool(isMobile));
+  return { day: pickedDay, night: pickedNight };
 }
 
 /** Read stored initial images (called by HeroSection). */
 export function getStoredImages(): { day: string | null; night: string | null } {
-  if (typeof window === "undefined") return { day: null, night: null };
-  return {
-    day: sessionStorage.getItem(DAY_KEY),
-    night: sessionStorage.getItem(NIGHT_KEY),
-  };
+  return { day: pickedDay, night: pickedNight };
 }
