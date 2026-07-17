@@ -369,3 +369,32 @@ Work Log:
 
 Stage Summary:
 - 照片墙铺满多行多列(7/6高度), Hero刷新每次随机换图, 清理文档提示
+
+---
+Task ID: v10 (照片墙无缝铺满 + 导航毛玻璃增强)
+Agent: main
+Task: 照片墙CSS Grid零缝隙铺满+取中间片段，导航栏毛玻璃增强
+
+Work Log:
+- 照片墙零缝隙修复:
+  - 根因: CSS columns 的 column-fill 无法保证每列底部对齐, 会有缝隙
+  - 改用 CSS Grid: grid-template-columns: repeat(N,1fr) + grid-auto-rows: 8px + grid-auto-flow: row dense
+  - 每张图按宽高比计算 grid-row span = round(colWidth / ratio / ROW_HEIGHT), 整数行跨越 = 零缝隙
+  - ResizeObserver 测量容器宽度动态计算列数和列宽
+  - 图片 object-fit:cover 填满每个 grid cell, background:transparent 无占位色
+  - 重复2x(66张) + top:-15%/height:130% 取中间片段
+  - 暗角减弱: radial transparent 60%→28%, 顶底渐变缩短减弱
+  - 验证: 66图全部加载, 无空grid cell, VLM确认"seamlessly no gaps" ✓
+- 导航栏毛玻璃增强:
+  - --glass 亮色 0.72→0.8, 深色 0.6→0.72 (更不透明更明显)
+  - --glass-border 透明度 0.08→0.1
+  - blur 20px→24px, saturate 160%→180%
+  - 验证: VLM确认"frosted/glass blurred background" ✓
+
+自检结果:
+- 照片墙: 6列多行零缝隙铺满, 暗角柔和, 移动端2列无溢出 ✓
+- 导航栏: 毛玻璃模糊背景可见 ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 照片墙用CSS Grid dense填充实现真正零缝隙, 导航栏毛玻璃增强
