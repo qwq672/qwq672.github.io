@@ -184,8 +184,8 @@ export const navLinks = [
   { href: "#about", label: "关于" },
   { href: "#interests", label: "兴趣" },
   { href: "#projects", label: "项目" },
-  { href: "#docs", label: "文档" },
   { href: "#blog", label: "随笔" },
+  { href: "#gallery", label: "照片墙" },
   { href: "#resources", label: "资源" },
   { href: "#contact", label: "联系" },
 ] as const;

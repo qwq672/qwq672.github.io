@@ -11,6 +11,7 @@ import {
   Loader2,
   Search,
   X,
+  ChevronDown,
 } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/motion-helpers";
 import { shortDate } from "@/lib/format";
@@ -65,6 +66,16 @@ export function BlogSection() {
       );
     });
   }, [posts, query, activeCat]);
+
+  // Pagination — show 6 initially, "load more" reveals the rest.
+  // Reset when filters/search change.
+  const PAGE_SIZE = 6;
+  const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
+  React.useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query, activeCat]);
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <section
@@ -189,7 +200,7 @@ export function BlogSection() {
             }}
             className="mt-8 space-y-3"
           >
-            {filtered.map((post) => (
+            {visible.map((post) => (
               <motion.li
                 key={post.slug}
                 variants={{
@@ -257,6 +268,22 @@ export function BlogSection() {
               </motion.li>
             ))}
           </motion.ul>
+        )}
+
+        {/* Load more */}
+        {hasMore && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+              className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
+            >
+              加载更多
+              <span className="text-xs text-muted-foreground">
+                （还剩 {filtered.length - visibleCount} 篇）
+              </span>
+              <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+            </button>
+          </div>
         )}
       </div>
     </section>

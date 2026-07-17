@@ -5,8 +5,8 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
 import { InterestsSection } from "@/components/sections/interests-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
-import { DocsSection } from "@/components/sections/docs-section";
 import { BlogSection } from "@/components/sections/blog-section";
+import { PhotoWallSection } from "@/components/sections/photo-wall-section";
 import { ResourcesSection } from "@/components/sections/resources-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { SiteFooter } from "@/components/site-footer";
@@ -33,8 +33,8 @@ export default function Home() {
         <AboutSection />
         <InterestsSection />
         <ProjectsSection />
-        <DocsSection />
         <BlogSection />
+        <PhotoWallSection />
         <ResourcesSection />
         <ContactSection />
       </main>

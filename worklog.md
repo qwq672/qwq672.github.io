@@ -254,3 +254,43 @@ Work Log:
 
 Stage Summary:
 - 24张新hero图接入(桌面横版+移动竖版)，文字模糊背景已修复
+
+---
+Task ID: v7 (照片墙 + 导航对齐 + 图标 + 博客分页)
+Agent: main
+Task: 照片墙板块、导航栏对齐修复、文档暂删、博客加载更多、Teams/FontAwesome图标
+
+Work Log:
+- 解压 photo.zip 33张照片，用 sharp 压缩(600px宽, ~21KB/张, 共0.7MB)
+- 照片墙板块 PhotoWallSection:
+  - CSS columns 瀑布流, column-gap:0 + break-inside:avoid 实现无缝隙
+  - 响应式列数: 6/5/4/3/2 (xl/lg/md/sm/xs)
+  - 渐进式淡入: 图片加载完成后 opacity 0→1 + scale 1.03→1, staggered delay
+  - 全宽布局(脱离 max-w 容器), 无卡片/边框/遮罩
+  - API /api/photos 返回排序后的图片URL列表
+- 导航栏对齐修复:
+  - 原 justify-between 导致左右宽度不均时导航链接偏移
+  - 改为三等分 flex-1: 左(logo) + 中(nav links justify-center) + 右(actions justify-end)
+  - 验证: navCenter=720, linksCenter=720, offset=0 完美居中
+- 项目文档板块暂时移除(page + navLinks), 文件保留待恢复
+- 博客加载更多分页:
+  - PAGE_SIZE=6, visibleCount 状态, filtered.slice(0,visibleCount)
+  - 搜索/分类变化时自动重置到6篇
+  - "加载更多（还剩N篇）"按钮, 点击 +6
+- 社交图标:
+  - TeamsIcon 自定义SVG组件(用户提供的path, fill=currentColor)
+  - react-icons/fa6: FaGithub, FaBilibili, FaEnvelope 替换原 lucide 图标
+  - 联系区5个卡片图标全部更新
+
+自检结果:
+- 照片墙: 33张图, columnGap=0px, 无缝隙, 移动端2列桌面6列 ✓
+- 导航栏: offset=0 完美居中 ✓
+- 博客: 6篇可见, "加载更多（还剩2篇）"按钮显示 ✓
+- 联系区: GitHub/Bilibili/Email/Teams 图标全部正常 ✓
+- 移动端菜单: 7项全部 allVisible:true ✓
+- 移动端照片墙: 无溢出 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 照片墙无缝隙瀑布流上线, 导航栏居中修复, 文档暂删, 博客加载更多, 社交图标用FontAwesome+Teams自定义SVG
