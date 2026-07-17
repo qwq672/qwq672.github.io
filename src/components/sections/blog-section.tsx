@@ -30,7 +30,7 @@ export function BlogSection() {
 
   React.useEffect(() => {
     let cancelled = false;
-    fetch("/api/posts")
+    fetch("/data/posts.json")
       .then((r) => r.json())
       .then((data: { posts: PostMeta[] }) => {
         if (!cancelled) setPosts(data.posts ?? []);

@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# 静态导出生成的数据文件（构建时由 scripts/generate-static-data.mjs 生成）
+/public/data/
+
 
 # typescript
 *.tsbuildinfo

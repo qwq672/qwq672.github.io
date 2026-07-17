@@ -19,7 +19,7 @@ export function DocsSection() {
   // Load all doc sets (project switcher + TOCs come in one request)
   React.useEffect(() => {
     let cancelled = false;
-    fetch("/api/doc-sets")
+    fetch("/data/doc-sets.json")
       .then((r) => r.json())
       .then((data: { sets: DocSetMeta[] }) => {
         if (cancelled) return;
@@ -44,7 +44,7 @@ export function DocsSection() {
     let cancelled = false;
     setLoadingDoc(true);
     setDoc(null);
-    fetch(`/api/docs/${encodeURIComponent(activeProject)}/${encodeURIComponent(activeSlug)}`)
+    fetch(`/data/docs/${encodeURIComponent(activeProject)}/${encodeURIComponent(activeSlug)}.json`)
       .then((r) => r.json())
       .then((data: { doc: Doc }) => {
         if (!cancelled) setDoc(data.doc);

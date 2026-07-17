@@ -70,7 +70,7 @@ export function PhotoWallSection() {
 
   React.useEffect(() => {
     let cancelled = false;
-    fetch("/api/photos")
+    fetch("/data/photos.json")
       .then((r) => r.json())
       .then((data: { photos: PhotoItem[] }) => {
         if (cancelled) return;
