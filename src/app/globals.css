@@ -88,8 +88,8 @@
 
   /* custom tokens */
   --glow: oklch(0.7 0.14 50 / 0.18);
-  --glass: oklch(0.99 0.005 75 / 0.72);
-  --glass-border: oklch(0.4 0.02 50 / 0.08);
+  --glass: oklch(0.99 0.005 75 / 0.8);
+  --glass-border: oklch(0.4 0.02 50 / 0.1);
   --hero-overlay: oklch(0.98 0.008 75 / 0.55);
 }
 
@@ -132,8 +132,8 @@
   --sidebar-ring: oklch(0.62 0.13 52);
 
   --glow: oklch(0.75 0.16 55 / 0.22);
-  --glass: oklch(0.18 0.018 265 / 0.6);
-  --glass-border: oklch(1 0 0 / 0.08);
+  --glass: oklch(0.18 0.018 265 / 0.72);
+  --glass-border: oklch(1 0 0 / 0.1);
   --hero-overlay: oklch(0.14 0.02 265 / 0.5);
 }
 
@@ -218,8 +218,8 @@
 /* ============ Utility classes ============ */
 .glass {
   background-color: var(--glass);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
 }
 .text-gradient {
