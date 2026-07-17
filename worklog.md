@@ -294,3 +294,51 @@ Work Log:
 
 Stage Summary:
 - 照片墙无缝隙瀑布流上线, 导航栏居中修复, 文档暂删, 博客加载更多, 社交图标用FontAwesome+Teams自定义SVG
+
+---
+Task ID: v8 (9项综合优化)
+Agent: main
+Task: 导航横向居中毛玻璃、照片墙限高随机暗角、Hero预加载、头像替换、博客分页、文章上下篇、全局优化
+
+Work Log:
+- 导航栏:
+  - 电脑端改回横向: 用 absolute left-1/2 -translate-x-1/2 让导航链接真正紧凑居中(不再三等分撑开)
+  - 始终启用 glass 毛玻璃(不再只在滚动时), scrolled 只控制阴影
+  - 验证: navCenter=720, linksCenter=720, offset=0
+- 照片墙:
+  - API 用 sharp 读取每张图尺寸返回 w/h/ratio
+  - 客户端 smartShuffle: 按比例分桶(0.5步进), 避免相邻同尺寸
+  - 高度限制: calc(100vh + 12.5vh) = 112.5vh, overflow hidden
+  - 暗角: radial-gradient 中心透明边缘暗 + 顶底渐变 fade
+  - 图片 filter: saturate(0.92) contrast(1.03), hover 提亮
+  - 随机排序(每次加载smartShuffle)
+- Hero 预加载:
+  - 新建 lib/hero-images.ts 共享模块: 选图/预加载/存储
+  - PageIntro: 随机选日间+夜间各一张, Promise.all等两张加载完(4s超时)才消失
+  - 选中的图存 sessionStorage, HeroSection 读取作为初始图
+  - 进度条动画 + "loading" 文字
+- 头像替换:
+  - 页脚 "672"文字徽章 → 圆形头像
+  - 文章页顶栏 "672" → 圆形头像
+  - 文章页加作者行: 头像 + 名字 + 日期阅读时长
+- 博客分页:
+  - "加载更多" → 页码导航(1 2 ... N + 上一页/下一页按钮)
+  - PAGE_SIZE=6, 紧凑页码(首尾+当前±1+省略号)
+  - 搜索/分类变化重置到第1页
+- 文章页上下篇:
+  - getAllPosts 找当前文章索引, prev=更新一篇 next=更旧一篇
+  - 双栏卡片(上一篇左对齐/下一篇右对齐), hover高亮
+- 全局优化: 移除未使用eslint-disable, 性能保持
+
+自检结果:
+- 导航栏: offset=0 完美居中 ✓
+- 照片墙: 1013px/900px=1.126≈112.5vh ✓, 移动端2列无缝隙 ✓
+- 博客: 6篇可见 + 页码1/2 ✓
+- 文章页: 上下篇导航(2链接) + 头像 ✓
+- Hero: 预加载等待后才显示 ✓
+- 移动端: 无溢出 ✓
+- 控制台: CLEAN, errors:[] ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 9项全部完成, 导航居中毛玻璃、照片墙限高随机暗角、Hero预加载、头像替换、博客分页、文章上下篇导航

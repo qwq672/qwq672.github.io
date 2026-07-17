@@ -11,7 +11,8 @@ import {
   Loader2,
   Search,
   X,
-  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/motion-helpers";
 import { shortDate } from "@/lib/format";
@@ -67,15 +68,40 @@ export function BlogSection() {
     });
   }, [posts, query, activeCat]);
 
-  // Pagination — show 6 initially, "load more" reveals the rest.
-  // Reset when filters/search change.
+  // Pagination — page numbers.
   const PAGE_SIZE = 6;
-  const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
+  const [page, setPage] = React.useState(1);
   React.useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
+    setPage(1);
   }, [query, activeCat]);
-  const visible = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const visible = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  // Page numbers to display (compact: first, last, current ±1, ellipsis)
+  const pageNumbers = React.useMemo(() => {
+    const nums: (number | "...")[] = [];
+    const add = (n: number | "...") => nums.push(n);
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) add(i);
+    } else {
+      add(1);
+      if (currentPage > 3) add("...");
+      for (
+        let i = Math.max(2, currentPage - 1);
+        i <= Math.min(totalPages - 1, currentPage + 1);
+        i++
+      ) {
+        add(i);
+      }
+      if (currentPage < totalPages - 2) add("...");
+      add(totalPages);
+    }
+    return nums;
+  }, [currentPage, totalPages]);
 
   return (
     <section
@@ -270,18 +296,72 @@ export function BlogSection() {
           </motion.ul>
         )}
 
-        {/* Load more */}
-        {hasMore && (
-          <div className="mt-6 flex justify-center">
+        {/* Page navigation */}
+        {totalPages > 1 && (
+          <div className="mt-8 flex items-center justify-center gap-1.5">
+            {/* Prev */}
             <button
-              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-              className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
+              onClick={() => {
+                setPage((p) => Math.max(1, p - 1));
+                document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              disabled={currentPage <= 1}
+              aria-label="上一页"
+              className={cn(
+                "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-all",
+                currentPage <= 1
+                  ? "cursor-not-allowed border-border/30 text-muted-foreground/30"
+                  : "border-border/60 text-muted-foreground hover:border-accent/40 hover:text-accent"
+              )}
             >
-              加载更多
-              <span className="text-xs text-muted-foreground">
-                （还剩 {filtered.length - visibleCount} 篇）
-              </span>
-              <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            {/* Page numbers */}
+            {pageNumbers.map((n, i) =>
+              n === "..." ? (
+                <span
+                  key={`ellipsis-${i}`}
+                  className="px-1 text-sm text-muted-foreground"
+                >
+                  …
+                </span>
+              ) : (
+                <button
+                  key={n}
+                  onClick={() => {
+                    setPage(n);
+                    document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  aria-label={`第 ${n} 页`}
+                  className={cn(
+                    "inline-flex h-9 min-w-9 items-center justify-center rounded-full border px-2 text-sm font-medium transition-all",
+                    n === currentPage
+                      ? "border-accent/40 bg-accent/15 text-accent"
+                      : "border-border/60 text-muted-foreground hover:border-accent/40 hover:text-foreground"
+                  )}
+                >
+                  {n}
+                </button>
+              )
+            )}
+
+            {/* Next */}
+            <button
+              onClick={() => {
+                setPage((p) => Math.min(totalPages, p + 1));
+                document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              disabled={currentPage >= totalPages}
+              aria-label="下一页"
+              className={cn(
+                "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-all",
+                currentPage >= totalPages
+                  ? "cursor-not-allowed border-border/30 text-muted-foreground/30"
+                  : "border-border/60 text-muted-foreground hover:border-accent/40 hover:text-accent"
+              )}
+            >
+              <ChevronRight className="h-4 w-4" />
             </button>
           </div>
         )}

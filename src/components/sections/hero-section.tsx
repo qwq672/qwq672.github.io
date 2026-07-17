@@ -4,52 +4,12 @@ import * as React from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { ChevronDown } from "lucide-react";
-
-/**
- * Image pools. Desktop images are 1920x1080 landscape, mobile are 800x1400
- * portrait. The right pool is chosen by viewport width.
- */
-const DAY_DESKTOP = [
-  "/bg/day/1764535480103.jpg",
-  "/bg/day/20251212125216.jpg",
-  "/bg/day/IMG_20260712_022434.jpg",
-  "/bg/day/IMG_20260712_022557.jpg",
-  "/bg/day/IMG_20260712_022635.jpg",
-  "/bg/day/IMG_20260717_034250.jpg",
-  "/bg/day/bbcc0e10bce0600208eae76d56175c25620521548.jpg",
-];
-const DAY_MOBILE = [
-  "/bg/day-mobile/IMG_20260717_033901.jpg",
-  "/bg/day-mobile/IMG_20260717_033954.jpg",
-  "/bg/day-mobile/IMG_20260717_034107.jpg",
-  "/bg/day-mobile/IMG_20260717_034127.jpg",
-  "/bg/day-mobile/IMG_20260717_034422.jpg",
-  "/bg/day-mobile/IMG_20260717_034445.jpg",
-  "/bg/day-mobile/IMG_20260717_034513.jpg",
-  "/bg/day-mobile/IMG_20260717_034539.jpg",
-];
-const NIGHT_DESKTOP = [
-  "/bg/night/1765255232753.jpg",
-  "/bg/night/1781673941796.jpg",
-  "/bg/night/20251210211750.jpg",
-  "/bg/night/45691349_p0.jpg",
-  "/bg/night/IMG_20260717_034235.jpg",
-];
-const NIGHT_MOBILE = [
-  "/bg/night-mobile/IMG_20260717_033818.jpg",
-  "/bg/night-mobile/IMG_20260717_034216.jpg",
-  "/bg/night-mobile/IMG_20260717_034330_edit_111494215253924.jpg",
-  "/bg/night-mobile/IMG_20260717_034956.jpg",
-];
-
-function pickRandom<T>(pool: T[], avoid?: T): T {
-  if (pool.length === 1) return pool[0];
-  let next = pool[Math.floor(Math.random() * pool.length)];
-  for (let i = 0; i < 5 && next === avoid; i++) {
-    next = pool[Math.floor(Math.random() * pool.length)];
-  }
-  return next;
-}
+import {
+  getDayPool,
+  getNightPool,
+  pickRandom,
+  getStoredImages,
+} from "@/lib/hero-images";
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
@@ -69,28 +29,17 @@ export function HeroSection() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const dayPool = isMobile ? DAY_MOBILE : DAY_DESKTOP;
-  const nightPool = isMobile ? NIGHT_MOBILE : NIGHT_DESKTOP;
+  const dayPool = isMobile ? getDayPool(true) : getDayPool(false);
+  const nightPool = isMobile ? getNightPool(true) : getNightPool(false);
 
+  // Read pre-picked images from PageIntro (or pick fresh if not found)
   const [dayImg, setDayImg] = React.useState<string | null>(null);
   const [nightImg, setNightImg] = React.useState<string | null>(null);
-
-  // Preload all images on mount (both desktop & mobile so theme/viewport
-  // changes are instant)
   React.useEffect(() => {
-    [...DAY_DESKTOP, ...DAY_MOBILE, ...NIGHT_DESKTOP, ...NIGHT_MOBILE].forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
-
-  // (Re)pick a random image whenever pool changes (mount + viewport switch).
-  // Null until first pick so we don't flash the wrong pool.
-  React.useEffect(() => {
-    if (!mounted) return;
-    setNightImg((prev) => pickRandom(nightPool, prev ?? undefined));
-    setDayImg((prev) => pickRandom(dayPool, prev ?? undefined));
-  }, [mounted, isMobile]);
+    const stored = getStoredImages();
+    setDayImg(stored.day ?? pickRandom(dayPool));
+    setNightImg(stored.night ?? pickRandom(nightPool));
+  }, [isMobile]);
 
   const currentImg = showNight ? nightImg : dayImg;
 
@@ -101,12 +50,12 @@ export function HeroSection() {
     if (prevThemeRef.current !== showNight) {
       prevThemeRef.current = showNight;
       if (showNight) {
-        setNightImg((prev) => pickRandom(nightPool, prev));
+        setNightImg((prev) => pickRandom(nightPool, prev ?? undefined));
       } else {
-        setDayImg((prev) => pickRandom(dayPool, prev));
+        setDayImg((prev) => pickRandom(dayPool, prev ?? undefined));
       }
     }
-  }, [showNight, mounted, nightPool, dayPool]);
+  }, [showNight, mounted]);
 
   const scrollNext = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -114,8 +63,7 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Background image — pure opacity crossfade (GPU-composited).
-          Mobile uses portrait images, desktop uses landscape. */}
+      {/* Background image — pure opacity crossfade (GPU-composited). */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <AnimatePresence>
           {currentImg && (
@@ -135,10 +83,9 @@ export function HeroSection() {
           )}
         </AnimatePresence>
 
-        {/* Readability overlay — adapts to theme */}
+        {/* Readability overlay */}
         <div className="absolute inset-0 bg-background/35 dark:bg-background/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
-        {/* Subtle vignette */}
         <div
           className="absolute inset-0"
           style={{
@@ -148,8 +95,7 @@ export function HeroSection() {
         />
       </div>
 
-      {/* Content — removed backdrop-blur from the paragraph which caused the
-          weird blurry text background. Only the tag pill keeps a light blur. */}
+      {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
         <motion.span
           initial={{ opacity: 0, y: 16 }}
@@ -173,7 +119,6 @@ export function HeroSection() {
           <span className="text-gradient-animate">qwq672</span>
         </motion.h1>
 
-        {/* No backdrop-blur here — that was causing the blurry text background. */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

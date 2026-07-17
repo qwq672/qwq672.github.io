@@ -2,11 +2,19 @@
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import {
+  pickInitialImages,
+  preloadOne,
+  getDayPool,
+  getNightPool,
+  preloadAll,
+} from "@/lib/hero-images";
 
 /**
- * One-time page intro overlay.
- * A full-screen curtain with the "672" mark lifts up to reveal the page.
- * Runs only on first mount per session (sessionStorage guarded).
+ * Page intro overlay.
+ * Picks one day + one night hero image, waits for both to load (with a
+ * 4s timeout fallback), then reveals the page by sliding the curtain up.
+ * The picked images are stored so HeroSection uses them as initial images.
  */
 export function PageIntro() {
   const reduce = useReducedMotion();
@@ -18,11 +26,29 @@ export function PageIntro() {
       setShow(false);
       return;
     }
-  }, []);
 
-  const finish = React.useCallback(() => {
-    sessionStorage.setItem("__intro_seen", "1");
-    setShow(false);
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      sessionStorage.setItem("__intro_seen", "1");
+      setShow(false);
+    };
+
+    // Pick initial images based on viewport
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const { day, night } = pickInitialImages(isMobile);
+
+    // Preload both picked images + all others (for later switches)
+    preloadAll();
+    Promise.race([
+      Promise.all([preloadOne(day), preloadOne(night)]),
+      new Promise<void>((r) => setTimeout(r, 4000)), // timeout fallback
+    ]).then(finish);
+
+    // Safety: force finish after 5s no matter what
+    const safety = setTimeout(finish, 5000);
+    return () => clearTimeout(safety);
   }, []);
 
   if (reduce) return null;
@@ -37,14 +63,14 @@ export function PageIntro() {
           exit={{ y: "-100%" }}
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
         >
-          <IntroMark onDone={finish} />
+          <IntroMark />
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
 
-function IntroMark({ onDone }: { onDone: () => void }) {
+function IntroMark() {
   const reduce = useReducedMotion();
   return (
     <div className="relative flex flex-col items-center">
@@ -69,7 +95,7 @@ function IntroMark({ onDone }: { onDone: () => void }) {
         />
       </motion.div>
 
-      {/* progress line */}
+      {/* Loading bar */}
       <motion.div
         className="mt-7 h-px overflow-hidden rounded-full bg-foreground/10"
         initial={{ width: 0 }}
@@ -81,9 +107,8 @@ function IntroMark({ onDone }: { onDone: () => void }) {
           initial={{ x: "-100%" }}
           animate={{ x: "100%" }}
           transition={{
-            duration: 0.9,
-            ease: [0.22, 1, 0.36, 1],
-            onComplete: onDone,
+            duration: 1.2,
+            ease: "easeInOut",
           }}
         />
       </motion.div>
@@ -94,7 +119,7 @@ function IntroMark({ onDone }: { onDone: () => void }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.25, duration: 0.5 }}
       >
-        qwq672
+        loading
       </motion.span>
     </div>
   );

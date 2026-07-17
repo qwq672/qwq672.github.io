@@ -22,7 +22,7 @@ export function SiteNavbar() {
 
     const update = () => {
       const y = window.scrollY;
-      setScrolled(y > 24);
+      setScrolled(y > 12);
 
       if (y > 200) {
         if (y > lastY + 6 && !open) {
@@ -108,38 +108,37 @@ export function SiteNavbar() {
       >
         <nav
           className={cn(
-            "flex w-full max-w-5xl items-center rounded-2xl border px-4 py-2.5 transition-all duration-500 sm:px-5",
+            "relative flex w-full max-w-5xl items-center justify-between rounded-2xl border px-4 py-2.5 transition-all duration-500 sm:px-5",
+            "glass border-border/50",
             scrolled
-              ? "glass border-border/50 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.25)]"
-              : "border-transparent bg-transparent"
+              ? "shadow-[0_8px_32px_-12px_rgba(0,0,0,0.25)]"
+              : "shadow-none"
           )}
         >
-          {/* Left — logo (flex-1 to balance center) */}
-          <div className="flex flex-1 items-center">
-            <button
-              onClick={() => {
-                setHidden(false);
-                setOpen(false);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              className="group flex items-center gap-2.5"
-              aria-label="回到顶部"
-            >
-              <span className="relative h-8 w-8 overflow-hidden rounded-full border border-border/60 shadow-lg shadow-accent/10 transition-transform duration-300 group-hover:scale-105">
-                <img
-                  src="/avatar.webp"
-                  alt="qwq672"
-                  className="h-full w-full object-cover"
-                />
-              </span>
-              <span className="font-display text-[0.95rem] font-semibold tracking-tight text-foreground">
-                qwq672
-              </span>
-            </button>
-          </div>
+          {/* Left — logo */}
+          <button
+            onClick={() => {
+              setHidden(false);
+              setOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="group relative z-10 flex items-center gap-2.5"
+            aria-label="回到顶部"
+          >
+            <span className="relative h-8 w-8 overflow-hidden rounded-full border border-border/60 shadow-lg shadow-accent/10 transition-transform duration-300 group-hover:scale-105">
+              <img
+                src="/avatar.webp"
+                alt="qwq672"
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <span className="font-display text-[0.95rem] font-semibold tracking-tight text-foreground">
+              qwq672
+            </span>
+          </button>
 
-          {/* Center — desktop nav links (flex-1, truly centered) */}
-          <div className="hidden flex-1 items-center justify-center gap-0.5 md:flex">
+          {/* Center — desktop nav links (absolute centered, compact) */}
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -163,8 +162,8 @@ export function SiteNavbar() {
             ))}
           </div>
 
-          {/* Right — actions (flex-1, right-aligned to balance center) */}
-          <div className="flex flex-1 items-center justify-end gap-2">
+          {/* Right — actions */}
+          <div className="relative z-10 flex items-center gap-2">
             <ThemeToggle />
             {/* Mobile menu button — morphs to X */}
             <button
@@ -179,7 +178,7 @@ export function SiteNavbar() {
         </nav>
       </motion.header>
 
-      {/* Full-screen mobile menu — z-45, below navbar(z-50) so X stays clickable */}
+      {/* Full-screen mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
