@@ -398,3 +398,32 @@ Work Log:
 
 Stage Summary:
 - 照片墙用CSS Grid dense填充实现真正零缝隙, 导航栏毛玻璃增强
+
+---
+Task ID: v11 (原图不压缩 + 移动端地址栏露馅修复)
+Agent: main
+Task: 照片墙用原图不压缩、修复移动端地址栏隐藏时菜单露馅
+
+Work Log:
+- 照片墙原图:
+  - 重新从 photo.zip 复制33张原图(不经过sharp压缩)
+  - 新增 pic-0722.zip 的4张原图(34-37.jpg)直接复制
+  - 共37张原图, 总14MB, 保留用户原始质量
+- 移动端地址栏露馅修复:
+  - 根因: fixed inset-0 基于布局视口, 地址栏隐藏时视觉视口变化产生间隙, 半透明背景(95%)露出后面页面
+  - 移动端菜单: fixed inset-0 → fixed inset-x-0 top-0 h-[100dvh]
+    - dvh(动态视口高度)随地址栏实时变化, 菜单始终覆盖完整可见区域
+    - 背景 bg-background/95 → bg-background(完全不透明), 彻底杜绝透出
+    - 加 overscrollBehavior:none 防橡皮筋滚动
+  - PageIntro: 同样 fixed inset-0 → h-[100dvh]
+  - 照片墙: calc(100vh * 7/6) → calc(100dvh * 7/6)
+  - 全局 body: 加 overscroll-behavior-y: none 防移动端整体橡皮筋
+  - 自定义滚动条已是100dvh(无需改)
+
+自检结果:
+- 照片墙: 37张原图, 无缝铺满, 质量好 ✓
+- 移动端菜单: 完全不透明, 无背景透出 ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 照片墙用原图(37张), 移动端地址栏问题用dvh+不透明背景+overscroll-behavior修复

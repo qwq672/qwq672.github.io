@@ -58,7 +58,7 @@ export function PageIntro() {
       {show && (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-background"
+          className="fixed inset-x-0 top-0 z-[200] flex h-[100dvh] items-center justify-center bg-background"
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}

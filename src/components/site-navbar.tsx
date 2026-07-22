@@ -182,15 +182,17 @@ export function SiteNavbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col md:hidden"
+            className="fixed inset-x-0 top-0 z-40 flex h-[100dvh] flex-col overflow-hidden md:hidden"
+            style={{ overscrollBehavior: "none" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.3 }}
           >
-            {/* backdrop */}
+            {/* backdrop — fully opaque so the page behind never shows
+                through during address-bar show/hide transitions. */}
             <motion.div
-              className="absolute inset-0 bg-background/95 backdrop-blur-2xl"
+              className="absolute inset-0 bg-background backdrop-blur-2xl"
               initial={{ clipPath: "circle(0% at 100% 0%)" }}
               animate={{ clipPath: "circle(150% at 100% 0%)" }}
               exit={{ clipPath: "circle(0% at 100% 0%)" }}

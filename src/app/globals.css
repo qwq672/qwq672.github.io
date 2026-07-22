@@ -160,6 +160,9 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    /* Prevent mobile overscroll/rubber-banding from revealing gaps
+       behind fixed overlays during address-bar transitions. */
+    overscroll-behavior-y: none;
   }
   /* Smooth, performant theme color transition — only transition the body
      background (a single paint). Other elements use CSS variables and change

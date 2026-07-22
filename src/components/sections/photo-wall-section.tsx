@@ -153,7 +153,7 @@ export function PhotoWallSection() {
           <div
             ref={containerRef}
             className="relative w-full overflow-hidden"
-            style={{ height: "calc(100vh * 7 / 6)" }}
+            style={{ height: "calc(100dvh * 7 / 6)" }}
           >
             <div
               className="absolute inset-x-0"
