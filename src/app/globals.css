@@ -145,8 +145,9 @@
     /* Hide native scrollbar — we use a custom overlay scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
-    /* Prevent horizontal overflow from wide tables/images/etc. */
-    overflow-x: hidden;
+    /* Only clip horizontal overflow; vertical scroll stays native for
+       reliable touch scrolling on mobile. */
+    overflow-x: clip;
   }
   html::-webkit-scrollbar {
     width: 0;
@@ -159,10 +160,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    /* Prevent mobile overscroll/rubber-banding from revealing gaps
-       behind fixed overlays during address-bar transitions. */
-    overscroll-behavior-y: none;
+    overflow-x: clip;
+    /* Use clip (not hidden) so vertical touch scrolling is never blocked.
+       overscroll-behavior only applied to fixed overlays, not body. */
   }
   /* Smooth, performant theme color transition — only transition the body
      background (a single paint). Other elements use CSS variables and change

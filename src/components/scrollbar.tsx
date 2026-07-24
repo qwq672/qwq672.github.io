@@ -6,14 +6,18 @@ import * as React from "react";
  * Custom overlay scrollbar.
  * - Sits on top of content (trackless) so the page stays visually centered.
  * - Thumb is hidden by default, fades in while scrolling / hovering the rail.
- * - Draggable: click + drag the thumb to scroll the page.
- * - Falls back to native behaviour on reduced-motion / no-JS gracefully.
+ * - Draggable: click + drag the thumb to scroll the page (desktop only;
+ *   on touch devices we rely on native scrolling to avoid intercepting
+ *   touch events).
  */
 export function Scrollbar() {
   const railRef = React.useRef<HTMLDivElement>(null);
   const thumbRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    // Skip on touch / small screens — native scrolling is better there.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const rail = railRef.current;
     const thumb = thumbRef.current;
     if (!rail || !thumb) return;
@@ -68,12 +72,14 @@ export function Scrollbar() {
       }
     };
 
-    // Drag to scroll
+    // Drag to scroll (mouse only — pointer capture is fine here since we
+    // already bail out on coarse pointers above)
     let dragging = false;
     let startY = 0;
     let startScroll = 0;
 
     const onThumbDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       e.preventDefault();
       dragging = true;
       startY = e.clientY;
@@ -112,7 +118,6 @@ export function Scrollbar() {
     window.addEventListener("pointerup", onUp);
 
     updateThumb();
-    // Re-measure when fonts/images load
     const t1 = window.setTimeout(updateThumb, 600);
     const t2 = window.setTimeout(updateThumb, 1800);
     window.addEventListener("load", updateThumb);

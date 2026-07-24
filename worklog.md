@@ -460,3 +460,36 @@ Work Log:
 
 Stage Summary:
 - GitHub贡献热力图上线(项目与博客之间), 第38张青海湖照片加入照片墙
+
+---
+Task ID: v13 (滑动修复 + 部署检查 + 性能审查)
+Agent: main
+Task: 修复移动端滑动、检查部署问题、性能/UI审查
+
+Work Log:
+- 移动端滑动修复:
+  - 根因1: html+body 同时 overflow-x:hidden 会让部分移动浏览器把 overflow-y 也变 auto, 阻塞原生触摸滚动
+    → 改为 overflow-x: clip (不创建滚动容器, 不影响垂直滚动)
+  - 根因2: body 的 overscroll-behavior-y:none 可能干扰触摸弹性滚动
+    → 移除 body 上的, 只保留 fixed overlay 上需要时设
+  - 根因3: 自定义滚动条 Scrollbar 组件在移动端注册 pointerdown/pointermove, setPointerCapture 拦截触摸事件
+    → 加 (pointer: coarse) 检测, 触摸设备完全跳过自定义滚动条(用原生), onThumbDown 也过滤 touch pointerType
+- 部署检查:
+  - next.config.ts: output:standalone 正确, typescript.ignoreBuildErrors 已设(容错)
+  - prisma db.ts: log:['query'] 在生产会拖慢 → 改为 dev 才 ['error','warn'], prod 只 ['error']
+  - API 缓存: photos API 每次调 sharp 读33+张图元数据 → 加模块级 cache + revalidate 3600s
+- 性能/UI审查修复:
+  - 照片墙 76个 img 都设 willChange:opacity → 创建大量合成层 → 移除(只有动画时才需要)
+  - 滚动条 pointer 事件在 touch 设备跳过 → 不拦截原生滚动
+  - 所有区块滚动验证通过
+
+自检结果:
+- 桌面滚动: 0→500→1500→0 正常 ✓
+- 移动端滚动: 0→800→2500 正常 ✓
+- 无横向溢出 ✓
+- 控制台: CLEAN, errors:[] ✓
+- Lint: 0 error ✓
+- 所有9个区块可滚动到位 ✓
+
+Stage Summary:
+- 移动端滑动彻底修复(overflow clip + 触摸设备跳过自定义滚动条), 部署配置优化, 性能提升(移除will-change滥用+photos缓存)

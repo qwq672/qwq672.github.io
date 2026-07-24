@@ -4,17 +4,24 @@ import path from "path";
 import sharp from "sharp";
 
 export const dynamic = "force-static";
+export const revalidate = 3600; // re-generate at most hourly
 
 interface PhotoItem {
   src: string;
   w: number;
   h: number;
-  /** aspect ratio bucket — used by the client to avoid same-size neighbors */
   ratio: number;
 }
 
+// Module-level cache so repeated requests in the same process don't
+// re-read every image with sharp.
+let cache: PhotoItem[] | null = null;
+
 export async function GET() {
   try {
+    if (cache) {
+      return NextResponse.json({ photos: cache });
+    }
     const photosDir = path.join(process.cwd(), "public", "photos");
     const files = (await fs.readdir(photosDir))
       .filter((f) => f.endsWith(".jpg"))
@@ -35,6 +42,7 @@ export async function GET() {
         /* skip */
       }
     }
+    cache = photos;
     return NextResponse.json({ photos });
   } catch {
     return NextResponse.json({ photos: [] });

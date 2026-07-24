@@ -191,7 +191,6 @@ export function PhotoWallSection() {
                       delay: Math.min(p.i * 0.006, 0.3),
                     }}
                     style={{
-                      willChange: "opacity",
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
