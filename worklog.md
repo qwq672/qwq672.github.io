@@ -427,3 +427,36 @@ Work Log:
 
 Stage Summary:
 - 照片墙用原图(37张), 移动端地址栏问题用dvh+不透明背景+overscroll-behavior修复
+
+---
+Task ID: v12 (GitHub贡献图 + 第38张照片)
+Agent: main
+Task: GitHub贡献热力图 + 青海湖照片(38.jpg)
+
+Work Log:
+- 第38张照片:
+  - 青海湖原图 4096x3072 → 压缩为 600x450 (20KB, 保持比例), 质量78 mozjpeg
+  - 放入 public/photos/38.jpg, API自动读取
+  - 照片墙现在38张图(76个cell含重复)
+- GitHub贡献热力图:
+  - API /api/github-contributions: 抓取 github.com/users/qwq672/contributions HTML
+  - 解析 <td> 的 data-date/id/data-level + <tool-tip> 的贡献次数文本
+  - 返回 {total, weeks: [[{date,count,level}]]}, 1小时缓存
+  - 组件 GitHubContributionsSection:
+    - 53周×7天热力图, 5级颜色(bg-muted → bg-accent)
+    - 月份标签 + 星期标签(一二三五)
+    - 总贡献数 + @用户名链接
+    - 入场动画(staggered opacity+scale)
+    - 移动端横向滚动
+    - 加载中/错误状态
+  - 放在 Projects 和 Blog 之间(代码活动可视化)
+  - 验证: 161次贡献, 26个活跃天, 376个cell正常渲染
+
+自检结果:
+- GitHub热力图: 376 cells, 161 contributions, 月份标签可见 ✓
+- 照片墙: 38张图(含38.jpg青海湖), 无缝铺满 ✓
+- 移动端: 热力图可横滚, 控制台CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- GitHub贡献热力图上线(项目与博客之间), 第38张青海湖照片加入照片墙

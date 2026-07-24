@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
 import { InterestsSection } from "@/components/sections/interests-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
+import { GitHubContributionsSection } from "@/components/sections/github-contributions-section";
 import { BlogSection } from "@/components/sections/blog-section";
 import { PhotoWallSection } from "@/components/sections/photo-wall-section";
 import { ResourcesSection } from "@/components/sections/resources-section";
@@ -33,6 +34,7 @@ export default function Home() {
         <AboutSection />
         <InterestsSection />
         <ProjectsSection />
+        <GitHubContributionsSection />
         <BlogSection />
         <PhotoWallSection />
         <ResourcesSection />
