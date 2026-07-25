@@ -1,12 +1,8 @@
-"use client";
-
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   pickInitialImages,
   preloadOne,
-  getDayPool,
-  getNightPool,
   preloadAll,
 } from "@/lib/hero-images";
 
@@ -14,14 +10,13 @@ import {
  * Page intro overlay.
  * Picks one day + one night hero image, waits for both to load (with a
  * 4s timeout fallback), then reveals the page by sliding the curtain up.
- * The picked images are stored so HeroSection uses them as initial images.
+ * Same component as the main project.
  */
 export function PageIntro() {
   const reduce = useReducedMotion();
   const [show, setShow] = React.useState(true);
 
   React.useEffect(() => {
-    if (typeof window === "undefined") return;
     if (sessionStorage.getItem("__intro_seen") === "1") {
       setShow(false);
       return;
@@ -35,18 +30,15 @@ export function PageIntro() {
       setShow(false);
     };
 
-    // Pick initial images based on orientation (portrait = vertical images)
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const { day, night } = pickInitialImages(isPortrait);
 
-    // Preload both picked images + all others (for later switches)
     preloadAll();
     Promise.race([
       Promise.all([preloadOne(day), preloadOne(night)]),
-      new Promise<void>((r) => setTimeout(r, 4000)), // timeout fallback
+      new Promise<void>((r) => setTimeout(r, 4000)),
     ]).then(finish);
 
-    // Safety: force finish after 5s no matter what
     const safety = setTimeout(finish, 5000);
     return () => clearTimeout(safety);
   }, []);
@@ -95,7 +87,6 @@ function IntroMark() {
         />
       </motion.div>
 
-      {/* Loading bar */}
       <motion.div
         className="mt-7 h-px overflow-hidden rounded-full bg-foreground/10"
         initial={{ width: 0 }}
@@ -106,10 +97,7 @@ function IntroMark() {
           className="h-full bg-accent"
           initial={{ x: "-100%" }}
           animate={{ x: "100%" }}
-          transition={{
-            duration: 1.2,
-            ease: "easeInOut",
-          }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
         />
       </motion.div>
 

@@ -493,3 +493,40 @@ Work Log:
 
 Stage Summary:
 - 移动端滑动彻底修复(overflow clip + 触摸设备跳过自定义滚动条), 部署配置优化, 性能提升(移除will-change滥用+photos缓存)
+
+---
+Task ID: CF-1
+Agent: full-stack-developer
+Task: 创建 Cloudflare Pages 静态版本
+
+Work Log:
+- 在 /home/z/my-project/cloudflare-pages-version/ 创建独立 Vite + React 18 + TS + Tailwind 3 SPA，不动主版本任何文件
+- 构建脚本 scripts/build-data.ts: 读主版本 content/posts/*.md 解析 frontmatter + 正文 + 阅读时长 → src/data/posts.json；扫描 public/photos/*.jpg → src/data/photos.json（伪比例，不用 sharp）
+- GitHub 贡献改客户端 fetch: src/lib/github-contributions.ts 直接拉 github.com/users/qwq672/contributions HTML，正则解析 <td> data-date/data-level + <tool-tip> count；CORS 失败则显示占位+主页链接
+- 路由用 HashRouter: /#/ 和 /#/posts/slug，Cloudflare Pages / GitHub Pages 零配置可用，不用配 SPA fallback
+- 复刻全部组件: Hero(日夜背景交叉淡入+按orientation选图) / About / Interests(5卡) / Projects(3项目+logo PNG用img/SVG内联) / GitHubContributions(53×7热力图) / Blog(搜索+分类chips+页码分页) / PhotoWall(CSS Grid dense零缝隙) / Resources / Contact(GitHub/Bilibili/Email×2/Teams自定义SVG) / Navbar(毛玻璃居中+滚动隐藏+移动端全屏菜单) / Footer / PageIntro / ThemeToggle(月亮变太阳) / Scrollbar / MenuIcon / MarkdownView(GFM+表格)
+- 文章详情页 /posts/:slug: 头像+日期+阅读时长+正文+标签+上下篇导航+返回，document.title 动态更新
+- 样式: src/index.css 完整复制主版本 globals.css（暖琥珀+深夜空 oklch 配色/毛玻璃/自定义滚动条/prose-warm markdown/动画关键帧），Tailwind v3 语法
+- 配置: vite.config.ts base './' 兼容根域名和子路径部署；index.html 内联脚本防主题 FOUC；next-themes 照搬；Google Fonts CDN 替代 next/font
+- GitHub Actions: deploy.yml (GitHub Pages) + deploy-cloudflare.yml (Cloudflare Pages)，都用 bun install + bun run build
+- README.md: 详述主版本为何不能静态部署（fs/sharp/运行时fetch）+ 静态版本改动 + 两种平台部署步骤 + 功能对照表 + 已知差异
+
+自检结果:
+- tsc --noEmit: 0 error ✓
+- bun run build: dist/ 生成成功 (index.html 2KB + CSS 38KB gzip 7KB + JS 552KB gzip 186KB) ✓
+- python http.server 提供 dist/, curl 测试: 根路径/assets/photos/bg 全部 HTTP 200 ✓
+- Agent Browser 可视化自检 (1440×900):
+  - 首页: ✓ Hero(qwq672渐变标题) → About(关于我+3事实卡) → Interests(5卡) → Projects(3项目+logo) → GitHub(@qwq672链接可见=客户端fetch成功) → Blog(搜索框+6分类chips+文章列表) → PhotoWall → Resources → Contact 全渲染
+  - 主题切换: ✓ dark→light html class 正确切换，再切回 dark 正常
+  - 移动端 390×844: ✓ "打开菜单"按钮可见
+  - 文章详情页 /#/posts/2025-05-03-First: ✓ title 动态更新为"网站第一篇文章 · qwq672"，文章头/正文/标签/上下篇/返回全渲染
+  - 控制台: ✓ 无 error 无 warning
+  - 页面 errors: ✓ []
+
+Stage Summary:
+- 纯静态版本完成，可部署到 Cloudflare Pages / GitHub Pages，无需服务端
+- 所有动态数据构建时打包成 JSON（8 篇文章 + 38 张照片），GitHub 贡献运行时客户端 fetch
+- UI/UX 完全复刻主版本（暖琥珀配色/毛玻璃/动画/照片墙/热力图/主题切换/加载遮罩）
+- 已知差异：照片墙用伪比例不用 sharp、GitHub 贡献无服务端缓存、URL 用 hash 路由、字体用 Google Fonts CDN
+- 工作记录: /home/z/my-project/agent-ctx/CF-1-full-stack-developer.md
+- 已打包: /home/z/my-project/cloudflare-pages-version.zip (10.6MB, 232 文件, 排除 node_modules)

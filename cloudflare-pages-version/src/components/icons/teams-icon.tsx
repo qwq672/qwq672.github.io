@@ -1,12 +1,7 @@
-"use client";
-
-import * as React from "react";
-
 /**
- * Microsoft Teams icon — extracted from the official SVG, recolored with
- * currentColor. The original path data is off-center (content sits in the
- * upper-left of the 32×32 viewBox), so we wrap it in a <g> with a corrective
- * translate so the icon is visually centered.
+ * Microsoft Teams icon — same SVG as the main project. Extracted from the
+ * official Teams icon path, recolored with currentColor, with a corrective
+ * translate so it's visually centered in its 32×32 viewBox.
  */
 export function TeamsIcon({
   size = 24,
