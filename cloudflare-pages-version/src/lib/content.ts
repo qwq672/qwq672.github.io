@@ -1,17 +1,10 @@
-/**
- * Static content + site config. In the main Next.js project this is
- * `lib/content.ts` (server-side, can use anything). Here it's a plain
- * client module — same data, no server imports.
- *
- * Icon imports use lucide-react (client-safe).
- */
+import type { LucideIcon, LucideProps } from "lucide-react";
 import {
   Gamepad2,
   Smartphone,
   Music4,
   Globe,
   Clapperboard,
-  type LucideIcon,
 } from "lucide-react";
 
 export interface Interest {
@@ -60,7 +53,7 @@ export interface Project {
   slug: string;
   name: string;
   tagline: string;
-  status: "开发中" | "进行中" | "接近正式版";
+  status: "开发中" | "进行中" | "接近正式版" | "已发布";
   desc: string;
   tags: string[];
   website: { url: string; label: string };
@@ -77,7 +70,7 @@ export const projects: Project[] = [
     desc: "一个把 AI 智能玩家和离线多人小游戏塞进 Minecraft 的模组。项目特别大，涉及多个方面，机器学习都已经涉及了，所以进度不算快——但确实在一点点推进。",
     tags: ["Minecraft", "Mod", "AI", "Fabric"],
     website: { url: "https://lava.awa.lat", label: "lava.awa.lat" },
-    logo: { src: "./logo/lavaarcade.png", kind: "img" },
+    logo: { src: "logo/lavaarcade.png", kind: "img" },
     accent: "from-orange-500/25 to-amber-500/10",
   },
   {
@@ -88,18 +81,18 @@ export const projects: Project[] = [
     desc: "用 C 语言写的 Minecraft 命令行迷你启动器，主打一个轻量。目前卡在 Minecraft 登录的 API 申请那边，等搞定继续推进。",
     tags: ["Minecraft", "Launcher", "C"],
     website: { url: "https://tinycraft.awa.lat", label: "tinycraft.awa.lat" },
-    logo: { src: "./logo/tinycraft.png", kind: "img" },
+    logo: { src: "logo/tinycraft.png", kind: "img" },
     accent: "from-zinc-400/20 to-slate-500/10",
   },
   {
     slug: "arvgrid",
     name: "Arvgrid",
     tagline: "网页端 MIDI 编曲 & 编辑 GUI 工具",
-    status: "接近正式版",
-    desc: "最接近正式版阶段的项目。一个网页端的 MIDI 编曲及编辑 GUI 工具，支持多端，还能导入 SF 音色库文件，拿来编曲或修 MIDI 都挺顺手。",
+    status: "已发布",
+    desc: "已经发布正式版啦！一个网页端的 MIDI 编曲及编辑 GUI 工具，支持多端，还能导入 SF 音色库文件，拿来编曲或修 MIDI 都挺顺手。",
     tags: ["Web", "MIDI", "Audio", "SF2"],
     website: { url: "https://grid.awa.lat", label: "grid.awa.lat" },
-    logo: { src: "./logo/arvgrid.svg", kind: "svg" },
+    logo: { src: "logo/arvgrid.svg", kind: "svg" },
     accent: "from-emerald-500/20 to-teal-500/10",
   },
 ];
@@ -149,3 +142,5 @@ export const navLinks = [
   { href: "#resources", label: "资源" },
   { href: "#contact", label: "联系" },
 ] as const;
+
+export type IconComponent = (props: LucideProps) => JSX.Element;

@@ -1,88 +1,166 @@
-# qwq672 · Cloudflare Pages / GitHub Pages 静态版
+# qwq672 · 随笔与小破站（静态部署版）
 
-这是 [qwq672 个人小站](../) 的**纯静态**版本，可以部署到 Cloudflare Pages 或 GitHub Pages 等静态托管平台。
+基于主版本（Next.js 16 应用）派生的**纯静态版本**，可部署到 Cloudflare Pages / GitHub Pages 等任意静态托管平台，无需服务端运行时。
 
-主版本（`/home/z/my-project`）是 Next.js 16 应用，依赖服务端运行时，无法直接部署到纯静态托管。本目录把同一个站点重写成一个 Vite + React SPA，所有数据在构建时打包成 JSON，运行时不需要任何服务器。
-
----
-
-## 为什么主版本不能直接部署？
-
-主版本用了三处服务端能力，纯静态托管（Cloudflare Pages 静态模式 / GitHub Pages）都满足不了：
-
-| 服务端依赖 | 主版本做法 | 为什么静态托管不行 |
-| --- | --- | --- |
-| `/api/posts`、`/api/posts/[slug]` | 用 Node `fs` 在运行时读 `content/posts/*.md`，自写 YAML frontmatter 解析器 | 静态托管没有 Node 运行时，`fs` 用不了 |
-| `/api/photos` | 用 `fs.readdir` 扫描 `public/photos/*.jpg`，再用 `sharp` 读每张图的真实宽高算比例 | `sharp` 是原生模块，静态托管环境装不上，也没有文件系统 |
-| `/api/github-contributions` | 运行时 `fetch('https://github.com/users/qwq672/contributions')` 拉页面 HTML，正则解析 `<td>` 的 `data-date`/`data-level` 和 `<tool-tip>` 的贡献次数 | 这本身可以客户端做，但主版本是为了规避 CORS + 1h 缓存才放在服务端 |
-
-另外主版本还用了 Next.js 的 `next/font`（构建时下载字体）、`next/image`（构建时优化）、SSG `generateStaticParams` 等，这些都依赖 Next.js 构建器，不是"导出静态文件"能搞定的。
+主版本仓库：`/home/z/my-project`（Next.js 16 + App Router）。
 
 ---
 
-## 这个静态版本做了什么改动
+## 为什么需要一个静态版本？
 
-整体策略：**Vite + React + TypeScript SPA，所有动态数据在构建时生成成 JSON，运行时纯客户端。**
+主版本是一个 Next.js 16 应用，依赖以下**只能在服务端运行**的能力，因此无法直接静态导出（`next export` / `output: export`）部署到纯静态托管：
 
-### 1. 技术栈替换
+| 主版本依赖 | 为什么不能静态化 |
+| --- | --- |
+| `src/app/api/posts/route.ts` | 服务端读取 `content/posts/*.md` 并解析 frontmatter |
+| `src/app/api/posts/[slug]/route.ts` | 服务端按 slug 读取单篇 markdown |
+| `src/app/api/photos/route.ts` | 服务端用 `sharp` 读取 `public/photos/*.jpg` 的真实宽高 |
+| `src/app/api/github-contributions/route.ts` | 服务端 fetch `github.com/users/qwq672/contributions`（绕过 CORS、带 1 小时缓存） |
+| `src/app/posts/[slug]/page.tsx` | 服务端渲染 markdown 为 HTML（`generateStaticParams` + `force-static`） |
+| `next/font/google` | 构建时下载并自托管字体（需要 Node 构建环境） |
+
+Cloudflare Pages / GitHub Pages 只托管静态文件，不能跑 Node 服务端，所以主版本的 API routes 和服务端渲染都会失效。
+
+---
+
+## 静态版本做了什么改动？
+
+### 架构
+
+- **框架**：Next.js 16 → **Vite + React 18 + TypeScript**（纯客户端 SPA）
+- **路由**：App Router 文件路由 → **react-router-dom v6 `HashRouter`**
+  - 用 hash 路由（`/#/`、`/#/posts/slug`）是因为 Cloudflare Pages / GitHub Pages **零配置**可用，不需要配 SPA fallback（`_redirects` / `404.html`）
+- **样式**：Tailwind v4（`@theme inline` + `@import "tailwindcss"`）→ **Tailwind v3**（`@tailwind` 指令 + `theme.extend.colors` 引用 oklch 通道变量）
+  - 颜色变量从完整 oklch 值改为**通道值**（如 `--background: 0.985 0.008 75`），Tailwind 工具类用 `oklch(var(--background) / <alpha-value>)` 包裹，保留 `bg-background/35` 这类透明度用法
+- **字体**：`next/font/google` → **Google Fonts CDN `<link>`**（`index.html` 里引入）
+
+### 数据
+
+- **博客文章**：服务端 API → **构建时生成 `src/data/posts.json`**
+  - `scripts/build-data.ts` 读取 `content/posts/*.md`，解析 frontmatter + 正文 + 阅读时长，输出 JSON
+  - 运行时直接 `import` JSON（打包进 JS，无网络请求）
+- **照片墙**：服务端 `sharp` 读宽高 → **构建时读 JPEG 头部**（纯 JS，无 sharp 依赖）
+  - `scripts/build-data.ts` 扫描 `public/photos/*.jpg`，解析 SOF 标记拿到真实宽高，输出 `src/data/photos.json`
+- **GitHub 贡献热力图**：服务端 fetch → **客户端 fetch**
+  - `src/lib/github-contributions.ts` 直接在浏览器拉 `github.com/users/qwq672/contributions` 并正则解析
+  - GitHub 不发 CORS 头，多数情况会被浏览器拦截 → 显示「加载失败 + 直接去 GitHub 看」的兜底 UI（带 @qwq672 链接）
+  - 这是静态版本唯一的功能性差异（主版本有服务端代理 + 1 小时缓存）
+
+### 路由 / 页面
 
 | 主版本 | 静态版本 |
 | --- | --- |
-| Next.js 16 (App Router, SSR/SSG) | Vite 5 + React 18 SPA |
-| Tailwind CSS 4 (`@import "tailwindcss"`) | Tailwind CSS 3 (`@tailwind base/components/utilities`) |
-| `next/font` (构建时下载字体) | Google Fonts CSS `<link>` |
-| `next/link` + 文件路由 | `react-router-dom` (HashRouter) |
-| `next-themes` | `next-themes` (兼容纯 React) |
-| Prisma / SQLite | 不需要（站点没用数据库） |
+| `src/app/page.tsx` | `src/pages/home.tsx`（`<Route path="/" />`） |
+| `src/app/posts/[slug]/page.tsx` | `src/pages/post-page.tsx`（`<Route path="/posts/:slug" />`） |
+| `src/app/not-found.tsx` | `src/pages/not-found.tsx`（`<Route path="*" />`） |
+| `src/app/loading.tsx` | `src/pages/loading.tsx`（Suspense fallback，按需引用） |
+| `src/app/error.tsx` | `src/pages/error.tsx`（react-router `errorElement`） |
+| `next/link` | `react-router-dom` `Link`（站内）/ `<a>`（外链） |
+| `next/image` | 普通 `<img>`（主版本已经是 `<img>`） |
+| `next-themes` | 直接用（兼容 Vite，无改动） |
+| `generateMetadata`（动态 title） | `document.title` 在 `useEffect` 里设置 |
+| `next/font/google` | Google Fonts CDN |
 
-UI 设计（暖琥珀+深夜空 oklch 配色、毛玻璃、framer-motion 动画、自定义滚动条、加载遮罩、月亮变太阳主题切换、Hero 日/夜背景交叉淡入按屏幕方向选图）**完全复刻**主版本。
+### 组件
 
-### 2. 静态数据策略
+- 去掉所有 `'use client'` 指令（Vite 里全是客户端）
+- `theme-toggle.tsx`：Next.js 的 `<style jsx>` → 移到 `src/index.css`（Vite 不支持 styled-jsx）
+- `project-logo.tsx`：SVG 内联逻辑不变（fetch `.svg` 文本后 `dangerouslySetInnerHTML`，让 `currentColor` 生效）
+- `github-contributions-section.tsx`：`fetch("/api/github-contributions")` → `fetchGitHubContributions()`（客户端，带兜底）
+- `blog-section.tsx`：`fetch("/api/posts")` → `getAllPosts()`（读 JSON）
+- `photo-wall-section.tsx`：`fetch("/api/photos")` → `getPhotos()`（读 JSON）
 
-写了一个构建脚本 [`scripts/build-data.ts`](scripts/build-data.ts)，在 `bun run build` 时跑一次：
+### 资源路径
 
-- **博客文章**：读主版本 `content/posts/*.md`，复用主版本 `lib/posts.ts` 里的 YAML frontmatter 解析器 + 阅读时长估算，输出 `src/data/posts.json`（含 slug / title / date / categories / tags / description / 正文 / readingMinutes，按日期倒序）。
-- **照片**：扫描主版本 `public/photos/*.jpg`，输出 `src/data/photos.json`，每条含 `src`（相对路径）和 `ratio`。注意：静态版本**不用 sharp**读真实尺寸——照片墙用 CSS Grid `grid-auto-flow: row dense` + 固定行高，任何比例都能无缝铺满，所以用了一个确定性的伪比例（按文件名轮转一组常见比例），保证多次构建布局稳定。
-- **GitHub 贡献**：不在构建时抓（构建机不一定能访问 GitHub，而且贡献数据每小时都变）。改成**运行时客户端 fetch** GitHub 贡献页面 HTML 直接解析。GitHub 在该页面返回 `Access-Control-Allow-Origin: *`，浏览器通常能直接读。如果被 CORS / 网络 / 限流挡了，就显示静态占位 + GitHub 主页链接（[`src/lib/github-contributions.ts`](src/lib/github-contributions.ts) + [`github-contributions-section.tsx`](src/components/sections/github-contributions-section.tsx)）。
+- 主版本用绝对路径 `/avatar.webp`、`/bg/day/...`
+- 静态版本用**相对路径** `./avatar.webp`、`bg/day/...`（`vite.config.ts` 里 `base: "./"`）
+  - 这样无论部署在根域名（`user.pages.dev`）还是子路径（`user.github.io/repo/`）都能正确加载
 
-### 3. 路由
+### 主题切换 / FOUC
 
-用 `HashRouter`（URL 形如 `/#/`、`/#/posts/2025-05-03-First`），这样 **Cloudflare Pages 和 GitHub Pages 都不用配 SPA fallback** 就能直接跑。站内的"关于/兴趣/项目/随笔/照片墙/资源/联系"导航是 JS `scrollIntoView`，不靠 URL hash，所以和 HashRouter 不冲突。
+- `index.html` 里有内联脚本，在首次绘制前根据 `localStorage.theme` 给 `<html>` 加 `dark` 类，防止主题闪烁（替代 next-themes 的服务端注入）
 
-如果你想用干净的 `/posts/slug` 路径（`BrowserRouter`），需要在 Cloudflare Pages 加 `_redirects` 文件（`/* /index.html 200`），或在 GitHub Pages 用 `404.html` 重定向 hack——见下文部署小节。
+---
 
-### 4. 复刻的组件
+## 功能对照表
 
-从主版本 `src/components/` 复制并适配（去掉 `'use client'` 因为 SPA 全是客户端；把 `next/link` 换成 `react-router-dom` 的 `Link`；把 `next/image` 换成 `<img>`；把 API fetch 换成 import JSON）：
+| 功能 | 主版本 | 静态版本 | 差异 |
+| --- | :---: | :---: | --- |
+| Hero 日/夜背景交叉淡入 + 按 orientation 选图 | ✅ | ✅ | 无 |
+| PageIntro 加载遮罩（等两张图加载完） | ✅ | ✅ | 无 |
+| Navbar 毛玻璃 + 居中 + 滚动隐藏 + 移动端全屏菜单 | ✅ | ✅ | 无 |
+| About / Interests / Projects / Resources / Contact | ✅ | ✅ | 无 |
+| GitHub 贡献热力图（53×7） | ✅ 服务端 | ✅ 客户端 | 静态版可能因 CORS 失败，有兜底 UI |
+| Blog 搜索 + 分类筛选 + 页码分页 | ✅ | ✅ | 无 |
+| 照片墙 CSS Grid dense 零缝隙 | ✅ sharp 读宽高 | ✅ JPEG 头读宽高 | 无（构建时读真实尺寸） |
+| 文章详情页 + 上下篇导航 | ✅ | ✅ | 无 |
+| 主题切换（纯 CSS 月亮↔太阳形变） | ✅ | ✅ | 无 |
+| 404 / loading / error 页面 | ✅ | ✅ | 无 |
+| 暖琥珀 + 深夜空 oklch 配色 | ✅ | ✅ | 无 |
+| 5 套字体（Inter / Space Grotesk / Noto SC / JetBrains Mono） | ✅ next/font | ✅ Google Fonts CDN | 加载方式不同 |
+| 自定义滚动条（桌面 overlay / 移动原生） | ✅ | ✅ | 无 |
 
-- `HeroSection` — 日/夜背景图交叉淡入，按 `matchMedia('(orientation: portrait)')` 选桌面横版 / 移动竖版图池
-- `AboutSection` — 头像 + 简介 + 三张事实卡
-- `InterestsSection` — 5 张兴趣卡，lucide 图标
-- `ProjectsSection` — 3 个项目卡 + logo（PNG 用 `<img>`，SVG 内联渲染支持 `currentColor`）
-- `GitHubContributionsSection` — 53×7 热力图，客户端 fetch + 解析 + 失败占位
-- `BlogSection` — 搜索 + 分类 chips + 页码分页（6 篇/页）
-- `PhotoWallSection` — CSS Grid 零缝隙铺满，`smartShuffle` 避免相邻同比例
-- `ResourcesSection` — 4 张资源卡 + 密码提示横幅
-- `ContactSection` — 5 个联系方式（GitHub / Bilibili / Email×2 / Teams），Teams 用自定义 SVG
-- `SiteNavbar` — 毛玻璃横向居中、滚动隐藏、移动端全屏菜单（clipPath circle 展开 + 序号 01-07）
-- `SiteFooter` — 头像 + 版权 + 回到顶部
-- `PageIntro` — 首次加载遮罩（672 mark + 进度线），sessionStorage 防重复
-- `ThemeToggle` — SVG 月亮变太阳形变（transform 动画，GPU 合成）
-- `Scrollbar` — 自定义 overlay 滚动条（触摸设备跳过）
-- `MenuIcon` — 汉堡变 X 形变
-- `MarkdownView` — `react-markdown` + `remark-gfm` + `remark-breaks`，表格/代码块包 `overflow-x-auto`
-- 文章详情页 `/posts/:slug` — 头像 + 日期 + 阅读时长 + 正文 + 标签 + 上下篇导航 + 返回列表
+---
 
-### 5. 主题
+## 项目结构
 
-主版本用 `next-themes`（`attribute="class"`, `defaultTheme="dark"`）。静态版本照搬，并在 `index.html` 里加了一段内联脚本，在 React 挂载前就读 `localStorage.theme` 给 `<html>` 加 `.dark` 类，避免主题闪烁（FOUC）。
-
-### 6. 配置文件
-
-- [`vite.config.ts`](vite.config.ts)：`base: './'` 让所有资源 URL 用相对路径，这样无论部署在根域名（Cloudflare 自定义域）还是子路径（GitHub Pages `用户名.github.io/仓库名/`）都能正确加载。
-- [`tailwind.config.ts`](tailwind.config.ts)：和主版本一致的 oklch 配色变量映射。
-- [`src/index.css`](src/index.css)：完整复制主版本 `globals.css` 的配色 token、毛玻璃、滚动条、`prose-warm` markdown 样式、动画关键帧（Tailwind v3 语法）。
-- [`package.json`](package.json)：`scripts` 含 `dev` / `build`（生成数据 + Vite 构建）/ `preview` / `lint`（tsc 类型检查）。
+```
+cloudflare-pages-version/
+├── .github/workflows/
+│   ├── deploy.yml              # GitHub Pages 部署
+│   └── deploy-cloudflare.yml   # Cloudflare Pages 部署
+├── content/posts/*.md          # 博客源文件（从主版本复制）
+├── public/
+│   ├── bg/{day,day-mobile,night,night-mobile}/  # hero 背景图
+│   ├── photos/*.jpg            # 照片墙原图（38 张）
+│   ├── logo/                   # 项目 logo（PNG/SVG）
+│   ├── avatar.webp / icon-48.webp / apple-touch-icon.png / favicon.svg
+│   └── robots.txt
+├── scripts/
+│   └── build-data.ts           # 构建时生成 posts.json + photos.json
+├── src/
+│   ├── components/
+│   │   ├── icons/teams-icon.tsx
+│   │   ├── sections/           # 9 个区块组件
+│   │   ├── markdown-view.tsx
+│   │   ├── menu-icon.tsx
+│   │   ├── motion-helpers.tsx
+│   │   ├── page-intro.tsx
+│   │   ├── project-logo.tsx
+│   │   ├── scrollbar.tsx
+│   │   ├── site-footer.tsx
+│   │   ├── site-navbar.tsx
+│   │   ├── theme-provider.tsx
+│   │   └── theme-toggle.tsx
+│   ├── data/
+│   │   ├── posts.json          # 构建生成（8 篇）
+│   │   └── photos.json         # 构建生成（38 张）
+│   ├── lib/
+│   │   ├── content.ts          # 兴趣/项目/资源/联系方式/导航
+│   │   ├── format.ts           # 日期格式化
+│   │   ├── github-contributions.ts  # 客户端 fetch + 解析
+│   │   ├── hero-images.ts      # hero 图池 + 预加载
+│   │   ├── photos.ts           # 读 photos.json
+│   │   ├── posts.ts            # 读 posts.json
+│   │   └── utils.ts            # cn() 类名合并
+│   ├── pages/
+│   │   ├── home.tsx
+│   │   ├── post-page.tsx
+│   │   ├── not-found.tsx
+│   │   ├── error.tsx
+│   │   └── loading.tsx
+│   ├── app.tsx                 # 路由 + ThemeProvider + Scrollbar
+│   ├── main.tsx                # 入口
+│   ├── index.css               # 完整样式（oklch 配色 / 毛玻璃 / 滚动条 / prose-warm / 主题图标）
+│   └── vite-env.d.ts
+├── index.html                  # Google Fonts + 防 FOUC 内联脚本
+├── package.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── vite.config.ts              # base: "./"
+└── README.md（本文件）
+```
 
 ---
 
@@ -92,161 +170,62 @@ UI 设计（暖琥珀+深夜空 oklch 配色、毛玻璃、framer-motion 动画�
 # 安装依赖
 bun install
 
-# 开发服务器（带 HMR）
+# 开发服务器（http://localhost:5173）
 bun run dev
 
-# 生产构建（先生成 JSON 数据，再 Vite 打包到 dist/）
+# 类型检查
+bun run lint      # tsc --noEmit
+
+# 重新生成数据 JSON（读 content/posts + public/photos）
+bun run build:data
+
+# 生产构建（自动先跑 build:data，再 tsc + vite build）
 bun run build
 
-# 预览生产构建
+# 本地预览构建产物
 bun run preview
-
-# 类型检查
-bun run lint
 ```
-
-> ⚠️ **构建脚本依赖主版本目录**：`scripts/build-data.ts` 默认从 `/home/z/my-project/content/posts/` 读 markdown、从 `/home/z/my-project/public/photos/` 读照片列表。如果你把这个目录单独拷出去部署，需要：
-> 1. 把主版本的 `content/posts/` 也拷过来（或改 `build-data.ts` 里的 `POSTS_DIR` 路径）；
-> 2. 照片已经在 `public/photos/` 里了，`build-data.ts` 会优先读主版本目录——如果想读本地，把 `PHOTOS_DIR` 改成 `path.resolve(__dirname, "..", "public", "photos")`。
 
 ---
 
 ## 部署
 
-### Cloudflare Pages
+### GitHub Pages（GitHub Actions 自动部署）
 
-#### 方式 A：用 GitHub Action 自动部署（推荐）
+1. 把本项目推到一个 GitHub 仓库（项目文件放在仓库根目录）
+2. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**
+3. 推送到 `main` / `master` 分支即可触发 `.github/workflows/deploy.yml`
+4. 部署完成后访问 `https://<user>.github.io/<repo>/`
 
-1. 把这个目录推到 GitHub 仓库。
-2. 在 Cloudflare 创建一个 API Token（权限：Account > Cloudflare Pages > Edit）。
-3. 在仓库 Settings → Secrets 添加：
+> 因为 `vite.config.ts` 用 `base: "./"`（相对路径），项目页面（`/<repo>/`）和用户页面（`/<user>.github.io/`）都能正确加载资源。
+
+### Cloudflare Pages（GitHub Actions 部署）
+
+1. 在 Cloudflare 创建一个 Pages 项目（名字随意，例如 `qwq672`）
+2. 拿到 **API Token**（需要 Cloudflare Pages 编辑权限）和 **Account ID**
+3. 在 GitHub 仓库 **Settings → Secrets and variables → Actions** 添加：
    - `CLOUDFLARE_API_TOKEN`
    - `CLOUDFLARE_ACCOUNT_ID`
-4. 推送到 `main` 分支，[`.github/workflows/deploy-cloudflare.yml`](.github/workflows/deploy-cloudflare.yml) 会自动构建并部署。
+4. 推送到 `main` / `master` 触发 `.github/workflows/deploy-cloudflare.yml`
+5. 部署完成后访问 `https://<project>.pages.dev/`
 
-**构建配置（如果用 Cloudflare Pages 直连 Git）**：
-- Framework preset: `Vite`
-- Build command: `bun install && bun run build`
-- Build output directory: `dist`
-- 注意：构建时需要 `content/posts/` 里的 markdown，要么把主版本的 `content/` 目录也提交进这个仓库，要么 fork 后改 `scripts/build-data.ts` 里的路径。
+### Cloudflare Pages（UI 直连部署，更简单）
 
-#### 路由（可选）
+也可以不用 GitHub Actions，直接用 Cloudflare Pages 的 Git 集成：
 
-用 HashRouter 时不需要任何路由配置。如果想切到 BrowserRouter 用干净 URL，在 `dist/` 里加一个 `_redirects` 文件：
-
-```
-/*    /index.html   200
-```
-
-### GitHub Pages
-
-#### 方式 A：用 GitHub Action 自动部署（推荐）
-
-1. 把这个目录推到 GitHub 仓库。
-2. 仓库 Settings → Pages → Source 选 "GitHub Actions"。
-3. 推送到 `main` 分支，[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) 会自动构建并部署到 `https://<用户名>.github.io/<仓库名>/`。
-
-因为 `vite.config.ts` 里 `base: './'` 用相对路径，所以**项目站点**（`用户名.github.io/<仓库名>/`）和**用户站点**（`用户名.github.io/`）都能直接跑，不用改配置。
-
-#### 方式 B：手动部署到 `gh-pages` 分支
-
-```bash
-bun run build
-# 用 gh-pages CLI 或手动推 dist/ 到 gh-pages 分支
-npx gh-pages -d dist
-```
-
-#### 路由（可选）
-
-HashRouter 在 GitHub Pages 上零配置可用。如果想切到 BrowserRouter：
-
-1. 在 `public/` 加一个 `404.html`，内容是 [spa-github-pages](https://github.com/rafgraph/spa-github-pages) 的重定向脚本，把所有路径重定向到 `index.html`；
-2. 或者把 `index.html` 复制一份成 `404.html`（Vite 构建后可以加 `cp dist/index.html dist/404.html`）。
+1. Cloudflare Dashboard → Pages → Create a project → Connect to Git
+2. 选仓库，配置：
+   - **Framework preset**：无（或 Vite）
+   - **Build command**：`bun run build`
+   - **Build output directory**：`dist`
+   - **Environment**：`BUN_VERSION=latest`
+3. Save and Deploy
 
 ---
 
-## 目录结构
+## 已知差异（相对主版本）
 
-```
-cloudflare-pages-version/
-├── .github/workflows/
-│   ├── deploy.yml              # GitHub Pages 部署
-│   └── deploy-cloudflare.yml   # Cloudflare Pages 部署
-├── public/                     # 静态资源（从主版本复制）
-│   ├── bg/                     # day / day-mobile / night / night-mobile
-│   ├── photos/                 # 38 张照片
-│   ├── logo/                   # lavaarcade.png / tinycraft.png / arvgrid.svg
-│   ├── avatar.webp
-│   ├── icon-48.webp
-│   └── apple-touch-icon.png
-├── scripts/
-│   └── build-data.ts           # 构建时生成 posts.json + photos.json
-├── src/
-│   ├── components/
-│   │   ├── sections/           # Hero / About / Interests / Projects / GitHub / Blog / PhotoWall / Resources / Contact
-│   │   ├── icons/teams-icon.tsx
-│   │   ├── motion-helpers.tsx  # Reveal / SectionHeading / stagger
-│   │   ├── markdown-view.tsx
-│   │   ├── project-logo.tsx
-│   │   ├── site-navbar.tsx
-│   │   ├── site-footer.tsx
-│   │   ├── page-intro.tsx
-│   │   ├── theme-provider.tsx
-│   │   ├── theme-toggle.tsx
-│   │   ├── scrollbar.tsx
-│   │   └── menu-icon.tsx
-│   ├── data/                   # 构建时生成（gitignore）
-│   │   ├── posts.json
-│   │   └── photos.json
-│   ├── lib/
-│   │   ├── content.ts          # 兴趣 / 项目 / 资源 / 导航
-│   │   ├── hero-images.ts      # 日/夜图池 + 预加载
-│   │   ├── github-contributions.ts  # 客户端 fetch + 解析
-│   │   ├── posts.ts            # PostMeta 类型
-│   │   ├── posts-data.ts       # 读 posts.json
-│   │   ├── photos-data.ts      # 读 photos.json
-│   │   ├── format.ts           # 日期格式化
-│   │   └── utils.ts            # cn() 类名合并
-│   ├── pages/
-│   │   ├── home.tsx            # 首页（所有区块）
-│   │   └── post.tsx            # 文章详情页 /posts/:slug
-│   ├── App.tsx                 # 路由表
-│   ├── main.tsx                # 入口（HashRouter + ThemeProvider + Scrollbar）
-│   ├── index.css               # 完整样式（= 主版本 globals.css）
-│   └── vite-env.d.ts
-├── index.html                  # 含字体 link + 主题防闪脚本
-├── vite.config.ts              # base: './'
-├── tailwind.config.ts
-├── tsconfig.json
-├── package.json
-└── README.md
-```
-
----
-
-## 和主版本的功能对照
-
-| 功能 | 主版本 (Next.js) | 静态版本 (Vite SPA) |
-| --- | --- | --- |
-| Hero 日/夜背景交叉淡入 + 按方向选图 | ✅ | ✅ |
-| 主题切换（月亮变太阳） | ✅ | ✅ |
-| 自定义滚动条 | ✅ | ✅ |
-| 加载遮罩 | ✅ | ✅ |
-| 移动端全屏菜单 | ✅ | ✅ |
-| 兴趣 / 项目 / 资源 / 联系卡 | ✅ | ✅ |
-| GitHub 贡献热力图 | 服务端 fetch + 1h 缓存 | 客户端 fetch + 失败占位 |
-| 博客搜索 + 分类 + 分页 | ✅ | ✅ |
-| 文章详情 + 上下篇 | ✅ SSG | ✅ 客户端路由 |
-| 照片墙无缝铺满 | ✅ sharp 读真实尺寸 | ✅ 伪比例（不用 sharp） |
-| Markdown 渲染（GFM + 表格） | ✅ | ✅ |
-| 字体 | next/font 构建 | Google Fonts CSS |
-| 部署目标 | Node 服务器 / Vercel | 任意静态托管 |
-
----
-
-## 已知差异
-
-1. **照片墙比例**：静态版本用确定性的伪比例而不是真实尺寸，所以具体哪张图占多高和主版本略有不同，但整体"无缝铺满"的视觉效果一致。
-2. **GitHub 贡献数据新鲜度**：主版本服务端 1h 缓存；静态版本每次访问都客户端 fetch（GitHub 不限频的话没问题）。如果遇到 CORS / 限流，会显示占位 + 链接。
-3. **URL 形式**：用 HashRouter，文章页是 `/#/posts/slug` 而不是 `/posts/slug`。这是为了零配置兼容静态托管。需要干净 URL 的话按上文"路由（可选）"配置。
-4. **字体加载**：主版本用 `next/font` 把字体文件 inline 进 CSS（首屏更快）；静态版本用 Google Fonts CDN（多一个网络请求，但 Google Fonts CDN 缓存命中率极高，多数用户其实是缓存命中的）。
+1. **GitHub 贡献热力图**：静态版本在客户端直接 fetch GitHub，可能被 CORS 拦截。失败时显示兜底 UI（提示 + @qwq672 主页链接），不影响其他功能。主版本通过服务端代理绕过 CORS 并带 1 小时缓存。
+2. **URL 形态**：用 hash 路由（`/#/posts/slug`）而非干净路径（`/posts/slug`）。这是为了 Cloudflare Pages / GitHub Pages 零配置可用。若部署环境支持 SPA fallback，可改用 `BrowserRouter`。
+3. **字体加载**：用 Google Fonts CDN（需联网），主版本用 `next/font` 自托管。如需完全离线，可下载字体文件到 `public/fonts/` 并改 `index.html` 的 `<link>`。
+4. **照片尺寸**：静态版本构建时读 JPEG 头部拿真实宽高（纯 JS），主版本用 `sharp`。两者结果一致。

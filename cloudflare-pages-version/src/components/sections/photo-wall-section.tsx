@@ -1,20 +1,11 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/motion-helpers";
-import { photos as basePhotos, type PhotoItem } from "@/lib/photos-data";
+import { getPhotos, type PhotoItem } from "@/lib/photos";
 
 /**
- * Photo wall — gapless CSS Grid (dense packing) like the main site, but
- * the photo list is read from the build-time-generated `photos.json`
- * (no server / sharp needed at runtime).
+ * Shuffle but avoid placing same-ratio items next to each other.
  */
-
-interface PhotoCell extends PhotoItem {
-  i: number;
-  span: number;
-}
-
-/** Shuffle but avoid placing same-ratio items next to each other. */
 function smartShuffle<T extends { ratio: number }>(arr: T[]): T[] {
   const bucket = (r: number) => Math.round(r * 2) / 2;
   const pool = [...arr];
@@ -51,6 +42,7 @@ function smartShuffle<T extends { ratio: number }>(arr: T[]): T[] {
   return result;
 }
 
+/** Number of grid columns by viewport. */
 function getNumCols(width: number) {
   if (width >= 1280) return 6;
   if (width >= 1024) return 5;
@@ -59,7 +51,7 @@ function getNumCols(width: number) {
   return 2;
 }
 
-const ROW_HEIGHT = 8;
+const ROW_HEIGHT = 8; // px — small fixed row for smooth tiling
 
 export function PhotoWallSection() {
   const [photos, setPhotos] = React.useState<PhotoItem[]>([]);
@@ -69,13 +61,19 @@ export function PhotoWallSection() {
   const [colWidth, setColWidth] = React.useState(200);
 
   React.useEffect(() => {
-    if (basePhotos.length === 0) return;
-    const shuffled = smartShuffle(basePhotos);
+    // Photos are baked into the JS bundle at build time (src/data/photos.json).
+    const list = getPhotos();
+    if (list.length === 0) return;
+    const shuffled = smartShuffle(list);
     // Duplicate 2x to overfill — we clip the middle, repetition is OK.
-    const overfilled = [...shuffled, ...smartShuffle(basePhotos)];
+    const overfilled = [
+      ...shuffled,
+      ...smartShuffle(list),
+    ];
     setPhotos(overfilled);
   }, []);
 
+  // Measure container width → compute column count + column width
   React.useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -90,7 +88,8 @@ export function PhotoWallSection() {
     return () => ro.disconnect();
   }, [photos.length]);
 
-  const items: PhotoCell[] = React.useMemo(() => {
+  // Compute row span for each image based on its aspect ratio + column width.
+  const items = React.useMemo(() => {
     return photos.map((p, i) => {
       const span = Math.max(
         1,
@@ -118,6 +117,7 @@ export function PhotoWallSection() {
         />
       </div>
 
+      {/* Gapless photo wall using CSS Grid with dense packing. */}
       <div className="mt-12 w-full">
         {photos.length === 0 ? (
           <div className="mx-auto flex max-w-5xl items-center justify-center px-6">
@@ -173,14 +173,14 @@ export function PhotoWallSection() {
                       objectFit: "cover",
                       display: "block",
                       background: "transparent",
-                      filter: "saturate(0.92) contrast(1.03)",
+                      filter: "saturate(0.85) contrast(1.02) brightness(0.96)",
                     }}
                   />
                 </div>
               ))}
             </div>
 
-            {/* Cinematic vignette */}
+            {/* Cinematic vignette — subtle, only darkens far edges */}
             <div
               className="pointer-events-none absolute inset-0"
               style={{

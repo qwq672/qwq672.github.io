@@ -1,15 +1,21 @@
-"use client";
-
+import { Link, useRouteError, isRouteErrorResponse } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AlertCircle, RotateCcw, Home } from "lucide-react";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+/**
+ * Error boundary — mirrors the main project's src/app/error.tsx.
+ * react-router renders this when any route throws (via errorElement).
+ */
+export function ErrorPage() {
+  const error = useRouteError();
+  const digest = isRouteErrorResponse(error)
+    ? `${error.status} ${error.statusText}`
+    : error instanceof Error
+      ? error.message
+      : "unknown";
+
+  const reload = () => window.location.reload();
+
   return (
     <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center">
       <div
@@ -36,27 +42,27 @@ export default function Error({
           页面加载的时候好像崩了。可以试试重新加载，或者回首页看看。
         </p>
 
-        {error.digest && (
+        {digest && (
           <p className="mt-4 rounded-full bg-muted px-3 py-1 font-mono text-[0.65rem] text-muted-foreground">
-            {error.digest}
+            {digest}
           </p>
         )}
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button
-            onClick={reset}
+            onClick={reload}
             className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
           >
             <RotateCcw className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-180" />
             重新加载
           </button>
-          <a
-            href="/"
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/40"
           >
             <Home className="h-4 w-4" />
             回首页
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>

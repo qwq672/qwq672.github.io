@@ -2,10 +2,9 @@ import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 /**
- * Theme provider wrapper. next-themes works in any React app — we use it
- * with `attribute="class"` so it toggles `.dark` on <html>. `defaultTheme`
- * is "dark" to match the main site, and the inline script in index.html
- * applies the same default before React mounts (no flash).
+ * Wraps next-themes' ThemeProvider. next-themes works fine in a plain
+ * React/Vite app (no Next.js required) — it just reads/writes
+ * localStorage and toggles the `dark` class on <html>.
  */
 export function ThemeProvider({
   children,

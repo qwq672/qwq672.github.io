@@ -1,9 +1,11 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-export default function NotFound() {
+/**
+ * 404 page — mirrors the main project's src/app/not-found.tsx.
+ * Shown when react-router matches the `*` catch-all route.
+ */
+export function NotFoundPage() {
   return (
     <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center">
       {/* ambient bg */}
@@ -37,13 +39,13 @@ export default function NotFound() {
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/"
+            to="/"
             className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
           >
             回到首页
           </Link>
           <Link
-            href="/#blog"
+            to="/?s=blog"
             className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/40"
           >
             看看随笔

@@ -1,6 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 
-/** Animated hamburger → X icon — same component as the main project. */
+/**
+ * Animated hamburger → X icon.
+ * Three bars: top & bottom rotate to form the X, middle fades out.
+ */
 export function MenuIcon({ open }: { open: boolean }) {
   const reduce = useReducedMotion();
   const dur = reduce ? 0 : 0.4;
@@ -15,6 +18,7 @@ export function MenuIcon({ open }: { open: boolean }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
+      {/* top bar → rotates 45deg into the X */}
       <motion.line
         x1="2"
         y1="5"
@@ -24,10 +28,14 @@ export function MenuIcon({ open }: { open: boolean }) {
         strokeWidth="1.7"
         strokeLinecap="round"
         initial={{ rotate: 0, y: 0 }}
-        animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }}
+        animate={{
+          rotate: open ? 45 : 0,
+          y: open ? 4 : 0,
+        }}
         style={{ transformOrigin: "center" } as React.CSSProperties}
         transition={{ duration: dur, ease }}
       />
+      {/* middle bar → fades out */}
       <motion.line
         x1="2"
         y1="9"
@@ -37,10 +45,14 @@ export function MenuIcon({ open }: { open: boolean }) {
         strokeWidth="1.7"
         strokeLinecap="round"
         initial={{ opacity: 1, scaleX: 1 }}
-        animate={{ opacity: open ? 0 : 1, scaleX: open ? 0.4 : 1 }}
+        animate={{
+          opacity: open ? 0 : 1,
+          scaleX: open ? 0.4 : 1,
+        }}
         style={{ transformOrigin: "center" } as React.CSSProperties}
         transition={{ duration: dur, ease }}
       />
+      {/* bottom bar → rotates -45deg into the X */}
       <motion.line
         x1="2"
         y1="13"
@@ -50,7 +62,10 @@ export function MenuIcon({ open }: { open: boolean }) {
         strokeWidth="1.7"
         strokeLinecap="round"
         initial={{ rotate: 0, y: 0 }}
-        animate={{ rotate: open ? -45 : 0, y: open ? -4 : 0 }}
+        animate={{
+          rotate: open ? -45 : 0,
+          y: open ? -4 : 0,
+        }}
         style={{ transformOrigin: "center" } as React.CSSProperties}
         transition={{ duration: dur, ease }}
       />

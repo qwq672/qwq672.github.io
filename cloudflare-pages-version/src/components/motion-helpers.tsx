@@ -1,5 +1,5 @@
-import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import * as React from "react";
+import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 
 /** Fade-up-on-scroll wrapper. */
 export function Reveal({

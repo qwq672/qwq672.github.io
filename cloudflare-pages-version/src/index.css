@@ -2,89 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =====================================================================
-   qwq672 — warm amber + deep night-sky palette (matches the main Next.js
-   site's globals.css). Light = parchment warm-white, dark = deep indigo
-   night. NO blue/indigo primary anywhere — accent is amber.
-   ===================================================================== */
+/* ============================================================
+   qwq672 personal site — warm amber + deep night oklch palette
+   Mirrors the main Next.js project's globals.css, adapted for
+   Tailwind v3 (channel-only CSS variables wrapped in oklch()).
+   ============================================================ */
 
+/* ============ Light Theme — warm parchment + amber ============ */
 :root {
   --radius: 0.875rem;
 
-  /* Font stacks — populated by Google Fonts loaded in index.html */
-  --font-sans: "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Noto Sans SC", ui-sans-serif, system-ui,
-    sans-serif;
-  --font-serif: "Noto Serif SC", ui-serif, Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Color channels (no oklch() wrapper — Tailwind adds it) */
+  --background: 0.985 0.008 75;
+  --foreground: 0.22 0.02 40;
+  --card: 0.995 0.005 75;
+  --card-foreground: 0.22 0.02 40;
+  --popover: 0.995 0.005 75;
+  --popover-foreground: 0.22 0.02 40;
 
-  /* ============ Light Theme — warm parchment + amber ============ */
-  --background: oklch(0.985 0.008 75);
-  --foreground: oklch(0.22 0.02 40);
-  --card: oklch(0.995 0.005 75);
-  --card-foreground: oklch(0.22 0.02 40);
-  --popover: oklch(0.995 0.005 75);
-  --popover-foreground: oklch(0.22 0.02 40);
+  --primary: 0.55 0.14 45;
+  --primary-foreground: 0.99 0.01 75;
+  --secondary: 0.95 0.012 70;
+  --secondary-foreground: 0.3 0.02 45;
+  --muted: 0.94 0.01 70;
+  --muted-foreground: 0.48 0.02 50;
+  --accent: 0.7 0.13 55;
+  --accent-foreground: 0.25 0.03 45;
 
-  --primary: oklch(0.55 0.14 45);
-  --primary-foreground: oklch(0.99 0.01 75);
-  --secondary: oklch(0.95 0.012 70);
-  --secondary-foreground: oklch(0.3 0.02 45);
-  --muted: oklch(0.94 0.01 70);
-  --muted-foreground: oklch(0.48 0.02 50);
-  --accent: oklch(0.7 0.13 55);
-  --accent-foreground: oklch(0.25 0.03 45);
+  --destructive: 0.58 0.22 27;
+  --destructive-foreground: 0.99 0.01 75;
+  --border: 0.88 0.015 70;
+  --input: 0.9 0.012 70;
+  --ring: 0.6 0.13 48;
 
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.99 0.01 75);
-  --border: oklch(0.88 0.015 70);
-  --input: oklch(0.9 0.012 70);
-  --ring: oklch(0.6 0.13 48);
+  --chart-1: 0.65 0.16 45;
+  --chart-2: 0.6 0.1 160;
+  --chart-3: 0.55 0.08 250;
+  --chart-4: 0.78 0.15 80;
+  --chart-5: 0.7 0.13 25;
 
-  /* custom tokens */
+  /* Full oklch values (used directly in custom CSS, not as utilities) */
   --glow: oklch(0.7 0.14 50 / 0.18);
   --glass: oklch(0.99 0.005 75 / 0.8);
   --glass-border: oklch(0.4 0.02 50 / 0.1);
   --hero-overlay: oklch(0.98 0.008 75 / 0.55);
+  /* Solid background color (full oklch) — used for SVG fills etc. where
+     Tailwind's <alpha-value> wrapper isn't available. */
+  --bg-solid: oklch(0.985 0.008 75);
 }
 
 /* ============ Dark Theme — deep night + warm amber ============ */
 .dark {
-  --background: oklch(0.16 0.015 260);
-  --foreground: oklch(0.93 0.012 70);
-  --card: oklch(0.21 0.018 265);
-  --card-foreground: oklch(0.93 0.012 70);
-  --popover: oklch(0.21 0.018 265);
-  --popover-foreground: oklch(0.93 0.012 70);
+  --background: 0.16 0.015 260;
+  --foreground: 0.93 0.012 70;
+  --card: 0.21 0.018 265;
+  --card-foreground: 0.93 0.012 70;
+  --popover: 0.21 0.018 265;
+  --popover-foreground: 0.93 0.012 70;
 
-  --primary: oklch(0.72 0.14 55);
-  --primary-foreground: oklch(0.18 0.02 50);
-  --secondary: oklch(0.27 0.02 265);
-  --secondary-foreground: oklch(0.92 0.012 70);
-  --muted: oklch(0.25 0.018 265);
-  --muted-foreground: oklch(0.68 0.015 70);
-  --accent: oklch(0.7 0.14 55);
-  --accent-foreground: oklch(0.16 0.02 50);
+  --primary: 0.72 0.14 55;
+  --primary-foreground: 0.18 0.02 50;
+  --secondary: 0.27 0.02 265;
+  --secondary-foreground: 0.92 0.012 70;
+  --muted: 0.25 0.018 265;
+  --muted-foreground: 0.68 0.015 70;
+  --accent: 0.7 0.14 55;
+  --accent-foreground: 0.16 0.02 50;
 
-  --destructive: oklch(0.7 0.19 22);
-  --destructive-foreground: oklch(0.99 0.01 75);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 13%);
-  --ring: oklch(0.62 0.13 52);
+  --destructive: 0.7 0.19 22;
+  --destructive-foreground: 0.99 0.01 75;
+  --border: 1 0 0;
+  --input: 1 0 0;
+  --ring: 0.62 0.13 52;
+
+  --chart-1: 0.7 0.16 50;
+  --chart-2: 0.65 0.12 165;
+  --chart-3: 0.6 0.1 255;
+  --chart-4: 0.78 0.15 85;
+  --chart-5: 0.68 0.14 28;
 
   --glow: oklch(0.75 0.16 55 / 0.22);
   --glass: oklch(0.18 0.018 265 / 0.72);
   --glass-border: oklch(1 0 0 / 0.1);
   --hero-overlay: oklch(0.14 0.02 265 / 0.5);
+  --bg-solid: oklch(0.16 0.015 260);
 }
 
 @layer base {
   * {
-    border-color: var(--border);
-    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
+    border-color: oklch(var(--border));
+    outline-color: oklch(var(--ring) / 0.5);
   }
   html {
-    /* Hide native scrollbar — we use a custom overlay scrollbar. */
+    /* Hide native scrollbar — we use a custom overlay scrollbar */
     scrollbar-width: none;
     -ms-overflow-style: none;
     /* Only clip horizontal overflow; vertical scroll stays native for
@@ -97,20 +107,20 @@
     display: none;
   }
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
     font-feature-settings: "cv11", "ss01", "ss03";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: clip;
-    /* Smooth, performant theme transition — only the body bg repaints. */
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
+  /* Theme switch: NO global background transition. Transitioning the body
+     background causes a large-area repaint that janks on theme toggle.
+     Elements change color instantly via CSS variables — cleaner and faster. */
   ::selection {
-    background-color: var(--accent);
-    color: var(--accent-foreground);
+    background-color: oklch(var(--accent));
+    color: oklch(var(--accent-foreground));
   }
 }
 
@@ -132,7 +142,7 @@
   transform: translateX(-50%);
   width: 6px;
   border-radius: 999px;
-  background-color: var(--accent);
+  background-color: oklch(var(--accent));
   opacity: 0;
   transition: opacity 0.45s ease, width 0.25s ease, background-color 0.3s ease;
   pointer-events: auto;
@@ -157,24 +167,22 @@
 /* ============ Utility classes ============ */
 .glass {
   background-color: var(--glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
   border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 0 oklch(1 0 0 / 0.06),
+    0 8px 32px -12px oklch(0 0 0 / 0.25);
 }
 .text-gradient {
-  background: linear-gradient(
-    120deg,
-    var(--foreground) 0%,
-    var(--accent) 60%,
-    var(--primary) 100%
-  );
+  background: linear-gradient(120deg, oklch(var(--foreground)) 0%, oklch(var(--accent)) 60%, oklch(var(--primary)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
 .text-gradient-warm {
-  background: linear-gradient(120deg, var(--accent) 0%, var(--primary) 100%);
+  background: linear-gradient(120deg, oklch(var(--accent)) 0%, oklch(var(--primary)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -185,10 +193,10 @@
 .text-gradient-animate {
   background: linear-gradient(
     120deg,
-    var(--foreground) 0%,
-    var(--accent) 35%,
-    var(--primary) 55%,
-    var(--foreground) 90%
+    oklch(var(--foreground)) 0%,
+    oklch(var(--accent)) 35%,
+    oklch(var(--primary)) 55%,
+    oklch(var(--foreground)) 90%
   );
   background-size: 250% 100%;
   -webkit-background-clip: text;
@@ -198,26 +206,38 @@
   animation: gradient-pan 8s ease-in-out infinite;
 }
 @keyframes gradient-pan {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* Focus-visible — refined ring */
 :focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
+  box-shadow: 0 0 0 2px oklch(var(--background)), 0 0 0 4px oklch(var(--accent));
   border-radius: calc(var(--radius) - 4px);
 }
 
-/* Styled scrollbar for inner scroll areas (heatmap, dialogs) */
+/* Premium card — subtle depth for content cards */
+.card-premium {
+  position: relative;
+  border: 1px solid oklch(var(--border));
+  background-color: oklch(var(--card));
+  box-shadow:
+    inset 0 1px 0 0 oklch(1 0 0 / 0.04),
+    0 1px 2px 0 oklch(0 0 0 / 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-premium:hover {
+  border-color: color-mix(in oklch, oklch(var(--accent)) 30%, oklch(var(--border)));
+  box-shadow:
+    inset 0 1px 0 0 oklch(1 0 0 / 0.06),
+    0 12px 40px -16px var(--glow);
+}
+
+/* Styled scrollbar for inner scroll areas */
 .styled-scroll {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent) transparent;
+  scrollbar-color: oklch(var(--accent)) transparent;
 }
 .styled-scroll::-webkit-scrollbar {
   width: 6px;
@@ -227,11 +247,43 @@
   background: transparent;
 }
 .styled-scroll::-webkit-scrollbar-thumb {
-  background-color: var(--border);
+  background-color: oklch(var(--border));
   border-radius: 999px;
 }
 .styled-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: var(--accent);
+  background-color: oklch(var(--accent));
+}
+
+/* ============ Theme toggle icon — pure CSS moon↔sun morph ============ */
+.theme-icon .theme-ray {
+  opacity: 0;
+  transform: scaleY(0.3);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.theme-icon .theme-disc {
+  transform: scale(0.96);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.theme-icon .theme-mask {
+  opacity: 1;
+  transform: translate(3.2px, -2.8px);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Light mode (data-dark="0") → full sun */
+.theme-icon[data-dark="0"] .theme-ray {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.theme-icon[data-dark="0"] .theme-disc {
+  transform: scale(1);
+}
+.theme-icon[data-dark="0"] .theme-mask {
+  opacity: 0;
+  transform: translate(12px, -10px);
 }
 
 /* Respect reduced motion */
@@ -246,9 +298,9 @@
   }
 }
 
-/* ============ Blog markdown prose styles (matches main site) ============ */
+/* ============ Custom prose styles for blog markdown ============ */
 .prose-warm {
-  color: var(--foreground);
+  color: oklch(var(--foreground));
   line-height: 1.85;
   font-size: 0.975rem;
   overflow-x: hidden;
@@ -258,47 +310,36 @@
 .prose-warm h2,
 .prose-warm h3,
 .prose-warm h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-space-grotesk), var(--font-noto-sans-sc), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
-  color: var(--foreground);
+  color: oklch(var(--foreground));
   margin-top: 1.8em;
   margin-bottom: 0.6em;
   line-height: 1.3;
 }
-.prose-warm h1 {
-  font-size: 1.8rem;
-}
+.prose-warm h1 { font-size: 1.8rem; }
 .prose-warm h2 {
   font-size: 1.45rem;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid oklch(var(--border));
 }
-.prose-warm h3 {
-  font-size: 1.2rem;
-}
-.prose-warm p {
-  margin: 0.9em 0;
-}
+.prose-warm h3 { font-size: 1.2rem; }
+.prose-warm p { margin: 0.9em 0; }
 .prose-warm a {
-  color: var(--primary);
+  color: oklch(var(--primary));
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   transition: color 0.2s;
 }
-.prose-warm a:hover {
-  color: var(--accent);
-}
-.prose-warm strong {
-  color: var(--foreground);
-  font-weight: 650;
-}
+.prose-warm a:hover { color: oklch(var(--accent)); }
+.prose-warm strong { color: oklch(var(--foreground)); font-weight: 650; }
 .prose-warm blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid oklch(var(--accent));
   padding: 0.4em 1em;
   margin: 1.2em 0;
-  color: var(--muted-foreground);
-  background-color: var(--muted);
+  color: oklch(var(--muted-foreground));
+  background-color: oklch(var(--muted));
   border-radius: 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0;
 }
 .prose-warm ul,
@@ -306,34 +347,28 @@
   margin: 0.9em 0;
   padding-left: 1.5em;
 }
-.prose-warm ul {
-  list-style: disc;
-}
-.prose-warm ol {
-  list-style: decimal;
-}
-.prose-warm li {
-  margin: 0.4em 0;
-}
+.prose-warm ul { list-style: disc; }
+.prose-warm ol { list-style: decimal; }
+.prose-warm li { margin: 0.4em 0; }
 .prose-warm code {
-  font-family: var(--font-mono);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
   font-size: 0.85em;
-  background-color: var(--muted);
+  background-color: oklch(var(--muted));
   padding: 0.15em 0.4em;
   border-radius: calc(var(--radius) - 4px);
-  color: var(--primary);
+  color: oklch(var(--primary));
 }
 .prose-warm pre {
-  background-color: var(--muted);
+  background-color: oklch(var(--muted));
   padding: 1em 1.2em;
   border-radius: calc(var(--radius) - 2px);
   margin: 1.2em 0;
-  border: 1px solid var(--border);
+  border: 1px solid oklch(var(--border));
 }
 .prose-warm pre code {
   background: none;
   padding: 0;
-  color: var(--foreground);
+  color: oklch(var(--foreground));
 }
 .prose-warm img {
   border-radius: calc(var(--radius) - 2px);
@@ -350,19 +385,19 @@
 }
 .prose-warm th,
 .prose-warm td {
-  border: 1px solid var(--border);
+  border: 1px solid oklch(var(--border));
   padding: 0.6em 0.8em;
   text-align: left;
   vertical-align: top;
   word-break: break-word;
 }
 .prose-warm th {
-  background-color: var(--muted);
+  background-color: oklch(var(--muted));
   font-weight: 600;
   white-space: nowrap;
 }
 .prose-warm hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid oklch(var(--border));
   margin: 2em 0;
 }

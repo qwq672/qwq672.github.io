@@ -4,9 +4,6 @@ import * as React from "react";
  * Renders a project logo. For SVGs we inline the markup so that
  * `currentColor` / theme-aware coloring works (an <img> tag can't inherit
  * CSS color). For raster logos (PNG) we just use <img>.
- *
- * Same component as the main project — `fetch` works fine for static
- * assets on the same origin.
  */
 export function ProjectLogo({
   src,
@@ -41,6 +38,7 @@ export function ProjectLogo({
     return <img src={src} alt={alt} className={className} />;
   }
 
+  // inline svg
   if (!svg) return null;
   return (
     <span

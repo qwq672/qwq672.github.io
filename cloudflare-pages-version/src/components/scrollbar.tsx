@@ -1,17 +1,19 @@
 import * as React from "react";
 
 /**
- * Custom overlay scrollbar — same component as the main project.
- *
- * Trackless, auto-shows on scroll, draggable. Sits on top of content so
- * the page stays visually centered. Skipped on touch / coarse-pointer
- * devices where native scrolling is better.
+ * Custom overlay scrollbar.
+ * - Sits on top of content (trackless) so the page stays visually centered.
+ * - Thumb is hidden by default, fades in while scrolling / hovering the rail.
+ * - Draggable: click + drag the thumb to scroll the page (desktop only;
+ *   on touch devices we rely on native scrolling to avoid intercepting
+ *   touch events).
  */
 export function Scrollbar() {
   const railRef = React.useRef<HTMLDivElement>(null);
   const thumbRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    // Skip on touch / small screens — native scrolling is better there.
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const rail = railRef.current;

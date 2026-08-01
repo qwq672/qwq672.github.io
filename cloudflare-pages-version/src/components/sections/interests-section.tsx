@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  SectionHeading,
-  staggerContainer,
-  staggerItem,
-} from "@/components/motion-helpers";
+import { Reveal, SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
 import { interests } from "@/lib/content";
 
 export function InterestsSection() {
@@ -34,8 +30,9 @@ export function InterestsSection() {
             <motion.article
               key={item.title}
               variants={staggerItem}
-              className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_70px_-36px_var(--glow)]"
+              className="card-premium group relative overflow-hidden rounded-3xl p-6 hover:-translate-y-1"
             >
+              {/* glow */}
               <div
                 className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${item.accent} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />

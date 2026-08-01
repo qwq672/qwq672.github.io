@@ -7,70 +7,77 @@ import {
   Clock,
   ChevronRight,
 } from "lucide-react";
-import { getPost, getAdjacentPosts } from "@/lib/posts-data";
+import { getPost, getAdjacentPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 import { MarkdownView } from "@/components/markdown-view";
 import { SiteFooter } from "@/components/site-footer";
 
 /**
- * Blog post detail page.
+ * Post detail page — mirrors the main project's src/app/posts/[slug]/page.tsx.
  *
- * Static-host adaptation: the main Next.js project pre-renders each post
- * at `/posts/[slug]` server-side (SSG with markdown). Here we use a single
- * client-side route (`/posts/:slug`) backed by the build-time-generated
- * `posts.json` — the markdown body is shipped as a JSON string and
- * rendered by react-markdown at runtime.
- *
- * Prev/Next navigation works the same way: posts are sorted newest-first
- * in the JSON, "prev" = newer post, "next" = older post.
+ * Reads the post from the baked-in JSON (via lib/posts), sets document.title
+ * dynamically, and renders the article + prev/next nav + back links.
  */
-export default function PostPage() {
+export function PostPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
   const post = slug ? getPost(slug) : null;
-  const adjacent = React.useMemo(
-    () => (slug ? getAdjacentPosts(slug) : { prev: null, next: null }),
-    [slug]
-  );
+  const { prev: prevPost, next: nextPost } = slug
+    ? getAdjacentPosts(slug)
+    : { prev: null, next: null };
 
-  // Scroll to top whenever the slug changes (prev/next navigation).
+  // Set document title dynamically (replaces Next.js generateMetadata)
+  React.useEffect(() => {
+    if (post) {
+      document.title = `${post.title} · qwq672`;
+      return () => {
+        document.title = "qwq672 · 随笔与小破站";
+      };
+    }
+  }, [post]);
+
+  // Scroll to top on slug change
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [slug]);
 
-  // Update document title for the current post (since this is an SPA,
-  // there's no per-route server-side <title>).
-  React.useEffect(() => {
-    if (post) {
-      document.title = `${post.title} · qwq672`;
-    }
-    return () => {
-      document.title = "qwq672 · 随笔与小破站";
-    };
-  }, [post]);
-
   if (!post) {
+    // Not found — render the 404 UI inline (react-router will also catch
+    // via the * route, but this guards against a stale slug param).
     return (
-      <div className="relative flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
-        <p className="font-display text-2xl font-semibold text-foreground">
-          没找到这篇文章
-        </p>
-        <p className="text-sm text-muted-foreground">
-          可能是链接拼错了，或者文章还没写出来（
-        </p>
-        <button
-          onClick={() => navigate("/#blog")}
-          className="mt-2 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
+      <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
         >
-          <ArrowLeft className="h-4 w-4" />
-          返回随笔列表
-        </button>
+          <div className="absolute -left-[20%] top-[10%] h-[45vh] w-[45vh] rounded-full bg-accent/10 blur-[120px]" />
+        </div>
+        <h1 className="font-display text-[7rem] font-bold leading-none tracking-tight text-foreground sm:text-[10rem]">
+          <span className="text-gradient-animate">404</span>
+        </h1>
+        <p className="mt-2 text-lg font-medium text-foreground">这篇文章不存在</p>
+        <div className="mt-8">
+          <Link
+            to="/?s=blog"
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.03] active:scale-95"
+          >
+            回到首页
+          </Link>
+        </div>
       </div>
     );
   }
 
-  const { prev: prevPost, next: nextPost } = adjacent;
+  const goBackToBlog = () => {
+    navigate("/?s=blog");
+    // Wait for the home page to mount, then scroll to #blog.
+    setTimeout(() => {
+      document
+        .getElementById("blog")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
+  };
 
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -87,7 +94,7 @@ export default function PostPage() {
       <header className="sticky top-0 z-40 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-3.5 sm:px-8">
           <button
-            onClick={() => navigate("/#blog")}
+            onClick={goBackToBlog}
             className="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
@@ -95,7 +102,6 @@ export default function PostPage() {
           </button>
           <Link
             to="/"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center gap-2 text-sm font-semibold text-foreground"
           >
             <span className="relative h-6 w-6 overflow-hidden rounded-full border border-border/60">
@@ -215,7 +221,7 @@ export default function PostPage() {
 
           <div className="mt-10 flex justify-center">
             <button
-              onClick={() => navigate("/#blog")}
+              onClick={goBackToBlog}
               className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg"
             >
               <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5" />

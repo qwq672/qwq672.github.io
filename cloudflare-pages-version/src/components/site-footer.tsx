@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Heart, ArrowUp } from "lucide-react";
 
 export function SiteFooter() {

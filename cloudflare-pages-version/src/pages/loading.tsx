@@ -1,4 +1,8 @@
-export default function Loading() {
+/**
+ * Route loading indicator — mirrors the main project's src/app/loading.tsx.
+ * Shown as a Suspense fallback (or briefly during route transitions).
+ */
+export function LoadingPage() {
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-4">

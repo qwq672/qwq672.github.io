@@ -13,21 +13,29 @@ import {
 } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/motion-helpers";
 import { shortDate } from "@/lib/format";
-import { postList } from "@/lib/posts-data";
-import type { PostMeta } from "@/lib/posts";
+import { getAllPosts, type PostMeta } from "@/lib/posts";
 import { cn } from "@/lib/utils";
 
-/**
- * Blog section — same UI as the main site, but data comes from the
- * build-time-generated `posts.json` (imported as `postList`) instead of
- * an API call.
- */
 export function BlogSection() {
-  const posts: PostMeta[] = postList;
+  const [posts, setPosts] = React.useState<PostMeta[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
 
   // filter state
   const [query, setQuery] = React.useState("");
   const [activeCat, setActiveCat] = React.useState<string>("全部");
+
+  React.useEffect(() => {
+    // Posts are baked into the JS bundle at build time (src/data/posts.json).
+    // No network fetch needed — this runs synchronously on mount.
+    try {
+      setPosts(getAllPosts());
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   // derive categories from posts
   const categories = React.useMemo(() => {
@@ -64,6 +72,7 @@ export function BlogSection() {
     currentPage * PAGE_SIZE
   );
 
+  // Page numbers to display (compact: first, last, current ±1, ellipsis)
   const pageNumbers = React.useMemo(() => {
     const nums: (number | "...")[] = [];
     const add = (n: number | "...") => nums.push(n);
@@ -85,10 +94,6 @@ export function BlogSection() {
     return nums;
   }, [currentPage, totalPages]);
 
-  const scrollToBlog = () => {
-    document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       id="blog"
@@ -108,6 +113,7 @@ export function BlogSection() {
         {/* Search + filter controls */}
         <Reveal className="mt-10">
           <div className="flex flex-col gap-4">
+            {/* search */}
             <div className="relative">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
@@ -129,7 +135,8 @@ export function BlogSection() {
               )}
             </div>
 
-            {posts.length > 0 && (
+            {/* category chips */}
+            {!loading && !error && posts.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
                 {categories.map((c) => (
                   <button
@@ -154,7 +161,30 @@ export function BlogSection() {
         </Reveal>
 
         {/* List */}
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="mt-8 space-y-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-4 rounded-3xl border border-border/40 bg-card/40 px-5 py-4 sm:px-7 sm:py-5"
+              >
+                <div className="hidden h-12 w-24 shrink-0 animate-pulse rounded-xl bg-muted sm:block" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+                  <div className="h-3 w-1/3 animate-pulse rounded bg-muted" />
+                </div>
+                <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <Reveal>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-border/60 py-20 text-muted-foreground">
+              <Inbox className="h-7 w-7" />
+              <p>加载失败，刷新试试</p>
+            </div>
+          </Reveal>
+        ) : filtered.length === 0 ? (
           <Reveal>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-border/60 py-20 text-muted-foreground">
               <Inbox className="h-8 w-8" />
@@ -201,7 +231,7 @@ export function BlogSection() {
               >
                 <Link
                   to={`/posts/${post.slug}`}
-                  className="group flex w-full items-center gap-4 rounded-3xl border border-border/60 bg-card/60 px-5 py-4 text-left backdrop-blur-sm transition-all duration-400 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-card/80 hover:shadow-[0_20px_60px_-32px_var(--glow)] sm:px-7 sm:py-5"
+                  className="card-premium group flex w-full items-center gap-4 rounded-3xl px-5 py-4 text-left hover:-translate-y-0.5 sm:px-7 sm:py-5"
                 >
                   {/* Date column */}
                   <div className="hidden w-24 shrink-0 sm:block">
@@ -260,10 +290,11 @@ export function BlogSection() {
         {/* Page navigation */}
         {totalPages > 1 && (
           <div className="mt-8 flex items-center justify-center gap-1.5">
+            {/* Prev */}
             <button
               onClick={() => {
                 setPage((p) => Math.max(1, p - 1));
-                scrollToBlog();
+                document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
               }}
               disabled={currentPage <= 1}
               aria-label="上一页"
@@ -277,6 +308,7 @@ export function BlogSection() {
               <ChevronLeft className="h-4 w-4" />
             </button>
 
+            {/* Page numbers */}
             {pageNumbers.map((n, i) =>
               n === "..." ? (
                 <span
@@ -290,7 +322,7 @@ export function BlogSection() {
                   key={n}
                   onClick={() => {
                     setPage(n);
-                    scrollToBlog();
+                    document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   aria-label={`第 ${n} 页`}
                   className={cn(
@@ -305,10 +337,11 @@ export function BlogSection() {
               )
             )}
 
+            {/* Next */}
             <button
               onClick={() => {
                 setPage((p) => Math.min(totalPages, p + 1));
-                scrollToBlog();
+                document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
               }}
               disabled={currentPage >= totalPages}
               aria-label="下一页"

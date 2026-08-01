@@ -1,39 +1,15 @@
 /**
- * Build-time data generator for the static (Cloudflare Pages / GitHub Pages)
- * version of qwq672's site.
+ * Build-time data generator for the static site.
  *
- * What it does:
- *   1. Reads the *main* project's markdown posts at
- *      /home/z/my-project/content/posts/*.md — parses YAML frontmatter
- *      (title / date / categories / tags / description / icon / order) and
- *      the markdown body, estimates reading time, and writes a JSON array
- *      to src/data/posts.json (sorted newest-first).
- *   2. Scans the main project's /home/z/my-project/public/photos/*.jpg,
- *      writes src/data/photos.json with each file's relative URL. Real
- *      pixel dimensions aren't needed here — the photo wall uses a fixed
- *      CSS Grid with `grid-auto-flow: row dense` so any ratio works; we
- *      assign a deterministic pseudo-ratio per filename so the masonry
- *      layout stays stable between builds.
+ * Reads markdown posts from content/posts/*.md and emits src/data/posts.json.
+ * Scans public/photos/*.jpg, reads each image's dimensions from the JPEG
+ * header (pure JS, no sharp dependency), and emits src/data/photos.json.
  *
- * The generated JSON is imported by the SPA at runtime — no server, no
- * fs, no sharp required in production.
- *
- * Run with:  bun run scripts/build-data.ts
+ * Run via `bun run build:data` (or automatically before `bun run build`).
  */
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// The main project root (read-only — we never touch it).
-const MAIN_PROJECT_ROOT = "/home/z/my-project";
-const POSTS_DIR = path.join(MAIN_PROJECT_ROOT, "content", "posts");
-const PHOTOS_DIR = path.join(MAIN_PROJECT_ROOT, "public", "photos");
-
-// Output goes inside this project.
-const OUT_DIR = path.resolve(__dirname, "..", "src", "data");
+import { promises as fs } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 interface PostMeta {
   slug: string;
@@ -51,7 +27,23 @@ interface Post extends PostMeta {
   content: string;
 }
 
-/** Minimal, safe YAML frontmatter parser (matches main project's lib/posts.ts). */
+interface PhotoItem {
+  src: string;
+  w: number;
+  h: number;
+  ratio: number;
+}
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.resolve(__dirname, "..");
+const POSTS_DIR = path.join(ROOT, "content", "posts");
+const PHOTOS_DIR = path.join(ROOT, "public", "photos");
+const OUT_POSTS = path.join(ROOT, "src", "data", "posts.json");
+const OUT_PHOTOS = path.join(ROOT, "src", "data", "photos.json");
+
+/* ----------------------------- Markdown ----------------------------- */
+
 function parseFrontmatter(raw: string): {
   data: Record<string, unknown>;
   content: string;
@@ -106,15 +98,9 @@ function parseFrontmatter(raw: string): {
   return { data, content };
 }
 
-function toSlug(fileName: string): string {
-  return fileName.replace(/\.md$/i, "");
-}
-
 function estimateReadingMinutes(text: string): number {
   const cnChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
-  const enWords = (
-    text.replace(/[\u4e00-\u9fa5]/g, " ").match(/[A-Za-z0-9]+/g) || []
-  ).length;
+  const enWords = (text.replace(/[\u4e00-\u9fa5]/g, " ").match(/[A-Za-z0-9]+/g) || []).length;
   const minutes = cnChars / 400 + enWords / 220;
   return Math.max(1, Math.round(minutes));
 }
@@ -158,35 +144,85 @@ async function readPostFile(slug: string): Promise<Post | null> {
   }
 }
 
-async function buildPosts(): Promise<Post[]> {
+async function getAllPosts(): Promise<Post[]> {
   try {
     const files = await fs.readdir(POSTS_DIR);
     const mdFiles = files.filter((f) => f.endsWith(".md"));
-    const posts = await Promise.all(mdFiles.map((f) => readPostFile(toSlug(f))));
+    const posts = await Promise.all(
+      mdFiles.map((f) => readPostFile(f.replace(/\.md$/i, "")))
+    );
     const valid = posts.filter((p): p is Post => p !== null);
+    // newest first; posts without a date go to the end
     return valid.sort((a, b) =>
       a.date < b.date ? 1 : a.date > b.date ? -1 : 0
     );
-  } catch (e) {
-    console.warn(
-      "[build-data] Could not read posts dir",
-      POSTS_DIR,
-      e instanceof Error ? e.message : e
-    );
+  } catch {
     return [];
   }
 }
 
-interface PhotoItem {
-  src: string;
-  ratio: number;
+/* ----------------------------- JPEG dims ----------------------------- */
+
+/**
+ * Read width/height from a JPEG file by scanning markers for SOF0/SOF1/SOF2.
+ * Pure JS, no external deps. Returns null if parsing fails.
+ */
+async function readJpegSize(filePath: string): Promise<{ w: number; h: number } | null> {
+  let handle: fs.FileHandle | null = null;
+  try {
+    handle = await fs.open(filePath, "r");
+    const buf = Buffer.alloc(8);
+    // SOI must be FF D8
+    await handle.read(buf, 0, 2, 0);
+    if (buf[0] !== 0xff || buf[1] !== 0xd8) return null;
+
+    let offset = 2;
+    const lenBuf = Buffer.alloc(2);
+    const sofBuf = Buffer.alloc(9); // marker(2) + len(2) + precision(1) + h(2) + w(2)
+
+    while (offset < 1024 * 1024) {
+      // Read marker (2 bytes: FF xx)
+      await handle.read(buf, 0, 2, offset);
+      if (buf[0] !== 0xff) return null;
+      const marker = buf[1];
+      // Standalone markers (no length): RSTn, SOI, EOI, TEM
+      if (marker === 0xd8 || marker === 0xd9 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) {
+        offset += 2;
+        continue;
+      }
+      // Read segment length (2 bytes, big-endian, includes itself)
+      await handle.read(lenBuf, 0, 2, offset + 2);
+      const segLen = (lenBuf[0] << 8) | lenBuf[1];
+      if (segLen < 2) return null;
+
+      // SOF markers: C0, C1, C2, C3, C5, C6, C7, C9, CA, CB, CD, CE, CF
+      const isSof =
+        (marker >= 0xc0 && marker <= 0xc3) ||
+        (marker >= 0xc5 && marker <= 0xc7) ||
+        (marker >= 0xc9 && marker <= 0xcb) ||
+        (marker >= 0xcd && marker <= 0xcf);
+      if (isSof) {
+        // SOF payload: precision(1) + height(2) + width(2)
+        await handle.read(sofBuf, 0, 5, offset + 4);
+        const height = (sofBuf[1] << 8) | sofBuf[2];
+        const width = (sofBuf[3] << 8) | sofBuf[4];
+        if (height > 0 && width > 0) return { w: width, h: height };
+        return null;
+      }
+      offset += 2 + segLen;
+    }
+    return null;
+  } catch {
+    return null;
+  } finally {
+    if (handle) await handle.close();
+  }
 }
 
-async function buildPhotos(): Promise<PhotoItem[]> {
+async function getPhotos(): Promise<PhotoItem[]> {
   try {
-    const files = await fs.readdir(PHOTOS_DIR);
-    const jpgs = files
-      .filter((f) => /\.jpe?g$/i.test(f))
+    const files = (await fs.readdir(PHOTOS_DIR))
+      .filter((f) => /\.jpg$/i.test(f))
       .sort((a, b) => {
         const na = parseInt(a, 10);
         const nb = parseInt(b, 10);
@@ -194,47 +230,35 @@ async function buildPhotos(): Promise<PhotoItem[]> {
         return na - nb;
       });
 
-    // Deterministic pseudo-ratio per filename so the dense grid masonry
-    // stays stable between builds (real dimensions require sharp, which we
-    // explicitly avoid for the static version). Rotating through a small
-    // set of common ratios gives a varied, natural-looking wall.
-    const RATIOS = [1.5, 1.33, 0.75, 1.0, 1.78, 0.67, 1.25, 0.8];
-    return jpgs.map((f, i) => ({
-      // Use a relative URL so it works under any base path (Cloudflare
-      // root domain or GitHub Pages /repo/ sub-path).
-      src: `./photos/${f}`,
-      ratio: RATIOS[i % RATIOS.length],
-    }));
-  } catch (e) {
-    console.warn(
-      "[build-data] Could not read photos dir",
-      PHOTOS_DIR,
-      e instanceof Error ? e.message : e
-    );
+    const photos: PhotoItem[] = [];
+    for (const f of files) {
+      const full = path.join(PHOTOS_DIR, f);
+      const size = await readJpegSize(full);
+      const w = size?.w ?? 600;
+      const h = size?.h ?? 400;
+      photos.push({ src: `photos/${f}`, w, h, ratio: w / h });
+    }
+    return photos;
+  } catch {
     return [];
   }
 }
 
+/* ------------------------------- Main ------------------------------- */
+
 async function main() {
-  await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.mkdir(path.dirname(OUT_POSTS), { recursive: true });
 
-  const [posts, photos] = await Promise.all([buildPosts(), buildPhotos()]);
+  const posts = await getAllPosts();
+  await fs.writeFile(OUT_POSTS, JSON.stringify(posts, null, 2), "utf-8");
+  console.log(`✓ Wrote ${posts.length} posts → ${path.relative(ROOT, OUT_POSTS)}`);
 
-  const postsJson = JSON.stringify(posts, null, 2);
-  const photosJson = JSON.stringify({ photos }, null, 2);
-
-  await fs.writeFile(path.join(OUT_DIR, "posts.json"), postsJson, "utf-8");
-  await fs.writeFile(path.join(OUT_DIR, "photos.json"), photosJson, "utf-8");
-
-  console.log(
-    `[build-data] Wrote ${posts.length} posts and ${photos.length} photos → ${path.relative(
-      process.cwd(),
-      OUT_DIR
-    )}`
-  );
+  const photos = await getPhotos();
+  await fs.writeFile(OUT_PHOTOS, JSON.stringify({ photos }, null, 2), "utf-8");
+  console.log(`✓ Wrote ${photos.length} photos → ${path.relative(ROOT, OUT_PHOTOS)}`);
 }
 
 main().catch((e) => {
-  console.error(e);
+  console.error("Build data failed:", e);
   process.exit(1);
 });

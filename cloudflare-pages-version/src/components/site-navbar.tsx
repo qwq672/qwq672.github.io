@@ -1,16 +1,10 @@
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { navLinks } from "@/lib/content";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuIcon } from "@/components/menu-icon";
 import { cn } from "@/lib/utils";
 
-/**
- * Site navbar — frosted glass, horizontally centered desktop nav, hide on
- * scroll down / show on scroll up, full-screen mobile menu (clip-path
- * circle expand from top-right). Same behavior as the main project.
- */
 export function SiteNavbar() {
   const reduce = useReducedMotion();
   const [scrolled, setScrolled] = React.useState(false);
@@ -18,6 +12,7 @@ export function SiteNavbar() {
   const [active, setActive] = React.useState<string>("");
   const [hidden, setHidden] = React.useState(false);
 
+  // Scroll handler: scrolled state + hide-on-scroll-down/show-on-scroll-up
   React.useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;
@@ -118,9 +113,8 @@ export function SiteNavbar() {
               : "shadow-none"
           )}
         >
-          {/* Left — logo (click to scroll home) */}
-          <Link
-            to="/"
+          {/* Left — logo */}
+          <button
             onClick={() => {
               setHidden(false);
               setOpen(false);
@@ -139,9 +133,9 @@ export function SiteNavbar() {
             <span className="font-display text-[0.95rem] font-semibold tracking-tight text-foreground">
               qwq672
             </span>
-          </Link>
+          </button>
 
-          {/* Center — desktop nav links */}
+          {/* Center — desktop nav links (absolute centered, compact) */}
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
             {navLinks.map((link) => (
               <button
@@ -169,6 +163,7 @@ export function SiteNavbar() {
           {/* Right — actions */}
           <div className="relative z-10 flex items-center gap-2">
             <ThemeToggle />
+            {/* Mobile menu button — morphs to X */}
             <button
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-foreground/80 transition-colors hover:text-accent md:hidden"
               onClick={() => setOpen((v) => !v)}
@@ -192,6 +187,8 @@ export function SiteNavbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.3 }}
           >
+            {/* backdrop — fully opaque so the page behind never shows
+                through during address-bar show/hide transitions. */}
             <motion.div
               className="absolute inset-0 bg-background backdrop-blur-2xl"
               initial={{ clipPath: "circle(0% at 100% 0%)" }}
@@ -199,6 +196,7 @@ export function SiteNavbar() {
               exit={{ clipPath: "circle(0% at 100% 0%)" }}
               transition={{ duration: reduce ? 0 : 0.5, ease: [0.76, 0, 0.24, 1] }}
             />
+            {/* ambient glow */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -207,6 +205,7 @@ export function SiteNavbar() {
               <div className="absolute right-[-10%] bottom-[10%] h-[35vh] w-[35vh] rounded-full bg-primary/15 blur-[100px]" />
             </div>
 
+            {/* nav links — scrollable, padded below navbar */}
             <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-1.5 overflow-y-auto px-6 pb-8 pt-24">
               {navLinks.map((link, i) => (
                 <motion.button
@@ -249,6 +248,7 @@ export function SiteNavbar() {
               ))}
             </div>
 
+            {/* footer hint */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

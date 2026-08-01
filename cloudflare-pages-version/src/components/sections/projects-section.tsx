@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  SectionHeading,
-  staggerContainer,
-  staggerItem,
-} from "@/components/motion-helpers";
+import { SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
 import { projects } from "@/lib/content";
 import { ProjectLogo } from "@/components/project-logo";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
@@ -33,12 +29,14 @@ export function ProjectsSection() {
             <motion.article
               key={p.name}
               variants={staggerItem}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_28px_80px_-40px_var(--glow)]"
+              className="card-premium group relative flex flex-col overflow-hidden rounded-3xl p-6 hover:-translate-y-1"
             >
+              {/* glow */}
               <div
                 className={`pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-gradient-to-br ${p.accent} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />
 
+              {/* top row: logo + status */}
               <div className="relative flex items-start justify-between">
                 <div className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-border/60 bg-background/60 p-2.5 text-accent ring-1 ring-accent/10 transition-all duration-500 group-hover:scale-105 group-hover:ring-accent/30">
                   <ProjectLogo
@@ -54,6 +52,7 @@ export function ProjectsSection() {
                 </span>
               </div>
 
+              {/* title */}
               <div className="relative mt-5">
                 <div className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {p.tagline}
@@ -66,6 +65,7 @@ export function ProjectsSection() {
                 </p>
               </div>
 
+              {/* tags */}
               <div className="relative mt-5 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <span
@@ -77,6 +77,7 @@ export function ProjectsSection() {
                 ))}
               </div>
 
+              {/* website link */}
               <div className="relative mt-auto pt-5">
                 <a
                   href={p.website.url}

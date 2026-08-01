@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, KeyRound, HardDriveDownload } from "lucide-react";
-import {
-  Reveal,
-  SectionHeading,
-  staggerContainer,
-  staggerItem,
-} from "@/components/motion-helpers";
+import { Reveal, SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
 import { resources, resourcePasswordHint } from "@/lib/content";
 
 export function ResourcesSection() {
@@ -22,6 +17,7 @@ export function ResourcesSection() {
           description="老设备复古站、网盘资源合集都在这。有密码的话一般是下面说的那两个。"
         />
 
+        {/* Password hint banner */}
         <Reveal className="mt-8">
           <div className="flex items-start gap-3 rounded-2xl border border-accent/25 bg-accent/8 px-5 py-3.5 text-sm">
             <KeyRound className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -46,7 +42,7 @@ export function ResourcesSection() {
               target="_blank"
               rel="noopener noreferrer"
               variants={staggerItem}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 backdrop-blur-sm transition-all duration-400 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_20px_60px_-34px_var(--glow)] sm:p-6"
+              className="card-premium group relative flex items-center gap-4 overflow-hidden rounded-3xl p-5 hover:-translate-y-0.5 sm:p-6"
             >
               <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
               <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border/60 bg-background/60 text-accent transition-all duration-400 group-hover:scale-110 group-hover:border-accent/40">

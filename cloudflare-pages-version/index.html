@@ -3,37 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1a1a2e" />
     <link rel="icon" type="image/webp" href="./icon-48.webp" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f2ea" media="(prefers-color-scheme: light)" />
+
     <title>qwq672 · 随笔与小破站</title>
     <meta
       name="description"
       content="qwq672 的个人小站 — 学生 / 老设备折腾者 / Minecraft 模组作者 / 音乐小白。游戏、复古、代码、碎碎念，都丢在这啦。"
     />
+    <meta
+      name="keywords"
+      content="qwq672,个人网站,Minecraft,LavaArcade,老设备,复古,博客"
+    />
+    <meta name="author" content="qwq672" />
+    <meta property="og:title" content="qwq672 · 随笔与小破站" />
+    <meta
+      property="og:description"
+      content="学生 / 老设备折腾者 / Minecraft 模组作者 / 音乐小白"
+    />
+    <meta property="og:type" content="website" />
 
-    <!-- Fonts: load via Google Fonts CSS (the main Next.js project bundles
-         them with next/font; for a static SPA we just use the stylesheet.
-         Space Grotesk + Inter + Noto Sans/Serif SC + JetBrains Mono. -->
+    <!-- Google Fonts (replaces next/font/google from the main project) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Avoid theme flash: read the persisted theme (or default dark) before
-         the React tree mounts, so the <html> class is correct on first paint. -->
+    <!-- Anti-FOUC theme bootstrap: applies the stored theme BEFORE first
+         paint so there's no flash of the wrong theme. Mirrors what
+         next-themes does internally on the server. -->
     <script>
       (function () {
         try {
-          var t = localStorage.getItem("theme");
-          if (t === "light" || t === "dark") {
-            document.documentElement.classList.toggle("dark", t === "dark");
-          } else {
-            // Default to dark (matches the main Next.js site)
-            document.documentElement.classList.add("dark");
-          }
+          var stored = localStorage.getItem("theme");
+          // Default to dark — matches the main project's defaultTheme="dark".
+          var isDark = stored ? stored === "dark" : true;
+          if (isDark) document.documentElement.classList.add("dark");
         } catch (e) {
           document.documentElement.classList.add("dark");
         }

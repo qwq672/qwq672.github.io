@@ -9,18 +9,17 @@ import {
   getStoredImages,
 } from "@/lib/hero-images";
 
-/** Hero section — day/night background crossfade, picks pool by orientation. */
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
   const reduce = useReducedMotion();
-  void reduce; // keep for parity with main site (no parallax here)
 
   const showNight = mounted ? resolvedTheme === "dark" : true;
 
   // Detect orientation: portrait (tall) screens use vertical/mobile images,
-  // landscape (wide) screens use horizontal/desktop images.
+  // landscape (wide) screens use horizontal/desktop images. Square screens
+  // use landscape (either is fine per the spec).
   const [isPortrait, setIsPortrait] = React.useState(false);
   React.useEffect(() => {
     const mq = window.matchMedia("(orientation: portrait)");
@@ -33,17 +32,19 @@ export function HeroSection() {
   const dayPool = isPortrait ? getDayPool(true) : getDayPool(false);
   const nightPool = isPortrait ? getNightPool(true) : getNightPool(false);
 
+  // Read pre-picked images from PageIntro (or pick fresh if not found)
   const [dayImg, setDayImg] = React.useState<string | null>(null);
   const [nightImg, setNightImg] = React.useState<string | null>(null);
   React.useEffect(() => {
     const stored = getStoredImages();
     setDayImg(stored.day ?? pickRandom(dayPool));
     setNightImg(stored.night ?? pickRandom(nightPool));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPortrait]);
 
   const currentImg = showNight ? nightImg : dayImg;
 
-  // When theme changes, pick a fresh random image.
+  // When theme changes, pick a fresh random image
   const prevThemeRef = React.useRef(showNight);
   React.useEffect(() => {
     if (!mounted) return;
@@ -55,6 +56,7 @@ export function HeroSection() {
         setDayImg((prev) => pickRandom(dayPool, prev ?? undefined));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showNight, mounted]);
 
   const scrollNext = () => {
@@ -63,6 +65,7 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+      {/* Background image — pure opacity crossfade (GPU-composited). */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <AnimatePresence>
           {currentImg && (
@@ -165,7 +168,7 @@ export function HeroSection() {
         className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-foreground/60 transition-colors hover:text-foreground"
       >
         <motion.div
-          animate={{ y: [0, 6, 0] }}
+          animate={reduce ? undefined : { y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           <ChevronDown className="h-6 w-6" />

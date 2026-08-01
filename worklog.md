@@ -603,3 +603,30 @@ Work Log:
 
 Stage Summary:
 - 主题切换从"卡顿/逐帧感"变为纯CSS丝滑过渡, Teams换成2025新图标, Arvgrid标正式版, 404/loading/error三件套上线
+
+---
+Task ID: CF-2
+Agent: main
+Task: 基于当前最新主版本创建静态部署版本
+
+Work Log:
+- 基于当前主版本(v16: 纯CSS主题切换、Teams2025新图标、Arvgrid已发布、404/loading/error三件套、card-premium质感、照片墙CSS Grid dense、GitHub热力图无月份标签)
+- 创建 Vite + React + TS + Tailwind 3 纯静态版本
+- 构建脚本 scripts/build-data.ts: 8篇文章→posts.json, 38张照片→photos.json
+- react-router HashRouter 替代 next/link + 文件路由
+- GitHub贡献客户端 fetch + 解析
+- 复制全部资源(bg/photos/avatar/logo/favicon)
+- GitHub Actions: deploy.yml(GitHub Pages) + deploy-cloudflare.yml(Cloudflare Pages)
+
+自检结果:
+- tsc --noEmit: 0 error ✓
+- bun run build: 成功 (index.html 2.4KB + CSS 42KB gzip 8KB + JS 569KB gzip 191KB) ✓
+- 所有9个区块渲染正常 ✓
+- 主题切换正常 ✓
+- 404页面正常 ✓
+- 文章详情页 /#/posts/slug 标题动态更新 ✓
+- 控制台 CLEAN ✓
+- 打包: cloudflare-pages-version.zip (5.1MB, 156文件)
+
+Stage Summary:
+- 静态版本完成，基于最新主版本完整复刻，可部署到 Cloudflare Pages / GitHub Pages
