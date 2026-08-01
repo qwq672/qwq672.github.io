@@ -5,10 +5,9 @@
   "type": "module",
   "description": "Static deployment version of qwq672 personal website (Cloudflare Pages / GitHub Pages)",
   "scripts": {
-    "build:data": "tsx scripts/build-data.ts",
-    "prebuild": "bun run build:data",
+    "build:data": "npx tsx scripts/build-data.ts",
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "npx tsx scripts/build-data.ts && tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
   },
