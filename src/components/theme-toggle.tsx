@@ -1,22 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
 
 /**
- * Morphing theme toggle.
- * Dark  = crescent moon (mask covers part of the disc, rays retracted)
- * Light = full sun (mask slides away, rays extend outward)
+ * Theme toggle with a morphing moon↔sun icon.
  *
- * Performance: all animations use transform/opacity (GPU-composited) instead
- * of SVG geometry attributes (cx/cy) which cause main-thread layout.
+ * Uses pure CSS transitions (no framer-motion) for buttery-smooth animation:
+ * - 8 rays scale/fade via CSS transition on group hover/state
+ * - The crescent mask slides via CSS transform
+ * - Everything is GPU-composited (transform/opacity only)
  */
 export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
-  const reduce = useReducedMotion();
 
   const isDark = mounted ? resolvedTheme === "dark" : true;
 
@@ -25,8 +23,6 @@ export function ThemeToggle({ className }: { className?: string }) {
   }, [isDark, setTheme]);
 
   const rays = Array.from({ length: 8 }, (_, i) => i);
-  const ease = [0.22, 1, 0.36, 1] as const;
-  const dur = reduce ? 0 : 0.45;
 
   return (
     <button
@@ -43,13 +39,16 @@ export function ThemeToggle({ className }: { className?: string }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ overflow: "visible" }}
+        className="theme-icon"
+        data-dark={isDark ? "1" : "0"}
       >
-        {/* Sun rays — scale + opacity, GPU friendly */}
+        {/* Sun rays — CSS transitions on transform/opacity */}
         {rays.map((i) => {
           const angle = (i * 360) / 8;
           return (
-            <motion.rect
+            <rect
               key={i}
+              className="theme-ray"
               x="11.25"
               y="1.8"
               width="1.5"
@@ -57,54 +56,73 @@ export function ThemeToggle({ className }: { className?: string }) {
               rx="0.75"
               fill="currentColor"
               transform={`rotate(${angle} 12 12)`}
-              initial={{ opacity: isDark ? 0 : 1, scaleY: isDark ? 0.3 : 1 }}
-              animate={{ opacity: isDark ? 0 : 1, scaleY: isDark ? 0.3 : 1 }}
-              transition={{ duration: dur, ease }}
               style={{
                 transformBox: "fill-box",
                 transformOrigin: "center",
-                willChange: "transform, opacity",
               }}
             />
           );
         })}
 
-        {/* Sun/moon disc — fixed position, only scale animates */}
-        <motion.circle
+        {/* Sun/moon disc */}
+        <circle
+          className="theme-disc"
           cx="12"
           cy="12"
           r="5.2"
           fill="currentColor"
-          initial={{ scale: isDark ? 0.96 : 1 }}
-          animate={{ scale: isDark ? 0.96 : 1 }}
-          transition={{ duration: dur, ease }}
           style={{
             transformBox: "fill-box",
             transformOrigin: "center",
-            willChange: "transform",
           }}
         />
 
-        {/* Crescent mask — fixed cx/cy, moves via transform translate (GPU) */}
-        <motion.circle
+        {/* Crescent mask — slides to form the moon */}
+        <circle
+          className="theme-mask"
           cx="12"
           cy="12"
           r="5.2"
           fill="var(--background)"
-          initial={{
-            x: isDark ? 3.2 : 12,
-            y: isDark ? -2.8 : -10,
-            opacity: isDark ? 1 : 0,
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
           }}
-          animate={{
-            x: isDark ? 3.2 : 12,
-            y: isDark ? -2.8 : -10,
-            opacity: isDark ? 1 : 0,
-          }}
-          transition={{ duration: dur, ease }}
-          style={{ willChange: "transform, opacity" }}
         />
       </svg>
+
+      <style jsx>{`
+        .theme-icon .theme-ray {
+          opacity: 0;
+          transform: scaleY(0.3);
+          transition:
+            opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .theme-icon .theme-disc {
+          transform: scale(0.96);
+          transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .theme-icon .theme-mask {
+          opacity: 1;
+          transform: translate(3.2px, -2.8px);
+          transition:
+            opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        /* Light mode (data-dark="0") → full sun */
+        .theme-icon[data-dark="0"] .theme-ray {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+        .theme-icon[data-dark="0"] .theme-disc {
+          transform: scale(1);
+        }
+        .theme-icon[data-dark="0"] .theme-mask {
+          opacity: 0;
+          transform: translate(12px, -10px);
+        }
+      `}</style>
     </button>
   );
 }

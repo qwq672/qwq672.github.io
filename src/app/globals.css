@@ -164,12 +164,9 @@
     /* Use clip (not hidden) so vertical touch scrolling is never blocked.
        overscroll-behavior only applied to fixed overlays, not body. */
   }
-  /* Smooth, performant theme color transition — only transition the body
-     background (a single paint). Other elements use CSS variables and change
-     instantly, avoiding a storm of simultaneous repaints that causes jank. */
-  body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
+  /* Theme switch: NO global background transition. Transitioning the body
+     background causes a large-area repaint that janks on theme toggle.
+     Elements change color instantly via CSS variables — cleaner and faster. */
   ::selection {
     background-color: var(--accent);
     color: var(--accent-foreground);
@@ -308,12 +305,6 @@
 }
 .styled-scroll::-webkit-scrollbar-thumb:hover {
   background-color: var(--accent);
-}
-
-/* Smooth theme transition */
-.theme-transition,
-.theme-transition * {
-  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.4s ease !important;
 }
 
 /* Respect reduced motion */

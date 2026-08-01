@@ -561,3 +561,45 @@ VLM 复审结果(满分10):
 
 Stage Summary:
 - UI 质感从 6-7 分提升到 8-9 分, VLM 确认"high-end, no plastic/cheap look"
+
+---
+Task ID: v16 (主题切换丝滑 + Teams新图标 + Arvgrid正式版 + 404页面)
+Agent: main
+Task: 修复主题切换卡顿、替换Teams图标、Arvgrid改正式版、自定义404/loading/error
+
+Work Log:
+- 主题切换卡顿修复:
+  - 根因1: ThemeToggle 用 framer-motion 给10个SVG元素同时动画, 每帧React重渲染
+    → 全部改用纯 CSS transition (opacity/transform, GPU合成层, 零JS开销)
+    → 用 data-dark 属性 + CSS [data-dark="0"] 选择器切换状态
+  - 根因2: body { transition: background-color 0.3s } 切主题时整页大面积重绘
+    → 移除全局背景过渡, 元素颜色通过CSS变量瞬间切换
+  - 根因3: .theme-transition * 未使用但存在
+    → 删除
+  - 结果: 切换瞬时完成, 图标动画纯CSS丝滑无卡顿
+- Teams 新图标:
+  - 替换为 icons8-microsoft-teams-2025.svg (50x50 viewBox, 单path, 已居中)
+  - fill="currentColor" 继承主题 accent 色
+  - 不需要 translate 调整
+- Arvgrid: status "接近正式版"→"已发布", desc 改"已经发布正式版啦！"
+- 404 页面 (not-found.tsx):
+  - 大号渐变 404 + 友好文案 + 回首页/看随笔按钮
+  - ambient bg + 入场动画
+- loading.tsx: 路由加载时显示 672 标记 + ping 动画
+- error.tsx: 运行时错误边界, AlertCircle + 重新加载/回首页按钮 + digest 显示
+
+关于 loading.js/error.js/not-found.js 说明:
+- loading.js: Next.js 路由级 Suspense fallback, 路由跳转时自动显示
+- error.js: 路由级 Error Boundary, 捕获该路由段内的运行时错误, 提供 reset 重试
+- not-found.tsx: 404 页面, 当 notFound() 调用或路由不匹配时显示
+- 三者都有必要: loading 提升感知性能, error 防止白屏崩溃, not-found 友好引导
+
+自检结果:
+- 404: 返回404状态码, 页面渲染正确 ✓
+- 主题切换6次: 控制台CLEAN, 无卡顿 ✓
+- Teams: 新2025图标, 居中, accent色 ✓
+- Arvgrid: "已发布" ✓
+- Lint: 0 error(主版本) ✓
+
+Stage Summary:
+- 主题切换从"卡顿/逐帧感"变为纯CSS丝滑过渡, Teams换成2025新图标, Arvgrid标正式版, 404/loading/error三件套上线
