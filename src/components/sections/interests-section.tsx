@@ -32,7 +32,7 @@ export function InterestsSection() {
             <motion.article
               key={item.title}
               variants={staggerItem}
-              className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_70px_-36px_var(--glow)]"
+              className="card-premium group relative overflow-hidden rounded-3xl p-6 hover:-translate-y-1"
             >
               {/* glow */}
               <div

@@ -17,11 +17,6 @@ interface ContribData {
   fetchedAt: string;
 }
 
-const MONTH_LABELS = [
-  "1月", "2月", "3月", "4月", "5月", "6月",
-  "7月", "8月", "9月", "10月", "11月", "12月",
-];
-
 // Color levels using our accent (amber) — from subtle to saturated
 const LEVEL_COLORS = [
   "bg-muted",                          // 0 — no contributions
@@ -57,39 +52,13 @@ export function GitHubContributionsSection() {
     };
   }, []);
 
-  // Compute month labels positions (first week of each month).
-  // Skip a label if it would overlap the previous one (min 4-week gap).
-  const monthLabels = React.useMemo(() => {
-    if (!data) return [];
-    const raw: { text: string; weekIdx: number }[] = [];
-    let lastMonth = -1;
-    data.weeks.forEach((week, wi) => {
-      const firstDay = week[0];
-      if (!firstDay) return;
-      const month = parseInt(firstDay.date.split("-")[1], 10) - 1;
-      if (month !== lastMonth) {
-        raw.push({ text: MONTH_LABELS[month], weekIdx: wi });
-        lastMonth = month;
-      }
-    });
-    // De-duplicate: ensure at least 4 weeks between labels
-    const result: { text: string; weekIdx: number }[] = [];
-    for (const l of raw) {
-      if (result.length === 0 || l.weekIdx - result[result.length - 1].weekIdx >= 4) {
-        result.push(l);
-      }
-    }
-    return result;
-  }, [data]);
-
-  const CELL = 10; // px
-  const GAP = 3; // px
-  const weekPx = CELL + GAP; // 13px per week column
+  // (Month/day labels removed per user request — the heatmap is
+  //  self-explanatory with the legend and tooltip.)
 
   return (
     <section
       id="github"
-      className="relative scroll-mt-24 py-24 sm:py-28"
+      className="relative scroll-mt-24 py-20 sm:py-24"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
@@ -103,7 +72,7 @@ export function GitHubContributionsSection() {
         />
 
         <Reveal className="mt-10">
-          <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-6 backdrop-blur-sm sm:p-8">
+          <div className="card-premium relative overflow-hidden rounded-3xl p-6 sm:p-8">
             {loading ? (
               <div className="flex items-center justify-center gap-3 py-12 text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin text-accent" />
@@ -117,7 +86,7 @@ export function GitHubContributionsSection() {
             ) : (
               <div>
                 {/* Stats row */}
-                <div className="mb-5 flex items-center justify-between gap-4">
+                <div className="mb-6 flex items-center justify-between gap-4">
                   <a
                     href={`https://github.com/${data.username}`}
                     target="_blank"
@@ -136,72 +105,38 @@ export function GitHubContributionsSection() {
                   </span>
                 </div>
 
-                {/* Contribution grid — horizontally scrollable on mobile */}
-                <div className="overflow-x-auto styled-scroll pb-2">
-                  <div className="inline-block min-w-full">
-                    {/* Month labels — relative container, each label positioned
-                        by its week index. Min 4-week gap prevents overlap. */}
-                    <div
-                      className="relative mb-1.5 h-4 pl-[22px]"
-                      style={{ minWidth: `${data.weeks.length * weekPx}px` }}
-                    >
-                      {monthLabels.map((ml, i) => (
-                        <span
-                          key={i}
-                          className="absolute top-0 whitespace-nowrap text-[0.6rem] font-medium text-muted-foreground/70"
-                          style={{ left: `${ml.weekIdx * weekPx}px` }}
-                        >
-                          {ml.text}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Grid: weekday labels + cells */}
-                    <div className="flex gap-[3px]">
-                      {/* Day labels */}
-                      <div className="flex flex-col gap-[3px] pr-1">
-                        {["", "一", "", "三", "", "五", ""].map((d, i) => (
-                          <span
-                            key={i}
-                            className="flex h-[10px] items-center text-[0.6rem] font-medium text-muted-foreground/50"
-                          >
-                            {d}
-                          </span>
+                {/* Contribution grid — pure heatmap, no labels.
+                    Horizontally scrollable on mobile. */}
+                <div className="overflow-x-auto styled-scroll pb-1">
+                  <div className="flex gap-[3px]">
+                    {data.weeks.map((week, wi) => (
+                      <div key={wi} className="flex flex-col gap-[3px]">
+                        {week.map((day, di) => (
+                          <motion.div
+                            key={day.date}
+                            title={`${day.date}: ${day.count} 次贡献`}
+                            className={`h-[11px] w-[11px] rounded-[3px] ${LEVEL_COLORS[day.level]}`}
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: Math.min((wi * 7 + di) * 0.002, 0.5),
+                              ease: "easeOut",
+                            }}
+                          />
                         ))}
                       </div>
-
-                      {/* Cells */}
-                      <div className="flex gap-[3px]">
-                        {data.weeks.map((week, wi) => (
-                          <div key={wi} className="flex flex-col gap-[3px]">
-                            {week.map((day, di) => (
-                              <motion.div
-                                key={day.date}
-                                title={`${day.date}: ${day.count} 次贡献`}
-                                className={`h-[10px] w-[10px] rounded-[2px] ${LEVEL_COLORS[day.level]}`}
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{
-                                  duration: 0.3,
-                                  delay: Math.min((wi * 7 + di) * 0.002, 0.5),
-                                  ease: "easeOut",
-                                }}
-                              />
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
                 {/* Legend */}
-                <div className="mt-4 flex items-center justify-end gap-1.5 text-[0.65rem] text-muted-foreground">
+                <div className="mt-5 flex items-center justify-end gap-1.5 text-[0.65rem] text-muted-foreground">
                   <span>少</span>
                   {LEVEL_COLORS.map((c, i) => (
                     <span
                       key={i}
-                      className={`h-[10px] w-[10px] rounded-[2px] ${c}`}
+                      className={`h-[11px] w-[11px] rounded-[3px] ${c}`}
                     />
                   ))}
                   <span>多</span>

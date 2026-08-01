@@ -20,11 +20,11 @@ export function AboutSection() {
         <div className="mt-12 grid gap-6 md:grid-cols-5">
           {/* Main bio card with avatar */}
           <Reveal className="md:col-span-3">
-            <div className="group relative h-full overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/40 hover:shadow-[0_20px_60px_-30px_var(--glow)] sm:p-9">
+            <div className="card-premium group relative h-full overflow-hidden rounded-3xl p-8 sm:p-10">
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl transition-opacity duration-500 group-hover:opacity-150" />
               <div className="relative">
                 {/* Avatar + greeting */}
-                <div className="mb-6 flex items-center gap-4">
+                <div className="mb-7 flex items-center gap-4">
                   <div className="relative shrink-0">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-primary opacity-30 blur-md" />
                     <img
@@ -46,18 +46,18 @@ export function AboutSection() {
                   </div>
                 </div>
 
-                <p className="text-[1.05rem] leading-[1.9] text-foreground/90">
+                <p className="text-[1.05rem] leading-[1.95] text-foreground/90">
                   我是 <span className="font-semibold text-foreground">qwq672</span>，一名学生。
                   平时喜欢玩玩游戏，也折腾一些老设备，
                   偶尔还会写写 Minecraft 模组和做点 MIDI 重制。
                 </p>
-                <p className="mt-4 text-[1.05rem] leading-[1.9] text-muted-foreground">
+                <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
                   爱好比较多但不限于：游戏、老设备折腾、部分复古风格、
                   Minecraft 模组创作、音乐创作……嗯，成分确实蛮复杂的。
                   这个小破站就是把我的碎碎念和笔记都攒在一起，
                   顺便练练手，看看能折腾出什么花样。
                 </p>
-                <p className="mt-4 text-[1.05rem] leading-[1.9] text-muted-foreground">
+                <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
                   未来又会多哪些兴趣、失去哪些兴趣，我也说不准（）
                 </p>
               </div>
@@ -104,7 +104,7 @@ function FactCard({
   hint: string;
 }) {
   return (
-    <div className="group h-full rounded-3xl border border-border/60 bg-card/60 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-accent/40">
+    <div className="card-premium group h-full rounded-3xl p-6">
       <div className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
         {label}
       </div>

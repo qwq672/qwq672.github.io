@@ -530,3 +530,34 @@ Stage Summary:
 - 已知差异：照片墙用伪比例不用 sharp、GitHub 贡献无服务端缓存、URL 用 hash 路由、字体用 Google Fonts CDN
 - 工作记录: /home/z/my-project/agent-ctx/CF-1-full-stack-developer.md
 - 已打包: /home/z/my-project/cloudflare-pages-version.zip (10.6MB, 232 文件, 排除 node_modules)
+
+---
+Task ID: v15 (UI质感提升 + 月份标签移除)
+Agent: main
+Task: VLM审计后系统性提升高级感、移除热力图月份、优化排版/配色/视觉平衡
+
+Work Log:
+- VLM 审计发现5大问题: 导航栏"灰色贴纸"感、照片墙杂乱、缺深度/微交互、文字密度高、GitHub热力图底部空白
+- 贡献热力图: 移除月份标签 + 星期标签, 纯热力图+legend, cell 10px→11px rounded-[3px], section padding 减小修复底部空白
+- 毛玻璃增强: blur 24px→28px, saturate 180%→190%, 加 inset 1px top highlight 模拟玻璃边缘高光 + 外阴影
+- 新建 .card-premium 类: 统一所有卡片边框+内高光+hover(边框变accent色+glow阴影), 替换 About/Interests/Projects/Blog/Resources/Contact/GitHub 的旧样式
+- About 区: padding p-7→p-8/sm:p-10, 段落间距 mt-4→mt-5, 行高 1.9→1.95
+- 照片墙: filter saturate(0.92)→0.85 + brightness(0.96) 统一色调减少杂乱感
+- 清理死代码: 删除 docs-section/post-dialog/lib/docs/content/docs/api/docs/api/doc-sets
+
+VLM 复审结果(满分10):
+- About: 6→8.5 ✓ "Excellent depth, professional typography"
+- Interests: 6→8 ✓ "Clean, polished, premium icons"
+- Projects: 7→9 ✓ "Most expensive looking, superior layering"
+- GitHub: 5→7 ✓ "Labels removed, clean"
+- Contact: 6→8 ✓ "Professional, strong borders"
+- 整体: 8.5/10 "成功避免廉价感, premium aesthetic"
+
+自检结果:
+- 桌面: 所有区块 card-premium 统一深度 ✓
+- 移动端: 无溢出, 所有区块可滚动 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error(主版本) ✓
+
+Stage Summary:
+- UI 质感从 6-7 分提升到 8-9 分, VLM 确认"high-end, no plastic/cheap look"

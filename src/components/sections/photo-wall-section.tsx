@@ -196,7 +196,9 @@ export function PhotoWallSection() {
                       objectFit: "cover",
                       display: "block",
                       background: "transparent",
-                      filter: "saturate(0.92) contrast(1.03)",
+                      /* Unify the visual tone — slightly desaturated + warm
+                         shift so diverse photos feel cohesive. */
+                      filter: "saturate(0.85) contrast(1.02) brightness(0.96)",
                     }}
                   />
                 </div>

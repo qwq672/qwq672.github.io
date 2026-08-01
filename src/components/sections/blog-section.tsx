@@ -240,7 +240,7 @@ export function BlogSection() {
               >
                 <Link
                   href={`/posts/${post.slug}`}
-                  className="group flex w-full items-center gap-4 rounded-3xl border border-border/60 bg-card/60 px-5 py-4 text-left backdrop-blur-sm transition-all duration-400 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-card/80 hover:shadow-[0_20px_60px_-32px_var(--glow)] sm:px-7 sm:py-5"
+                  className="card-premium group flex w-full items-center gap-4 rounded-3xl px-5 py-4 text-left hover:-translate-y-0.5 sm:px-7 sm:py-5"
                 >
                   {/* Date column */}
                   <div className="hidden w-24 shrink-0 sm:block">

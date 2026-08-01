@@ -32,7 +32,7 @@ export function ProjectsSection() {
             <motion.article
               key={p.name}
               variants={staggerItem}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/70 p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_28px_80px_-40px_var(--glow)]"
+              className="card-premium group relative flex flex-col overflow-hidden rounded-3xl p-6 hover:-translate-y-1"
             >
               {/* glow */}
               <div

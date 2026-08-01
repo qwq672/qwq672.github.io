@@ -86,7 +86,7 @@ export function ContactSection() {
               target={s.href.startsWith("http") ? "_blank" : undefined}
               rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
               variants={staggerItem}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-5 backdrop-blur-sm transition-all duration-400 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_20px_60px_-34px_var(--glow)] sm:p-6"
+              className="card-premium group relative flex items-center gap-4 overflow-hidden rounded-3xl p-5 hover:-translate-y-0.5 sm:p-6"
             >
               <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
               <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border/60 bg-background/60 text-xl text-accent transition-all duration-400 group-hover:scale-110 group-hover:border-accent/40">
