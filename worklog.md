@@ -630,3 +630,42 @@ Work Log:
 
 Stage Summary:
 - 静态版本完成，基于最新主版本完整复刻，可部署到 Cloudflare Pages / GitHub Pages
+
+---
+Task ID: v17 (webp转换 + 游客计数器 + 主题图标优化 + 多层效果)
+Agent: main
+Task: 图片转webp、加游客计数器、优化主题切换图标、多层视觉效果
+
+Work Log:
+- 图片转webp(质量100,不压缩只换格式):
+  - hero图: day(7)+day-mobile(8)+night(5)+night-mobile(4) 全部jpg→webp
+  - 照片墙: 38张jpg→webp
+  - logos: lavaarcade.png/tinycraft.png→webp (arvgrid.svg保持svg)
+  - apple-touch-icon.png保持png(Apple要求)
+  - 更新所有代码引用: hero-images.ts/photos API/content.ts
+  - 验证: hero加载.webp, 照片墙76张全.webp ✓
+- 游客计数器:
+  - Footer上方居中, getloli API像素风计数器
+  - 休闲文案"你是第几个路过的小可爱～"+Users图标
+  - darkmode=auto自动适配主题
+- 主题切换图标优化:
+  - SVG 20px→22px (更饱满)
+  - 光线: 长3→3.6, 宽1.5→2, rx0.75→1 (更粗更明显)
+  - 圆盘 r5.2→5
+  - 暗色scale 0.96→0.92 (月牙更弯)
+  - 光线入场加translateY(-1px)微调
+  - 过渡时间0.4s→0.45-0.5s (更从容)
+- 多层效果:
+  - 背景层: 4层(基础渐变tint + 4个不同位置/大小的光晕 + SVG噪点纹理mix-blend-overlay)
+  - card-premium: 4层box-shadow(内高光top + 内1px边框 + 近距阴影 + 远距阴影) + hover加accent内边框+glow
+  - 整体深度感提升
+
+自检结果:
+- hero/照片墙: 全部webp ✓
+- 游客计数器: 居中显示, casual文案 ✓
+- 主题图标: 月亮/太阳清晰, 大小合适 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 全站webp化(质量不变更小), 游客计数器上线, 主题图标更饱满, 多层背景/卡片深度效果

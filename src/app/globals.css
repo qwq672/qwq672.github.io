@@ -269,22 +269,30 @@
   border-radius: var(--radius-sm);
 }
 
-/* Premium card — subtle depth for content cards.
-   Used across About/Interests/Projects/Blog/Contact cards. */
+/* Premium card — multi-layer depth for content cards.
+   Layer 1: border (definition against background)
+   Layer 2: background (card surface)
+   Layer 3: inset top highlight (glass edge light)
+   Layer 4: drop shadow (lifts card off canvas)
+   Hover: border warms to accent + glow shadow */
 .card-premium {
   position: relative;
   border: 1px solid var(--border);
   background-color: var(--card);
   box-shadow:
-    inset 0 1px 0 0 oklch(1 0 0 / 0.04),
-    0 1px 2px 0 oklch(0 0 0 / 0.05);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    inset 0 1px 0 0 oklch(1 0 0 / 0.05),
+    inset 0 0 0 1px oklch(1 0 0 / 0.02),
+    0 1px 3px 0 oklch(0 0 0 / 0.08),
+    0 4px 12px -4px oklch(0 0 0 / 0.06);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
 .card-premium:hover {
-  border-color: color-mix(in oklch, var(--accent) 30%, var(--border));
+  border-color: color-mix(in oklch, var(--accent) 35%, var(--border));
   box-shadow:
-    inset 0 1px 0 0 oklch(1 0 0 / 0.06),
-    0 12px 40px -16px var(--glow);
+    inset 0 1px 0 0 oklch(1 0 0 / 0.08),
+    inset 0 0 0 1px color-mix(in oklch, var(--accent) 10%, transparent),
+    0 8px 24px -8px oklch(0 0 0 / 0.12),
+    0 16px 48px -16px var(--glow);
 }
 
 /* Styled scrollbar for inner scroll areas (docs viewer, dialogs) */

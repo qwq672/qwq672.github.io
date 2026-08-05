@@ -24,7 +24,7 @@ export async function GET() {
     }
     const photosDir = path.join(process.cwd(), "public", "photos");
     const files = (await fs.readdir(photosDir))
-      .filter((f) => f.endsWith(".jpg"))
+      .filter((f) => f.endsWith(".webp"))
       .sort((a, b) => {
         const na = parseInt(a, 10);
         const nb = parseInt(b, 10);

@@ -71,7 +71,7 @@ export const projects: Project[] = [
     desc: "一个把 AI 智能玩家和离线多人小游戏塞进 Minecraft 的模组。项目特别大，涉及多个方面，机器学习都已经涉及了，所以进度不算快——但确实在一点点推进。",
     tags: ["Minecraft", "Mod", "AI", "Fabric"],
     website: { url: "https://lava.awa.lat", label: "lava.awa.lat" },
-    logo: { src: "/logo/lavaarcade.png", kind: "img" },
+    logo: { src: "/logo/lavaarcade.webp", kind: "img" },
     accent: "from-orange-500/25 to-amber-500/10",
   },
   {
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     desc: "用 C 语言写的 Minecraft 命令行迷你启动器，主打一个轻量。目前卡在 Minecraft 登录的 API 申请那边，等搞定继续推进。",
     tags: ["Minecraft", "Launcher", "C"],
     website: { url: "https://tinycraft.awa.lat", label: "tinycraft.awa.lat" },
-    logo: { src: "/logo/tinycraft.png", kind: "img" },
+    logo: { src: "/logo/tinycraft.webp", kind: "img" },
     accent: "from-zinc-400/20 to-slate-500/10",
   },
   {
