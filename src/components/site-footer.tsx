@@ -1,23 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Heart, ArrowUp, Users } from "lucide-react";
+import { Heart, ArrowUp } from "lucide-react";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-auto border-t border-border/40 bg-card/30">
       <div className="mx-auto max-w-5xl px-6 py-12">
-        {/* Visitor counter — casual, centered */}
-        <div className="mb-8 flex flex-col items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Users className="h-3.5 w-3.5 text-accent/70" />
-            你是第几个路过的小可爱～
-          </span>
+        {/* Visitor counter — pixel art, centered, scaled up, no blur */}
+        <div className="mb-8 flex justify-center">
           <img
-            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=2&pixelated=1&darkmode=auto"
+            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=3&pixelated=1&darkmode=auto"
             alt="visitor counter"
-            className="h-[40px] w-auto rounded-lg"
+            className="h-[60px] w-auto"
             style={{ imageRendering: "pixelated" }}
             loading="lazy"
           />

@@ -669,3 +669,30 @@ Work Log:
 
 Stage Summary:
 - 全站webp化(质量不变更小), 游客计数器上线, 主题图标更饱满, 多层背景/卡片深度效果
+
+---
+Task ID: v18 (无损webp修复 + 计数器优化)
+Agent: main
+Task: 修复webp压炸图片(改lossless)、放大计数器删文案
+
+Work Log:
+- webp压炸修复:
+  - 根因: 之前用 quality:100 + lossless:false, sharp的webp encoder仍有损
+  - 改为 lossless:true 完全无损转换
+  - 从原始上传文件重新转换: photo-wall(1-33) + pic-0722(34-37) + retouch(38) + hero-new(24张) + project-logo(2张)
+  - 删除4个无原始对应的残留旧图(lantern-night/cosmic-field/campfire-night/1781673941796)
+  - VLM确认: "sharp and clear, no compression artifacts, high quality" ✓
+- 游客计数器优化:
+  - scale 2→3 (放大), h 40px→60px
+  - 删除"你是第几个路过的小可爱～"文案
+  - 保持 imageRendering:pixelated 像素感不模糊
+  - 删除未使用的 Users import
+
+自检结果:
+- 图片: 清晰锐利无压缩伪影 ✓
+- 计数器: 60px高, scale=3, 像素感, 无文案 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- webp改为lossless无损转换, 图片质量完全恢复; 计数器放大到scale=3保持像素感, 删除文案
