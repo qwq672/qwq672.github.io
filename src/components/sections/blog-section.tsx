@@ -106,7 +106,7 @@ export function BlogSection() {
   return (
     <section
       id="blog"
-      className="relative scroll-mt-24 border-y border-border/40 bg-card/20 py-28 sm:py-32"
+      className="relative scroll-mt-24 border-y border-border/30 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading

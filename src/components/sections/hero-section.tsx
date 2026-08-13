@@ -85,9 +85,10 @@ export function HeroSection() {
           )}
         </AnimatePresence>
 
-        {/* Readability overlay */}
-        <div className="absolute inset-0 bg-background/35 dark:bg-background/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+        {/* Readability overlay — lighter at bottom so the frosted content
+            transitions naturally into the hero. */}
+        <div className="absolute inset-0 bg-background/30 dark:bg-background/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
         <div
           className="absolute inset-0"
           style={{
@@ -116,7 +117,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-6xl font-bold tracking-tight text-foreground drop-shadow-[0_4px_24px_rgba(0,0,0,0.25)] sm:text-7xl md:text-8xl"
+          className="text-7xl font-bold tracking-tight text-foreground drop-shadow-[0_4px_24px_rgba(0,0,0,0.25)] sm:text-8xl md:text-9xl"
+          style={{ fontFamily: "var(--font-signature)" }}
         >
           <span className="text-gradient-animate">qwq672</span>
         </motion.h1>

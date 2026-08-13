@@ -729,3 +729,40 @@ Work Log:
 
 Stage Summary:
 - 多端体验系统性改善: 平板导航修复、文字行宽约束、字重提升、按钮统一、间距加大
+
+---
+Task ID: v20 (固定背景+磨砂玻璃+签名字体+计数器修复)
+Agent: main
+Task: Hero固定背景贯穿全站、内容区磨砂玻璃透出、签名字体、计数器修复
+
+Work Log:
+- 游客计数器修复:
+  - loading lazy→eager(立即加载)
+  - 加 referrerPolicy:no-referrer
+  - 加 onError 隐藏破图(服务403时自动隐藏)
+- Hero 固定背景 + 内容区磨砂玻璃(核心大改):
+  - 新建 FixedBackground 组件: hero图 position:fixed 铺满视口, 不随滚动移动
+  - 包含可读性遮罩(40%透明)+渐变+暗角+多层光晕+噪点
+  - page.tsx: FixedBackground 替代旧 ambient bg, 内容区包 .frosted-content
+  - .frosted-content: background 82%透明 + backdrop-filter blur(40px) saturate(140%)
+  - 用 !important 覆盖 Tailwind @apply
+  - 去掉 blog/interests section 的 bg-card/20 让磨砂玻璃透出
+  - Hero 底部渐变改轻(to-background/40)让内容区自然过渡
+  - Footer 也加 frosted-content
+  - VLM确认: "hero图清晰可见透过内容区, 界面浮在艺术画上, 层次感"
+- 签名字体:
+  - 加载 Caveat 字体(Google Fonts, 手写连笔风格)
+  --font-signature 变量, 只用于 Hero 的 qwq672 标题
+  - 标题字号 6xl→7xl/8xl/9xl 更大更醒目
+  - VLM确认: "手写草书风格, 个人休闲感, 高可读性"
+- 关于"从哪来回哪去": hero图现在是全站背景, 开头是它, 贯穿始终也是它 ✓
+
+自检结果:
+- 磨砂玻璃: hero图透过内容区可见 ✓
+- 签名字体: Caveat手写体生效 ✓
+- 移动端: 无溢出 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- Hero图固定贯穿全站(从哪来回哪去), 内容区磨砂玻璃透出, qwq672用Caveat签名字体, 计数器加onError回退

@@ -6,16 +6,21 @@ import { Heart, ArrowUp } from "lucide-react";
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-auto border-t border-border/40 bg-card/30">
+    <footer className="frosted-content mt-auto border-t border-border/40">
       <div className="mx-auto max-w-5xl px-6 py-12">
-        {/* Visitor counter — pixel art, centered, scaled up, no blur */}
+        {/* Visitor counter — pixel art, centered. Eager load (no lazy) so it
+            shows immediately. onerror hides if the service is unreachable. */}
         <div className="mb-8 flex justify-center">
           <img
             src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=3&pixelated=1&darkmode=auto"
             alt="visitor counter"
             className="h-[60px] w-auto"
             style={{ imageRendering: "pixelated" }}
-            loading="lazy"
+            loading="eager"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
           />
         </div>
 
