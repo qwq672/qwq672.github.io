@@ -8,7 +8,7 @@ export function InterestsSection() {
   return (
     <section
       id="interests"
-      className="relative scroll-mt-24 border-y border-border/40 bg-card/20 py-24 sm:py-28"
+      className="relative scroll-mt-24 border-y border-border/40 bg-card/20 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading

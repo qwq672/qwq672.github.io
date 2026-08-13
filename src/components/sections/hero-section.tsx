@@ -141,7 +141,7 @@ export function HeroSection() {
         >
           <button
             onClick={scrollNext}
-            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-foreground/25 active:scale-95"
+            className="btn-primary group"
           >
             随便逛逛
             <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -152,7 +152,7 @@ export function HeroSection() {
               e.preventDefault();
               document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-foreground/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/10"
+            className="btn-ghost"
           >
             看看随笔
           </a>

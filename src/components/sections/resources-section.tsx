@@ -7,7 +7,7 @@ import { resources, resourcePasswordHint } from "@/lib/content";
 
 export function ResourcesSection() {
   return (
-    <section id="resources" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="resources" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Resources"

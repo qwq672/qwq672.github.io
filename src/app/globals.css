@@ -161,8 +161,12 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: clip;
-    /* Use clip (not hidden) so vertical touch scrolling is never blocked.
-       overscroll-behavior only applied to fixed overlays, not body. */
+    font-weight: 400;
+    /* Slightly brighter muted text for readability (was too light) */
+  }
+  /* Muted text — boost opacity slightly for better readability */
+  .text-muted-foreground {
+    opacity: 0.85;
   }
   /* Theme switch: NO global background transition. Transitioning the body
      background causes a large-area repaint that janks on theme toggle.
@@ -267,6 +271,51 @@
   outline: none;
   box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
   border-radius: var(--radius-sm);
+}
+
+/* ============ Button system — unified styles ============ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--foreground);
+  color: var(--background);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px -2px color-mix(in oklch, var(--foreground) 30%, transparent);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px -4px color-mix(in oklch, var(--foreground) 35%, transparent);
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 20%, transparent);
+  background-color: color-mix(in oklch, var(--foreground) 5%, transparent);
+  color: var(--foreground);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  border-color: color-mix(in oklch, var(--foreground) 40%, transparent);
+  background-color: color-mix(in oklch, var(--foreground) 10%, transparent);
 }
 
 /* Premium card — multi-layer depth for content cards.

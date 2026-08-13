@@ -58,7 +58,7 @@ export function GitHubContributionsSection() {
   return (
     <section
       id="github"
-      className="relative scroll-mt-24 py-20 sm:py-24"
+      className="relative scroll-mt-24 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading

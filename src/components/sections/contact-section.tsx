@@ -60,7 +60,7 @@ const contacts: ContactItem[] = [
 
 export function ContactSection() {
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="contact" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Contact"

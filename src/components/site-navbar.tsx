@@ -137,8 +137,9 @@ export function SiteNavbar() {
             </span>
           </button>
 
-          {/* Center — desktop nav links (absolute centered, compact) */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
+          {/* Center — desktop nav links (absolute centered, compact).
+              Shown on lg+ (1024px+) to avoid cramping on tablets. */}
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -167,7 +168,7 @@ export function SiteNavbar() {
             <ThemeToggle />
             {/* Mobile menu button — morphs to X */}
             <button
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-foreground/80 transition-colors hover:text-accent md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-foreground/80 transition-colors hover:text-accent lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "关闭菜单" : "打开菜单"}
               aria-expanded={open}
@@ -182,7 +183,7 @@ export function SiteNavbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-x-0 top-0 z-40 flex h-[100dvh] flex-col overflow-hidden md:hidden"
+            className="fixed inset-x-0 top-0 z-40 flex h-[100dvh] flex-col overflow-hidden lg:hidden"
             style={{ overscrollBehavior: "none" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

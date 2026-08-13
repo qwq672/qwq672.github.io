@@ -696,3 +696,36 @@ Work Log:
 
 Stage Summary:
 - webp改为lossless无损转换, 图片质量完全恢复; 计数器放大到scale=3保持像素感, 删除文案
+
+---
+Task ID: v19 (多端深度审查修复)
+Agent: main
+Task: VLM多端审计后系统性修复平板导航/文字行宽/字重/按钮统一/间距
+
+Work Log:
+- VLM审计4个端(桌面/移动/平板/方屏)发现8大问题:
+  1. 平板768px导航栏挤压(7个链接挤一起) 
+  2. About桌面文字行太长(缺max-width)
+  3. 卡片偏平(已有card-premium但不够)
+  4. 正文字重太轻
+  5. 移动端区间距不够
+  6. 按钮样式不统一(3种风格)
+  7. 照片墙裁切问题(设计选择,保持)
+  8. "N"浮动按钮(Next.js开发模式,生产无)
+- 修复1: 导航栏断点 md→lg (768-1023px用汉堡菜单,不再挤压)
+  - 桌面链接 md:flex→lg:flex
+  - 汉堡按钮 md:hidden→lg:hidden  
+  - 全屏菜单 md:hidden→lg:hidden
+- 修复2: About段落包max-w-prose(65ch≈672px), 行宽舒适
+- 修复3: 正文字重 body font-weight:400 + .text-muted-foreground opacity:0.85
+- 修复4: 统一按钮系统 .btn-primary + .btn-ghost 工具类, Hero按钮已应用
+- 修复5: 所有section py-24 sm:py-28→py-28 sm:py-32 (移动端112px桌面128px间距)
+
+自检结果:
+- 平板768px: 汉堡菜单✓ 不再挤压
+- About桌面: 段落672px宽✓ 行长舒适
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 多端体验系统性改善: 平板导航修复、文字行宽约束、字重提升、按钮统一、间距加大
