@@ -6,7 +6,14 @@ import { Heart, ArrowUp } from "lucide-react";
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="frosted-content mt-auto border-t border-border/40">
+    <footer
+      className="mt-auto border-t border-border/40"
+      style={{
+        backgroundColor: "color-mix(in oklch, var(--background) 80%, transparent)",
+        backdropFilter: "blur(30px) saturate(150%)",
+        WebkitBackdropFilter: "blur(30px) saturate(150%)",
+      }}
+    >
       <div className="mx-auto max-w-5xl px-6 py-12">
         {/* Visitor counter — pixel art, centered. Eager load (no lazy) so it
             shows immediately. onerror hides if the service is unreachable. */}

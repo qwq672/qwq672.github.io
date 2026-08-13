@@ -766,3 +766,41 @@ Work Log:
 
 Stage Summary:
 - Hero图固定贯穿全站(从哪来回哪去), 内容区磨砂玻璃透出, qwq672用Caveat签名字体, 计数器加onError回退
+
+---
+Task ID: v21 (统一背景+磨砂玻璃修复+照片墙动画+字体恢复)
+Agent: main
+Task: 修复背景图身份混乱、磨砂玻璃生效、照片墙动画恢复、移除签名字体
+
+Work Log:
+- 背景图身份统一(核心修复):
+  - 删除Hero区自己的图片层(-z-10), Hero区现在透明
+  - FixedBackground(-z-20)是唯一的背景图来源
+  - 一张图同时做hero图和全站背景(从哪来回哪去) ✓
+- 磨砂玻璃板修复(必须生效):
+  - 根因: .frosted-content CSS类被Tailwind @apply覆盖, backdrop-filter:none
+  - 改用内联style直接设在DOM元素上, 绕过CSS优先级
+  - backgroundColor: color-mix 80%透明 + backdropFilter: blur(30px) saturate(150%)
+  - Footer也用内联style
+  - VLM确认: "frosted glass aesthetic, distinct blur, UI hovering above fixed backdrop" ✓
+- 照片墙动画恢复:
+  - 根因: framer-motion的onLoad+state在高性能设备上图片加载太快, React还没渲染initial就显示了(闪现无动画)
+  - 改用CSS-only渐进加载: .wall-photo初始opacity:0+scale(1.05), onLoad加.loaded class触发transition
+  - 76张图全部loaded ✓
+  - 不依赖React state, 全端可靠(高DPI/低DPI)
+- 移除Caveat签名字体:
+  - 字体不合适 + 标题右侧被裁
+  - 恢复font-display(Space Grotesk) + 正常尺寸text-6xl/7xl/8xl
+  - 加textShadow保证可读性
+- 导航栏: 已有glass类(blur 28px), 保持现状
+
+自检结果:
+- 背景: FixedBackground唯一来源, Hero透明 ✓
+- 磨砂玻璃: backdrop-filter blur(30px) saturate(1.5) 生效 ✓
+- 照片墙: 76/76 loaded, CSS渐进动画 ✓
+- 字体: Space Grotesk, 不裁切 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 背景图身份统一(一张图hero+背景), 磨砂玻璃板真正生效(blur 30px), 照片墙CSS渐进动画可靠, 恢复Space Grotesk字体

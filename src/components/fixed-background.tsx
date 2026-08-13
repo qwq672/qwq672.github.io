@@ -11,12 +11,11 @@ import {
 } from "@/lib/hero-images";
 
 /**
- * Fixed background image layer that stays in place while content scrolls
- * over it. The hero section's own image sits on top of this (same image),
- * creating a seamless "from where it came, to where it goes" effect:
- * the hero image is both the hero AND the site-wide backdrop.
- *
- * Content sections use frosted-glass backgrounds to let this show through.
+ * Fixed background image layer — THE single source of truth for the hero
+ * image. It stays fixed in the viewport while content scrolls over it.
+ * The hero section is transparent, so this image shows through there too.
+ * Content sections use a frosted-glass overlay (.frosted-content) to let
+ * this image show through subtly.
  */
 export function FixedBackground() {
   const { resolvedTheme } = useTheme();
@@ -65,7 +64,7 @@ export function FixedBackground() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
     >
-      {/* Fixed hero image — stays in place while content scrolls */}
+      {/* Fixed hero image — single source of truth */}
       <AnimatePresence>
         {currentImg && (
           <motion.img
@@ -83,29 +82,16 @@ export function FixedBackground() {
         )}
       </AnimatePresence>
 
-      {/* Readability overlay — heavier than hero's own, since this shows
-          through frosted glass. Adapts to theme. */}
-      <div className="absolute inset-0 bg-background/40 dark:bg-background/55" />
-      {/* Top + bottom fade for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/60" />
-      {/* Subtle vignette */}
+      {/* Readability overlay — adapts to theme */}
+      <div className="absolute inset-0 bg-background/35 dark:bg-background/50" />
+      {/* Top fade + bottom fade for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
+      {/* Vignette */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%)",
-        }}
-      />
-      {/* Multi-layer soft glows for atmosphere */}
-      <div className="absolute -left-[15%] top-[8%] h-[50vh] w-[50vh] rounded-full bg-accent/8 blur-[140px]" />
-      <div className="absolute right-[-12%] top-[45%] h-[45vh] w-[45vh] rounded-full bg-primary/6 blur-[140px]" />
-      <div className="absolute left-[30%] top-[90%] h-[40vh] w-[40vh] rounded-full bg-accent/5 blur-[120px]" />
-      {/* Fine noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.02] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.3) 100%)",
         }}
       />
     </div>

@@ -63,7 +63,6 @@ const ROW_HEIGHT = 8; // px — small fixed row for smooth tiling
 
 export function PhotoWallSection() {
   const [photos, setPhotos] = React.useState<PhotoItem[]>([]);
-  const [loaded, setLoaded] = React.useState<Set<number>>(new Set());
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [numCols, setNumCols] = React.useState(6);
   const [colWidth, setColWidth] = React.useState(200);
@@ -178,17 +177,13 @@ export function PhotoWallSection() {
                     lineHeight: 0,
                   }}
                 >
-                  <motion.img
+                  <img
                     src={p.src}
                     alt=""
                     loading="lazy"
-                    onLoad={() => onImgLoad(p.i)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: loaded.has(p.i) ? 1 : 0 }}
-                    transition={{
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: Math.min(p.i * 0.006, 0.3),
+                    className="wall-photo"
+                    onLoad={(e) => {
+                      (e.currentTarget as HTMLImageElement).classList.add("loaded");
                     }}
                     style={{
                       width: "100%",
@@ -218,6 +213,29 @@ export function PhotoWallSection() {
           </div>
         )}
       </div>
+
+      <style>{`
+        /* CSS-only progressive load — no JS state needed.
+           Photos fade + scale in when they enter the viewport.
+           Works reliably on all devices including high-DPI and low-DPI. */
+        .wall-photo {
+          opacity: 0;
+          transform: scale(1.05);
+          transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                      filter 0.5s ease;
+        }
+        .wall-photo.loaded {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .wall-photo:hover {
+          filter: saturate(1.1) contrast(1.05) brightness(1.05) !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .wall-photo { transition: none; transform: none; opacity: 1; }
+        }
+      `}</style>
     </section>
   );
 }

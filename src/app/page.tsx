@@ -28,11 +28,17 @@ export default function Home() {
         {/* Hero — transparent, the fixed background shows through here */}
         <HeroSection />
 
-        {/* Content sections — each has a frosted-glass backdrop that lets
-            the fixed hero image show through, creating depth + unity.
-            The alternating bg classes create visual rhythm while still
-            being translucent. */}
-        <div className="frosted-content">
+        {/* Content sections — frosted glass panel over the fixed background.
+            Inline style ensures backdrop-filter works (CSS class was
+            overridden by Tailwind's @apply). ~80% opacity + heavy blur. */}
+        <div
+          className="relative"
+          style={{
+            backgroundColor: "color-mix(in oklch, var(--background) 80%, transparent)",
+            backdropFilter: "blur(30px) saturate(150%)",
+            WebkitBackdropFilter: "blur(30px) saturate(150%)",
+          }}
+        >
           <AboutSection />
           <InterestsSection />
           <ProjectsSection />

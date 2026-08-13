@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Noto_Sans_SC, Noto_Serif_SC, JetBrains_Mono, Caveat } from "next/font/google";
+import { Inter, Space_Grotesk, Noto_Sans_SC, Noto_Serif_SC, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,14 +13,6 @@ const inter = Inter({
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-// Signature/handwritten font for the qwq672 ID — casual, personal touch
-const caveat = Caveat({
-  variable: "--font-signature",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -80,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${caveat.variable} ${notoSansSC.variable} ${notoSerifSC.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${notoSansSC.variable} ${notoSerifSC.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans`}
       >
         <ThemeProvider
           attribute="class"
