@@ -870,3 +870,32 @@ Work Log:
 
 Stage Summary:
 - 照片墙高度用svh稳定不再跳变, webp用quality:85视觉无损且体积合理
+
+---
+Task ID: v25 (图片质量最终修复)
+Agent: main
+Task: hero图恢复原始jpg(不转webp), 照片墙保持webp(800px q95)
+
+Work Log:
+- 根因分析:
+  - VLM对比确认: 照片墙webp质量比原始jpg更好(原始jpg本身已严重压缩)
+  - 但hero图转webp(q90)后出现明显块状伪影, VLM评分2/10
+  - hero图需要全屏显示, 质量要求高, jpg本身压缩效率已很好
+- 决策: hero图恢复原始jpg(不转webp), 照片墙保持webp(已缩800px, q95质量足够)
+- 执行:
+  - 删除hero的webp, 从upload/hero-new复制原始jpg回来
+  - 更新hero-images.ts引用: .webp→.jpg
+  - 照片墙: 38张保持webp(800px宽, q95), 总3.4MB
+  - hero: 23张原始jpg, 总12MB(原始质量, 不压缩)
+- VLM确认:
+  - hero质量: 9/10 "sharp, no artifacts, excellent"
+  - 照片墙: webp比原始jpg质量更好(原始jpg本身压缩严重)
+
+自检结果:
+- hero: 原始jpg, VLM 9/10 ✓
+- 照片墙: webp 800px q95, 质量优于原始jpg ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- hero图恢复原始jpg保证质量, 照片墙用webp(800px q95)平衡质量与体积

@@ -9,36 +9,36 @@
  */
 
 const DAY_DESKTOP = [
-  "/bg/day/1764535480103.webp",
-  "/bg/day/20251212125216.webp",
-  "/bg/day/IMG_20260712_022434.webp",
-  "/bg/day/IMG_20260712_022557.webp",
-  "/bg/day/IMG_20260712_022635.webp",
-  "/bg/day/IMG_20260717_034250.webp",
-  "/bg/day/bbcc0e10bce0600208eae76d56175c25620521548.webp",
+  "/bg/day/1764535480103.jpg",
+  "/bg/day/20251212125216.jpg",
+  "/bg/day/IMG_20260712_022434.jpg",
+  "/bg/day/IMG_20260712_022557.jpg",
+  "/bg/day/IMG_20260712_022635.jpg",
+  "/bg/day/IMG_20260717_034250.jpg",
+  "/bg/day/bbcc0e10bce0600208eae76d56175c25620521548.jpg",
 ];
 const DAY_MOBILE = [
-  "/bg/day-mobile/IMG_20260717_033901.webp",
-  "/bg/day-mobile/IMG_20260717_033954.webp",
-  "/bg/day-mobile/IMG_20260717_034107.webp",
-  "/bg/day-mobile/IMG_20260717_034127.webp",
-  "/bg/day-mobile/IMG_20260717_034422.webp",
-  "/bg/day-mobile/IMG_20260717_034445.webp",
-  "/bg/day-mobile/IMG_20260717_034513.webp",
-  "/bg/day-mobile/IMG_20260717_034539.webp",
+  "/bg/day-mobile/IMG_20260717_033901.jpg",
+  "/bg/day-mobile/IMG_20260717_033954.jpg",
+  "/bg/day-mobile/IMG_20260717_034107.jpg",
+  "/bg/day-mobile/IMG_20260717_034127.jpg",
+  "/bg/day-mobile/IMG_20260717_034422.jpg",
+  "/bg/day-mobile/IMG_20260717_034445.jpg",
+  "/bg/day-mobile/IMG_20260717_034513.jpg",
+  "/bg/day-mobile/IMG_20260717_034539.jpg",
 ];
 const NIGHT_DESKTOP = [
-  "/bg/night/1765255232753.webp",
-  "/bg/night/1781673941796.webp",
-  "/bg/night/20251210211750.webp",
-  "/bg/night/45691349_p0.webp",
-  "/bg/night/IMG_20260717_034235.webp",
+  "/bg/night/1765255232753.jpg",
+  "/bg/night/1781673941796.jpg",
+  "/bg/night/20251210211750.jpg",
+  "/bg/night/45691349_p0.jpg",
+  "/bg/night/IMG_20260717_034235.jpg",
 ];
 const NIGHT_MOBILE = [
-  "/bg/night-mobile/IMG_20260717_033818.webp",
-  "/bg/night-mobile/IMG_20260717_034216.webp",
-  "/bg/night-mobile/IMG_20260717_034330_edit_111494215253924.webp",
-  "/bg/night-mobile/IMG_20260717_034956.webp",
+  "/bg/night-mobile/IMG_20260717_033818.jpg",
+  "/bg/night-mobile/IMG_20260717_034216.jpg",
+  "/bg/night-mobile/IMG_20260717_034330_edit_111494215253924.jpg",
+  "/bg/night-mobile/IMG_20260717_034956.jpg",
 ];
 
 export function getDayPool(isMobile: boolean) {
