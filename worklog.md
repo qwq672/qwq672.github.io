@@ -842,3 +842,31 @@ Work Log:
 
 Stage Summary:
 - 桌面卡顿修复(移除大面积backdrop-filter), 照片墙从最差变最好, GitHub融入主题, 卡片hover增强
+
+---
+Task ID: v23 (svh修复+webp体积修复)
+Agent: main
+Task: 照片墙高度随地址栏跳变修复、webp体积暴涨修复
+
+Work Log:
+- 照片墙高度跳变修复:
+  - 根因: 100dvh 随地址栏隐藏/显示实时变化, 导致照片墙高度跳变
+  - 改为 100svh (small viewport height, 取最小值, 不受地址栏影响)
+  - 同步修复 PageIntro、移动端菜单的 100dvh→100svh
+  - Hero 已是 100svh (之前就是)
+- webp体积暴涨修复:
+  - 根因: lossless:true 对照片类内容效率极低, 32.jpg 1.1MB→webp 2.8MB
+  - 改为 quality:85 + effort:4 (视觉无损, 体积比jpg更小)
+  - 32.jpg 1097KB→543KB(减半), hero 374KB→136KB(减64%)
+  - logos 保持 lossless:true (PNG有透明通道, 需要无损保留sharp边缘)
+  - VLM确认: "sharp and clear, no artifacts, high quality, excellent"
+  - 总体积: photos 5MB + bg 5MB (之前 lossless 时更大)
+
+自检结果:
+- 照片墙高度: 1050px (svh稳定, 不跳变) ✓
+- 图片质量: VLM "excellent, no artifacts" ✓
+- 体积: 比 lossless 小很多, 比 jpg 也小 ✓
+- 控制台: CLEAN ✓
+
+Stage Summary:
+- 照片墙高度用svh稳定不再跳变, webp用quality:85视觉无损且体积合理

@@ -183,7 +183,7 @@ export function SiteNavbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-x-0 top-0 z-40 flex h-[100dvh] flex-col overflow-hidden lg:hidden"
+            className="fixed inset-x-0 top-0 z-40 flex h-[100svh] flex-col overflow-hidden lg:hidden"
             style={{ overscrollBehavior: "none" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
