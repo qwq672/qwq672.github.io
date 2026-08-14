@@ -275,13 +275,13 @@
 }
 
 /* Frosted content backdrop — lets the fixed hero image show through.
-   High blur + ~82% opacity for readability while maintaining depth.
-   Use !important to override Tailwind's @apply bg-background. */
+   Uses semi-transparent background (no backdrop-filter) for performance:
+   a 40px blur over the entire content area causes severe jank on scroll.
+   The fixed background image is already processed (gradients, vignette),
+   so a plain translucent overlay is enough for readability + depth. */
 .frosted-content {
   position: relative;
-  background-color: color-mix(in oklch, var(--background) 82%, transparent) !important;
-  backdrop-filter: blur(40px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(140%) !important;
+  background-color: color-mix(in oklch, var(--background) 88%, transparent) !important;
 }
 /* Sections with border-y (interests, blog) get a subtle top divider
    that complements the frosted glass. */
@@ -357,7 +357,8 @@
     inset 0 1px 0 0 oklch(1 0 0 / 0.08),
     inset 0 0 0 1px color-mix(in oklch, var(--accent) 10%, transparent),
     0 8px 24px -8px oklch(0 0 0 / 0.12),
-    0 16px 48px -16px var(--glow);
+    0 20px 60px -20px var(--glow);
+  transform: translateY(-3px);
 }
 
 /* Styled scrollbar for inner scroll areas (docs viewer, dialogs) */

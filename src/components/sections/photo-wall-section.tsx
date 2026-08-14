@@ -191,49 +191,48 @@ export function PhotoWallSection() {
                       objectFit: "cover",
                       display: "block",
                       background: "transparent",
-                      /* Unify the visual tone — slightly desaturated + warm
-                         shift so diverse photos feel cohesive. */
-                      filter: "saturate(0.85) contrast(1.02) brightness(0.96)",
+                      /* Stronger tone unification — desaturate + darken so
+                         diverse photos feel cohesive with the dark theme. */
+                      filter: "saturate(0.75) contrast(1.05) brightness(0.88)",
                     }}
                   />
                 </div>
               ))}
             </div>
 
-            {/* Cinematic vignette — subtle, only darkens far edges */}
+            {/* Cinematic vignette — stronger for cohesion with dark theme */}
             <div
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.28) 100%)",
+                  "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.4) 100%)",
               }}
             />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/40 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/50 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 to-transparent" />
           </div>
         )}
       </div>
 
       <style>{`
-        /* CSS-only progressive load — no JS state needed.
-           Photos fade + scale in when they enter the viewport.
-           Works reliably on all devices including high-DPI and low-DPI. */
         .wall-photo {
           opacity: 0;
           transform: scale(1.05);
           transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                       transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                      filter 0.5s ease;
+                      filter 0.4s ease;
         }
         .wall-photo.loaded {
           opacity: 1;
           transform: scale(1);
         }
         .wall-photo:hover {
-          filter: saturate(1.1) contrast(1.05) brightness(1.05) !important;
+          filter: saturate(1) contrast(1.08) brightness(1) !important;
+          transform: scale(1.03);
         }
         @media (prefers-reduced-motion: reduce) {
           .wall-photo { transition: none; transform: none; opacity: 1; }
+          .wall-photo:hover { transform: none; }
         }
       `}</style>
     </section>

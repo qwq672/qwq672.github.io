@@ -17,9 +17,10 @@ interface ContribData {
   fetchedAt: string;
 }
 
-// Color levels using our accent (amber) — from subtle to saturated
+// Color levels — uses accent (amber) with subtle progression.
+// Level 0 uses a very faint accent tint (not gray) to stay on-theme.
 const LEVEL_COLORS = [
-  "bg-muted",                          // 0 — no contributions
+  "bg-accent/8",                       // 0 — no contributions (faint, not gray)
   "bg-accent/25",                      // 1
   "bg-accent/45",                      // 2
   "bg-accent/70",                      // 3

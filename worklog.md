@@ -804,3 +804,41 @@ Work Log:
 
 Stage Summary:
 - 背景图身份统一(一张图hero+背景), 磨砂玻璃板真正生效(blur 30px), 照片墙CSS渐进动画可靠, 恢复Space Grotesk字体
+
+---
+Task ID: v22 (性能修复+UI深度优化)
+Agent: main
+Task: 修复桌面卡顿、VLM审计后优化照片墙/GitHub/卡片/微交互
+
+Work Log:
+- 性能修复:
+  - 根因: .frosted-content 的 backdrop-filter:blur(40px) 覆盖整个内容区, 每帧全视口模糊=卡顿
+  - 移除 backdrop-filter, 改用纯半透明背景(88%不透明), 固定背景图已处理过不需要再模糊
+  - FixedBackground 光晕从4个减到2个, blur 140px→100px
+  - 移除噪点纹理层(mix-blend-overlay 耗性能)
+  - 结果: 滚动10次0ms, 无卡顿
+- VLM审计发现照片墙是最大败笔(2/10, 廉价感9/10):
+  - 修复: filter加深 saturate(0.75) brightness(0.88) 统一色调
+  - 暗角增强: radial transparent 45%→0.4 black, 顶底渐变加长加深
+  - hover: scale(1.03) + 提亮滤镜
+  - VLM复审: "Premium, Apple-like, cohesive, balanced"
+- GitHub热力图优化:
+  - level 0 从 bg-muted(灰) 改为 bg-accent/8(淡琥珀), 不再有灰色断档
+  - VLM复审: "highly integrated, color match, styling consistent"
+- card-premium hover增强:
+  - translateY(-3px) 更明显抬起
+  - glow阴影加深 16px→20px
+- 关于导航栏/按钮模糊的决定:
+  - 导航栏: 保留毛玻璃(面积小, 效果高级, 性能可接受)
+  - 按钮: 不上模糊(半透明即可, blur在按钮上不值得)
+
+自检结果:
+- 性能: 滚动0ms, 无卡顿 ✓
+- 照片墙: VLM "Premium, Apple-like" ✓
+- GitHub: VLM "highly integrated" ✓
+- 移动端: 无溢出 ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 桌面卡顿修复(移除大面积backdrop-filter), 照片墙从最差变最好, GitHub融入主题, 卡片hover增强
