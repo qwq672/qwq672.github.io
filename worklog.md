@@ -935,3 +935,44 @@ Work Log:
 
 Stage Summary:
 - 所有图片体积合理(总计5.2MB), 质量优秀, UI整体8-9分
+
+---
+Task ID: v30 (泛红根因修复+主题按钮优化+计数器溢出+排版)
+Agent: main
+Task: 彻底修复泛红(saturate是元凶)、主题按钮大小动画月亮角度、计数器移动端溢出
+
+Work Log:
+- 泛红根因彻底修复:
+  - 根因: page.tsx和footer的内联style有 saturate(150%), 增强背景图暖色→泛红
+  - 之前编辑被覆盖没生效, 这次用 .frosted-panel CSS类 + !important 确保生效
+  - .frosted-panel: background 92% + backdrop-filter blur(12px) 无saturate
+  - page.tsx和footer都改用 .frosted-panel 类
+  - FixedBackground移除彩色光晕(之前已修,确认无残留)
+  - VLM: "clean dark blue/purple/gray, no red"
+- 主题切换闪现修复:
+  - globals.css body transition之前被覆盖没生效
+  - 重新加 body { transition: background-color 0.4s ease-out, color 0.4s ease-out }
+  - 确保在 @layer base 内
+- 主题按钮优化:
+  - 太阳SVG 20px→22px, 月亮18px→18px(保持)
+  - 动画: cubic-bezier(0.4,0,0.2,1) 更丝滑(Material Design标准曲线)
+  - 旋转角度: 太阳 -120°→0°, 月亮 -15°(常态左倾) → 105°(消失)
+  - 月亮常态 rotate(-15deg) 左倾更好看
+  - willChange: opacity, transform 确保GPU合成
+  - VLM: "clear moon tilted left, clear sun with rays, well-sized"
+- 游客计数器移动端溢出修复:
+  - 之前scale=3+h-60px被覆盖回来, 又溢出
+  - 改: scale=1 + CSS transform:scale(1.8) + max-w-full + overflow-hidden
+  - 容器加 overflow-hidden 防止transform放大后溢出
+  - 移动端: no overflow ✓
+
+自检结果:
+- 泛红: VLM "clean dark blue/purple/gray" ✓
+- 主题按钮: VLM "clear moon tilted left, clear sun, well-sized" ✓
+- 计数器: 移动端no overflow ✓
+- 切换动画: body 0.4s ease-out ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 泛红根因(saturate 150%)彻底移除, 主题按钮用CSS类+!important确保生效, 月亮左倾15°, 计数器scale=1+CSS放大+overflow-hidden

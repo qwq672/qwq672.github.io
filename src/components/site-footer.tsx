@@ -7,22 +7,22 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer
-      className="mt-auto border-t border-border/40"
-      style={{
-        backgroundColor: "color-mix(in oklch, var(--background) 80%, transparent)",
-        backdropFilter: "blur(30px) saturate(150%)",
-        WebkitBackdropFilter: "blur(30px) saturate(150%)",
-      }}
+      className="frosted-panel mt-auto border-t border-border/40"
     >
       <div className="mx-auto max-w-5xl px-6 py-12">
-        {/* Visitor counter — pixel art, centered. Eager load (no lazy) so it
-            shows immediately. onerror hides if the service is unreachable. */}
-        <div className="mb-8 flex justify-center">
+        {/* Visitor counter — pixel art, centered. scale=1 (API max is 2),
+            CSS transform:scale(1.8) enlarges display. overflow-hidden +
+            max-w-full prevents mobile overflow. */}
+        <div className="mb-8 flex max-w-full justify-center overflow-hidden">
           <img
-            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=3&pixelated=1&darkmode=auto"
+            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=1&pixelated=1&darkmode=auto"
             alt="visitor counter"
-            className="h-[60px] w-auto"
-            style={{ imageRendering: "pixelated" }}
+            className="max-w-full"
+            style={{
+              imageRendering: "pixelated",
+              transform: "scale(1.8)",
+              transformOrigin: "center",
+            }}
             loading="eager"
             referrerPolicy="no-referrer"
             onError={(e) => {

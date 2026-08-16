@@ -169,9 +169,10 @@
   .text-muted-foreground {
     opacity: 0.85;
   }
-  /* Theme switch: NO global background transition. Transitioning the body
-     background causes a large-area repaint that janks on theme toggle.
-     Elements change color instantly via CSS variables — cleaner and faster. */
+  /* Theme switch — gentle 0.4s color transition. No flash. */
+  body {
+    transition: background-color 0.4s ease-out, color 0.4s ease-out;
+  }
   ::selection {
     background-color: var(--accent);
     color: var(--accent-foreground);
@@ -218,6 +219,15 @@
 .scrollbar-rail.is-dragging .scrollbar-thumb {
   cursor: grabbing;
   width: 9px;
+}
+
+/* Frosted panel — content area over fixed background.
+   No saturate (causes red tint). 92% opacity + blur(12px) = clean frost. */
+.frosted-panel {
+  background-color: color-mix(in oklch, var(--background) 92%, transparent) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  position: relative;
 }
 
 /* ============ Utility classes ============ */

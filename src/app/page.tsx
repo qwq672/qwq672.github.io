@@ -17,27 +17,19 @@ import { PageIntro } from "@/components/page-intro";
 export default function Home() {
   return (
     <div id="top" className="relative flex min-h-screen flex-col">
-      {/* Fixed background — hero image stays in place while content scrolls.
-          Content sections use frosted glass to let this show through. */}
       <FixedBackground />
 
       <PageIntro />
       <SiteNavbar />
 
       <main className="relative flex-1">
-        {/* Hero — transparent, the fixed background shows through here */}
         <HeroSection />
 
-        {/* Content sections — frosted glass panel over the fixed background.
-            Inline style ensures backdrop-filter works (CSS class was
-            overridden by Tailwind's @apply). ~80% opacity + heavy blur. */}
+        {/* Content panel — frosted glass over the fixed background.
+            No saturate (it amplifies warm tones causing red tint).
+            92% opacity + blur(12px) = subtle frost without color shift. */}
         <div
-          className="relative"
-          style={{
-            backgroundColor: "color-mix(in oklch, var(--background) 80%, transparent)",
-            backdropFilter: "blur(30px) saturate(150%)",
-            WebkitBackdropFilter: "blur(30px) saturate(150%)",
-          }}
+          className="relative frosted-panel"
         >
           <AboutSection />
           <InterestsSection />
