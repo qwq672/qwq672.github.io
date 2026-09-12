@@ -10,19 +10,15 @@ export function SiteFooter() {
       className="frosted-panel mt-auto border-t border-border/40"
     >
       <div className="mx-auto max-w-5xl px-6 py-12">
-        {/* Visitor counter — pixel art, centered. scale=1 (API max is 2),
-            CSS transform:scale(1.8) enlarges display. overflow-hidden +
-            max-w-full prevents mobile overflow. */}
-        <div className="mb-8 flex max-w-full justify-center overflow-hidden">
+        {/* Visitor counter — pixel art, centered. scale=2 is API max.
+            No CSS transform (causes overflow). image-rendering:pixelated
+            keeps it crisp. max-w-full prevents mobile overflow. */}
+        <div className="mb-8 flex justify-center">
           <img
-            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=1&pixelated=1&darkmode=auto"
+            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=2&pixelated=1&darkmode=auto"
             alt="visitor counter"
-            className="max-w-full"
-            style={{
-              imageRendering: "pixelated",
-              transform: "scale(1.8)",
-              transformOrigin: "center",
-            }}
+            className="max-w-full h-auto"
+            style={{ imageRendering: "pixelated" }}
             loading="eager"
             referrerPolicy="no-referrer"
             onError={(e) => {

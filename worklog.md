@@ -976,3 +976,35 @@ Work Log:
 
 Stage Summary:
 - 泛红根因(saturate 150%)彻底移除, 主题按钮用CSS类+!important确保生效, 月亮左倾15°, 计数器scale=1+CSS放大+overflow-hidden
+
+---
+Task ID: v31 (泛红根因删除+计数器+UI创新)
+Agent: main
+Task: 彻底删除泛红根因(彩色光晕)、计数器scale=2无transform、UI大胆创新
+
+Work Log:
+- 泛红根因彻底修复:
+  - 根因: FixedBackground里还有bg-accent/6和bg-primary/5两个blur-[100px]光晕
+  - 采样确认: oklab(0.7 0.08 0.11) = 琥珀暖色, 透过92%面板泛红
+  - 之前编辑没生效, 这次直接删除这两行
+  - VLM: "clean dark, neutral cool tone, no red"
+- 游客计数器修复:
+  - 之前transform:scale(1.8)导致溢出
+  - 改: scale=2(API最大值) + 无CSS transform + max-w-full h-auto
+  - 移动端: no overflow ✓
+- UI大胆创新:
+  - 兴趣卡片: 加RPG等级条(Lv.92/88/75/80/60) + 熟练度进度条(动画填充)
+  - 项目卡片: LED状态指示灯(开发中=闪烁animate-pulse, 已发布=常亮) + boxShadow发光
+  - VLM: 兴趣"gameified, character stat sheet, skill tree aesthetic"
+  - VLM: 项目"hardware status lights, drive activity LEDs"
+
+自检结果:
+- 泛红: VLM "clean dark, no red" ✓
+- 计数器: 移动端no overflow ✓
+- 兴趣等级条: VLM "RPG-style, gameified, fun" ✓
+- 项目LED: VLM "hardware LEDs, pulsing" ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 泛红根因(彩色光晕)彻底删除, 计数器用API scale=2无transform, 兴趣卡片RPG等级条, 项目LED指示灯

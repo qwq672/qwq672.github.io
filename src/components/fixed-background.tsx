@@ -86,7 +86,8 @@ export function FixedBackground() {
       <div className="absolute inset-0 bg-background/35 dark:bg-background/50" />
       {/* Top fade + bottom fade for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
-      {/* Vignette */}
+      {/* Vignette — only depth element. NO colored glows (they cause
+          red/warm tint leaking through the frosted panel). */}
       <div
         className="absolute inset-0"
         style={{
@@ -94,9 +95,6 @@ export function FixedBackground() {
             "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.3) 100%)",
         }}
       />
-      {/* 2 soft glows only (more = repaint jank) */}
-      <div className="absolute -left-[10%] top-[5%] h-[45vh] w-[45vh] rounded-full bg-accent/6 blur-[100px]" />
-      <div className="absolute right-[-8%] top-[50%] h-[40vh] w-[40vh] rounded-full bg-primary/5 blur-[100px]" />
     </div>
   );
 }

@@ -13,6 +13,7 @@ export interface Interest {
   title: string;
   desc: string;
   accent: string;
+  level: number;
 }
 
 export const interests: Interest[] = [
@@ -21,30 +22,35 @@ export const interests: Interest[] = [
     title: "游戏",
     desc: "常玩 Minecraft、地平线 5、Phigros，偶尔也碰碰《主播女孩重度依赖》《底特律：变人》之类的。",
     accent: "from-amber-500/20 to-orange-500/10",
+    level: 92,
   },
   {
     icon: Smartphone,
     title: "老设备折腾",
     desc: "iPod touch 4、安卓 4.2 的古董机……最近还把 iPhone 4（Rev A）从 iOS 7.1.2「完美」降级到了 iOS 6.1.3 并越狱成功！越狱、root、装老游戏，折腾本身比用它们还有意思。",
     accent: "from-rose-500/20 to-amber-500/10",
+    level: 88,
   },
   {
     icon: Music4,
     title: "音乐 & MIDI",
     desc: "用 FL Studio 把一些歌重制成 MIDI 版本，也在做 Arvgrid 这个网页端 MIDI 编曲工具。",
     accent: "from-violet-500/20 to-fuchsia-500/10",
+    level: 75,
   },
   {
     icon: Globe,
     title: "Web 1.0 复古站",
     desc: "用 HTML 3.2 + GB2312 编码搭了个老设备兼容站，复古味拉满，怀旧党狂喜。",
     accent: "from-cyan-500/20 to-sky-500/10",
+    level: 80,
   },
   {
     icon: Clapperboard,
     title: "影迷 & 番剧",
     desc: "曾经算个影迷，也追番看日漫，现在碍于学业不太追了，但有空大概率还是会看的。",
     accent: "from-orange-500/20 to-red-500/10",
+    level: 60,
   },
 ];
 
@@ -54,7 +60,7 @@ export interface Project {
   slug: string;
   name: string;
   tagline: string;
-  status: "开发中" | "进行中" | "接近正式版";
+  status: "开发中" | "进行中" | "已发布";
   desc: string;
   tags: string[];
   website: { url: string; label: string };

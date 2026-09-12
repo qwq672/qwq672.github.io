@@ -50,7 +50,13 @@ export function ProjectsSection() {
                   />
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[0.7rem] font-medium text-accent">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  {/* LED indicator — blinking for "开发中", solid for "已发布" */}
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full bg-accent ${p.status === "开发中" ? "animate-pulse" : ""}`}
+                    style={{
+                      boxShadow: "0 0 6px currentColor",
+                    }}
+                  />
                   {p.status}
                 </span>
               </div>

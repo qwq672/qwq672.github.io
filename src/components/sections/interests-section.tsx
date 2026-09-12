@@ -39,8 +39,14 @@ export function InterestsSection() {
                 className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${item.accent} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />
               <div className="relative">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-background/60 text-accent transition-all duration-500 group-hover:scale-110 group-hover:border-accent/40">
-                  <item.icon className="h-5.5 w-5.5" strokeWidth={1.7} />
+                <div className="flex items-center justify-between">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-background/60 text-accent transition-all duration-500 group-hover:scale-110 group-hover:border-accent/40">
+                    <item.icon className="h-5.5 w-5.5" strokeWidth={1.7} />
+                  </div>
+                  {/* Level badge — RPG style */}
+                  <span className="font-mono text-[0.65rem] font-bold uppercase tracking-wider text-accent/60">
+                    Lv.{item.level}
+                  </span>
                 </div>
                 <h3 className="mt-5 font-display text-lg font-semibold text-foreground">
                   {item.title}
@@ -48,6 +54,18 @@ export function InterestsSection() {
                 <p className="mt-2 text-[0.92rem] leading-relaxed text-muted-foreground">
                   {item.desc}
                 </p>
+                {/* Proficiency bar — gameified */}
+                <div className="mt-4">
+                  <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
+                    <motion.div
+                      className="h-full rounded-full bg-gradient-to-r from-accent/60 to-accent"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${item.level}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                    />
+                  </div>
+                </div>
               </div>
             </motion.article>
           ))}
