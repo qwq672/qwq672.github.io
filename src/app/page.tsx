@@ -25,11 +25,16 @@ export default function Home() {
       <main className="relative flex-1">
         <HeroSection />
 
-        {/* Content panel — frosted glass over the fixed background.
-            No saturate (it amplifies warm tones causing red tint).
-            92% opacity + blur(12px) = subtle frost without color shift. */}
+        {/* Frosted glass content panel — inline style ensures backdrop-filter
+            works (Tailwind v4 strips it from CSS classes). No saturate (causes
+            red tint). 90% opacity + 16px blur = clean frost, no color shift. */}
         <div
-          className="relative frosted-panel"
+          className="relative"
+          style={{
+            backgroundColor: "color-mix(in oklch, var(--background) 90%, transparent)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+          }}
         >
           <AboutSection />
           <InterestsSection />

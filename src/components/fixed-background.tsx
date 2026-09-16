@@ -11,11 +11,9 @@ import {
 } from "@/lib/hero-images";
 
 /**
- * Fixed background image layer — THE single source of truth for the hero
- * image. It stays fixed in the viewport while content scrolls over it.
- * The hero section is transparent, so this image shows through there too.
- * Content sections use a frosted-glass overlay (.frosted-content) to let
- * this image show through subtly.
+ * Fixed background image layer. Stays fixed in the viewport while content
+ * scrolls over it. The hero section is transparent so this shows through
+ * there too. Content sections use .frosted-panel overlay.
  */
 export function FixedBackground() {
   const { resolvedTheme } = useTheme();
@@ -64,7 +62,6 @@ export function FixedBackground() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
     >
-      {/* Fixed hero image — single source of truth */}
       <AnimatePresence>
         {currentImg && (
           <motion.img
@@ -82,12 +79,11 @@ export function FixedBackground() {
         )}
       </AnimatePresence>
 
-      {/* Readability overlay — adapts to theme */}
+      {/* Readability overlay */}
       <div className="absolute inset-0 bg-background/35 dark:bg-background/50" />
-      {/* Top fade + bottom fade for depth */}
+      {/* Gradient fade for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40" />
-      {/* Vignette — only depth element. NO colored glows (they cause
-          red/warm tint leaking through the frosted panel). */}
+      {/* Vignette */}
       <div
         className="absolute inset-0"
         style={{

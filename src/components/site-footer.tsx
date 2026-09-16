@@ -7,7 +7,12 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer
-      className="frosted-panel mt-auto border-t border-border/40"
+      className="mt-auto border-t border-border/40"
+      style={{
+        backgroundColor: "color-mix(in oklch, var(--background) 90%, transparent)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      }}
     >
       <div className="mx-auto max-w-5xl px-6 py-12">
         {/* Visitor counter — pixel art, centered. scale=2 is API max.

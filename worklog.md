@@ -1008,3 +1008,46 @@ Work Log:
 
 Stage Summary:
 - 泛红根因(彩色光晕)彻底删除, 计数器用API scale=2无transform, 兴趣卡片RPG等级条, 项目LED指示灯
+
+---
+Task ID: v32 (语法修复+泛红重写+菜单简化+等级条删除+加载动画重写)
+Agent: main
+Task: 修复FixedBackground语法错误、重写毛玻璃内联style、简化汉堡菜单、删除等级条、极简加载动画
+
+Work Log:
+- FixedBackground语法修复:
+  - 发现 const ounted, setMounted] 语法错误(缺少[)
+  - 重写整个文件,修复语法
+- 泛红+模糊重写:
+  - 之前frosted-panel CSS类被Tailwind v4覆盖backdrop-filter
+  - 改用内联style在page.tsx和footer直接设:
+    backgroundColor: color-mix(90%) + backdrop-filter: blur(16px)
+  - 无saturate(泛红根因)
+  - VLM: "clean dark, blur(16px)生效"
+- 汉堡菜单动画闪烁修复:
+  - 根因: clipPath圆形展开动画 + ambient glow彩色光晕 + 多层动画时序不同步
+  - 简化: 去掉clipPath, 改纯opacity淡入(0.25s) + 轻微y位移
+  - 去掉ambient glow(彩色光晕)
+  - 导航项入场: delay减小(0.04/item), duration缩短(0.25s)
+- 等级条删除:
+  - 移除interests的level字段和UI(等级条+Lv徽章)
+  - 回归简洁卡片: 图标+标题+描述
+  - VLM: "no level bars, simple cards"
+- 加载动画重写:
+  - 极简风格: 纯背景 + 一条细线进度条(accent色填充)
+  - 无672标记/光晕/loading文字
+  - "十分空"的用户要求
+- 布局大改评估:
+  - 当前布局已经很合理: Hero→About→Interests→Projects→GitHub→Blog→Gallery→Resources→Contact
+  - 排版经过多轮VLM审计达8-9/10
+  - 不需要大改, 只需持续细节优化
+
+自检结果:
+- 泛红: VLM "clean" ✓
+- 模糊: backdrop-filter blur(16px) 生效 ✓
+- 等级条: VLM "no level bars" ✓
+- 控制台: CLEAN ✓
+- Lint: 0 error ✓
+
+Stage Summary:
+- 语法错误修复, 泛红用内联style彻底解决, 菜单简化去闪烁, 等级条删除, 加载动画极简重写, 布局不需大改
