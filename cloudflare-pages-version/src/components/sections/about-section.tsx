@@ -1,9 +1,10 @@
-import { Reveal, SectionHeading } from "@/components/motion-helpers";
+
+import { Reveal, SectionHeading } from "../motion-helpers";
 import { Sparkles } from "lucide-react";
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="about" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="About"
@@ -26,7 +27,7 @@ export function AboutSection() {
                   <div className="relative shrink-0">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent to-primary opacity-30 blur-md" />
                     <img
-                      src="./avatar.webp"
+                      src="/avatar.webp"
                       alt="qwq672 的头像"
                       width={64}
                       height={64}
@@ -44,20 +45,22 @@ export function AboutSection() {
                   </div>
                 </div>
 
-                <p className="text-[1.05rem] leading-[1.95] text-foreground/90">
-                  我是 <span className="font-semibold text-foreground">qwq672</span>，一名学生。
-                  平时喜欢玩玩游戏，也折腾一些老设备，
-                  偶尔还会写写 Minecraft 模组和做点 MIDI 重制。
-                </p>
-                <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
-                  爱好比较多但不限于：游戏、老设备折腾、部分复古风格、
-                  Minecraft 模组创作、音乐创作……嗯，成分确实蛮复杂的。
-                  这个小破站就是把我的碎碎念和笔记都攒在一起，
-                  顺便练练手，看看能折腾出什么花样。
-                </p>
-                <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
-                  未来又会多哪些兴趣、失去哪些兴趣，我也说不准（）
-                </p>
+                <div className="max-w-prose">
+                  <p className="text-[1.05rem] leading-[1.95] text-foreground/90">
+                    我是 <span className="font-semibold text-foreground">qwq672</span>，一名学生。
+                    平时喜欢玩玩游戏，也折腾一些老设备，
+                    偶尔还会写写 Minecraft 模组和做点 MIDI 重制。
+                  </p>
+                  <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
+                    爱好比较多但不限于：游戏、老设备折腾、部分复古风格、
+                    Minecraft 模组创作、音乐创作……嗯，成分确实蛮复杂的。
+                    这个小破站就是把我的碎碎念和笔记都攒在一起，
+                    顺便练练手，看看能折腾出什么花样。
+                  </p>
+                  <p className="mt-5 text-[1.05rem] leading-[1.95] text-muted-foreground">
+                    未来又会多哪些兴趣、失去哪些兴趣，我也说不准（）
+                  </p>
+                </div>
               </div>
             </div>
           </Reveal>

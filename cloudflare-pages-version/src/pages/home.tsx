@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useSearchParams } from "react-router-dom";
 import { SiteNavbar } from "@/components/site-navbar";
+import { FixedBackground } from "@/components/fixed-background";
 import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
 import { InterestsSection } from "@/components/sections/interests-section";
@@ -15,12 +16,8 @@ import { PageIntro } from "@/components/page-intro";
 
 /**
  * Home page — full single-page landing with all sections.
- * Mirrors the main project's src/app/page.tsx.
- *
- * Supports a `?s=<id>` query param so other pages (post detail, 404) can
- * link back to a specific section: e.g. `/?s=blog` scrolls to #blog.
- * (HashRouter uses the URL hash for routing, so we can't use plain
- * `#blog` anchors for cross-page navigation.)
+ * Mirrors the main project's src/app/page.tsx layout:
+ * FixedBackground + frosted glass content panel.
  */
 export function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,13 +25,11 @@ export function HomePage() {
   React.useEffect(() => {
     const sectionId = searchParams.get("s");
     if (sectionId) {
-      // Defer until sections have mounted.
       const t = setTimeout(() => {
         document
           .getElementById(sectionId)
           ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
-      // Clear the param so a later refresh doesn't re-scroll.
       setSearchParams({}, { replace: true });
       return () => clearTimeout(t);
     }
@@ -42,29 +37,33 @@ export function HomePage() {
 
   return (
     <div id="top" className="relative flex min-h-screen flex-col">
-      {/* Ambient background — subtle moving glow that matches the theme */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
-      >
-        <div className="absolute -left-[20%] top-[5%] h-[45vh] w-[45vh] rounded-full bg-accent/10 blur-[120px]" />
-        <div className="absolute right-[-10%] top-[55%] h-[40vh] w-[40vh] rounded-full bg-primary/10 blur-[120px]" />
-        <div className="absolute left-[30%] top-[120%] h-[40vh] w-[40vh] rounded-full bg-accent/8 blur-[120px]" />
-      </div>
+      <FixedBackground />
 
       <PageIntro />
       <SiteNavbar />
 
-      <main className="flex-1">
+      <main className="relative flex-1">
         <HeroSection />
-        <AboutSection />
-        <InterestsSection />
-        <ProjectsSection />
-        <GitHubContributionsSection />
-        <BlogSection />
-        <PhotoWallSection />
-        <ResourcesSection />
-        <ContactSection />
+
+        {/* Frosted glass content panel — inline style ensures backdrop-filter
+            works. No saturate (causes red tint). 90% opacity + 16px blur. */}
+        <div
+          className="relative"
+          style={{
+            backgroundColor: "color-mix(in oklch, var(--background) 90%, transparent)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+          }}
+        >
+          <AboutSection />
+          <InterestsSection />
+          <ProjectsSection />
+          <GitHubContributionsSection />
+          <BlogSection />
+          <PhotoWallSection />
+          <ResourcesSection />
+          <ContactSection />
+        </div>
       </main>
 
       <SiteFooter />

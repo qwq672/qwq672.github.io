@@ -1,8 +1,9 @@
+
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { navLinks } from "@/lib/content";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { MenuIcon } from "@/components/menu-icon";
+import { navLinks } from "../lib/content";
+import { ThemeToggle } from "../components/theme-toggle";
+import { MenuIcon } from "../components/menu-icon";
 import { cn } from "@/lib/utils";
 
 export function SiteNavbar() {
@@ -125,7 +126,7 @@ export function SiteNavbar() {
           >
             <span className="relative h-8 w-8 overflow-hidden rounded-full border border-border/60 shadow-lg shadow-accent/10 transition-transform duration-300 group-hover:scale-105">
               <img
-                src="./avatar.webp"
+                src="/avatar.webp"
                 alt="qwq672"
                 className="h-full w-full object-cover"
               />
@@ -135,8 +136,9 @@ export function SiteNavbar() {
             </span>
           </button>
 
-          {/* Center — desktop nav links (absolute centered, compact) */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
+          {/* Center — desktop nav links (absolute centered, compact).
+              Shown on lg+ (1024px+) to avoid cramping on tablets. */}
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -165,7 +167,7 @@ export function SiteNavbar() {
             <ThemeToggle />
             {/* Mobile menu button — morphs to X */}
             <button
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-foreground/80 transition-colors hover:text-accent md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-foreground/80 transition-colors hover:text-accent lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "关闭菜单" : "打开菜单"}
               aria-expanded={open}
@@ -180,44 +182,29 @@ export function SiteNavbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-x-0 top-0 z-40 flex h-[100dvh] flex-col overflow-hidden md:hidden"
+            className="fixed inset-x-0 top-0 z-40 flex h-[100svh] flex-col overflow-hidden lg:hidden"
             style={{ overscrollBehavior: "none" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: reduce ? 0 : 0.3 }}
+            transition={{ duration: reduce ? 0 : 0.25, ease: "easeOut" }}
           >
-            {/* backdrop — fully opaque so the page behind never shows
-                through during address-bar show/hide transitions. */}
-            <motion.div
-              className="absolute inset-0 bg-background backdrop-blur-2xl"
-              initial={{ clipPath: "circle(0% at 100% 0%)" }}
-              animate={{ clipPath: "circle(150% at 100% 0%)" }}
-              exit={{ clipPath: "circle(0% at 100% 0%)" }}
-              transition={{ duration: reduce ? 0 : 0.5, ease: [0.76, 0, 0.24, 1] }}
-            />
-            {/* ambient glow */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 overflow-hidden"
-            >
-              <div className="absolute -left-[10%] top-[10%] h-[40vh] w-[40vh] rounded-full bg-accent/15 blur-[100px]" />
-              <div className="absolute right-[-10%] bottom-[10%] h-[35vh] w-[35vh] rounded-full bg-primary/15 blur-[100px]" />
-            </div>
+            {/* backdrop — opaque, no clipPath (causes flicker) */}
+            <div className="absolute inset-0 bg-background" />
 
-            {/* nav links — scrollable, padded below navbar */}
+            {/* nav links */}
             <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-1.5 overflow-y-auto px-6 pb-8 pt-24">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
                   onClick={() => handleNav(link.href)}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 12 }}
+                  exit={{ opacity: 0, y: 8 }}
                   transition={{
-                    duration: reduce ? 0 : 0.4,
-                    delay: reduce ? 0 : 0.1 + i * 0.05,
-                    ease: [0.22, 1, 0.36, 1],
+                    duration: reduce ? 0 : 0.25,
+                    delay: reduce ? 0 : 0.05 + i * 0.04,
+                    ease: "easeOut",
                   }}
                   className={cn(
                     "group relative flex w-full max-w-xs items-center justify-between rounded-2xl px-5 py-3 text-left transition-colors",

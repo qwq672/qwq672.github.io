@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "@/pages/home";
+import { HomePage } from "@/pages/home";
 import PostPage from "@/pages/post";
 
 /**

@@ -1,5 +1,6 @@
+
 import * as React from "react";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { ChevronDown } from "lucide-react";
 import {
@@ -7,57 +8,19 @@ import {
   getNightPool,
   pickRandom,
   getStoredImages,
-} from "@/lib/hero-images";
+} from "../../lib/hero-images";
 
+/**
+ * Hero section — content only. The background image is provided by
+ * <FixedBackground /> (a fixed full-viewport layer behind everything).
+ * This keeps a single source of truth for the hero image — it's both
+ * the hero backdrop AND the site-wide background ("from where it came,
+ * to where it goes").
+ */
 export function HeroSection() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
-  const reduce = useReducedMotion();
-
-  const showNight = mounted ? resolvedTheme === "dark" : true;
-
-  // Detect orientation: portrait (tall) screens use vertical/mobile images,
-  // landscape (wide) screens use horizontal/desktop images. Square screens
-  // use landscape (either is fine per the spec).
-  const [isPortrait, setIsPortrait] = React.useState(false);
-  React.useEffect(() => {
-    const mq = window.matchMedia("(orientation: portrait)");
-    const update = () => setIsPortrait(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  const dayPool = isPortrait ? getDayPool(true) : getDayPool(false);
-  const nightPool = isPortrait ? getNightPool(true) : getNightPool(false);
-
-  // Read pre-picked images from PageIntro (or pick fresh if not found)
-  const [dayImg, setDayImg] = React.useState<string | null>(null);
-  const [nightImg, setNightImg] = React.useState<string | null>(null);
-  React.useEffect(() => {
-    const stored = getStoredImages();
-    setDayImg(stored.day ?? pickRandom(dayPool));
-    setNightImg(stored.night ?? pickRandom(nightPool));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPortrait]);
-
-  const currentImg = showNight ? nightImg : dayImg;
-
-  // When theme changes, pick a fresh random image
-  const prevThemeRef = React.useRef(showNight);
-  React.useEffect(() => {
-    if (!mounted) return;
-    if (prevThemeRef.current !== showNight) {
-      prevThemeRef.current = showNight;
-      if (showNight) {
-        setNightImg((prev) => pickRandom(nightPool, prev ?? undefined));
-      } else {
-        setDayImg((prev) => pickRandom(dayPool, prev ?? undefined));
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showNight, mounted]);
 
   const scrollNext = () => {
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -65,35 +28,12 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Background image — pure opacity crossfade (GPU-composited). */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <AnimatePresence>
-          {currentImg && (
-            <motion.img
-              key={currentImg}
-              src={currentImg}
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ willChange: "opacity" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Readability overlay */}
-        <div className="absolute inset-0 bg-background/35 dark:bg-background/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.25) 100%)",
-          }}
-        />
+      {/* No background image here — FixedBackground provides it.
+          Only a readability gradient at the bottom for text contrast. */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* Extra darkening at bottom so hero text is readable over the
+            fixed background, fading to transparent at top. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background/30" />
       </div>
 
       {/* Content */}
@@ -115,7 +55,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-6xl font-bold tracking-tight text-foreground drop-shadow-[0_4px_24px_rgba(0,0,0,0.25)] sm:text-7xl md:text-8xl"
+          className="font-display text-6xl font-bold tracking-tight text-foreground sm:text-7xl md:text-8xl"
+          style={{ textShadow: "0 2px 20px rgba(0,0,0,0.4)" }}
         >
           <span className="text-gradient-animate">qwq672</span>
         </motion.h1>
@@ -125,7 +66,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/90 sm:text-lg"
-          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
+          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
         >
           嗯，你好呀。我是 qwq672，一名学生，平时会玩玩游戏、折腾折腾老设备，
           也写点 Minecraft 模组和 MIDI 重制。这个站就是我的小破站，
@@ -138,10 +79,7 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 0.66, ease: [0.22, 1, 0.36, 1] }}
           className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
-          <button
-            onClick={scrollNext}
-            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-lg shadow-foreground/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-foreground/25 active:scale-95"
-          >
+          <button onClick={scrollNext} className="btn-primary group">
             随便逛逛
             <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
           </button>
@@ -151,7 +89,7 @@ export function HeroSection() {
               e.preventDefault();
               document.getElementById("blog")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-foreground/5 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/10"
+            className="btn-ghost"
           >
             看看随笔
           </a>
@@ -168,7 +106,7 @@ export function HeroSection() {
         className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-foreground/60 transition-colors hover:text-foreground"
       >
         <motion.div
-          animate={reduce ? undefined : { y: [0, 6, 0] }}
+          animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           <ChevronDown className="h-6 w-6" />

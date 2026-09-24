@@ -1,16 +1,41 @@
+
 import * as React from "react";
 import { Heart, ArrowUp } from "lucide-react";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-auto border-t border-border/40 bg-card/30">
+    <footer
+      className="mt-auto border-t border-border/40"
+      style={{
+        backgroundColor: "color-mix(in oklch, var(--background) 90%, transparent)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      }}
+    >
       <div className="mx-auto max-w-5xl px-6 py-12">
+        {/* Visitor counter — pixel art, centered. scale=2 is API max.
+            No CSS transform (causes overflow). image-rendering:pixelated
+            keeps it crisp. max-w-full prevents mobile overflow. */}
+        <div className="mb-8 flex justify-center">
+          <img
+            src="https://count.getloli.com/@mysite-by-qwq672?name=mysite-by-qwq672&theme=booru-lewd&padding=8&offset=0&align=top&scale=2&pixelated=1&darkmode=auto"
+            alt="visitor counter"
+            className="max-w-full h-auto"
+            style={{ imageRendering: "pixelated" }}
+            loading="eager"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
+          />
+        </div>
+
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center gap-2.5">
             <span className="relative h-8 w-8 overflow-hidden rounded-full border border-border/60">
               <img
-                src="./avatar.webp"
+                src="/avatar.webp"
                 alt="qwq672"
                 className="h-full w-full object-cover"
               />

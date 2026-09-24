@@ -1,12 +1,25 @@
+
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Github, Loader2, AlertCircle } from "lucide-react";
-import { Reveal, SectionHeading } from "@/components/motion-helpers";
-import { fetchGitHubContributions, type ContribData } from "@/lib/github-contributions";
+import { Reveal, SectionHeading } from "../motion-helpers";
 
-// Color levels using our accent (amber) — from subtle to saturated
+interface Day {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+interface ContribData {
+  username: string;
+  total: number;
+  weeks: Day[][];
+  fetchedAt: string;
+}
+
+// Color levels — uses accent (amber) with subtle progression.
+// Level 0 uses a very faint accent tint (not gray) to stay on-theme.
 const LEVEL_COLORS = [
-  "bg-muted",                          // 0 — no contributions
+  "bg-accent/8",                       // 0 — no contributions (faint, not gray)
   "bg-accent/25",                      // 1
   "bg-accent/45",                      // 2
   "bg-accent/70",                      // 3
@@ -20,8 +33,12 @@ export function GitHubContributionsSection() {
 
   React.useEffect(() => {
     let cancelled = false;
-    fetchGitHubContributions()
-      .then((d) => {
+    fetch("/api/github-contributions")
+      .then((r) => {
+        if (!r.ok) throw new Error("fetch failed");
+        return r.json();
+      })
+      .then((d: ContribData) => {
         if (!cancelled) setData(d);
       })
       .catch(() => {
@@ -41,7 +58,7 @@ export function GitHubContributionsSection() {
   return (
     <section
       id="github"
-      className="relative scroll-mt-24 py-20 sm:py-24"
+      className="relative scroll-mt-24 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
@@ -65,15 +82,6 @@ export function GitHubContributionsSection() {
               <div className="flex flex-col items-center justify-center gap-3 py-12 text-muted-foreground">
                 <AlertCircle className="h-6 w-6 text-muted-foreground/60" />
                 <span className="text-sm">贡献数据加载失败，可能是 GitHub 暂时不可达。</span>
-                <a
-                  href="https://github.com/qwq672"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
-                >
-                  <Github className="h-4 w-4" />
-                  直接去 GitHub 看 @qwq672
-                </a>
               </div>
             ) : (
               <div>

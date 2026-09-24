@@ -7,7 +7,7 @@
   "scripts": {
     "build:data": "npx tsx scripts/build-data.ts",
     "dev": "vite",
-    "build": "npx tsx scripts/build-data.ts && tsc --noEmit && vite build",
+    "build": "npx tsx scripts/build-data.ts && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
   },

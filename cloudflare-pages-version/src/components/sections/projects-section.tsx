@@ -1,12 +1,14 @@
+
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
-import { projects } from "@/lib/content";
-import { ProjectLogo } from "@/components/project-logo";
+import { SectionHeading, staggerContainer, staggerItem } from "../motion-helpers";
+import { projects } from "../../lib/content";
+import { ProjectLogo } from "../project-logo";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="projects" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Projects"
@@ -47,7 +49,13 @@ export function ProjectsSection() {
                   />
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[0.7rem] font-medium text-accent">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  {/* LED indicator — blinking for "开发中", solid for "已发布" */}
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full bg-accent ${p.status === "开发中" ? "animate-pulse" : ""}`}
+                    style={{
+                      boxShadow: "0 0 6px currentColor",
+                    }}
+                  />
                   {p.status}
                 </span>
               </div>
@@ -79,7 +87,7 @@ export function ProjectsSection() {
 
               {/* website link */}
               <div className="relative mt-auto pt-5">
-                <a
+                <Link
                   href={p.website.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -88,7 +96,7 @@ export function ProjectsSection() {
                   <ExternalLink className="h-3.5 w-3.5" />
                   {p.website.label}
                   <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-70" />
-                </a>
+                </Link>
               </div>
             </motion.article>
           ))}

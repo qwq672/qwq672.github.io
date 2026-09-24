@@ -1,12 +1,13 @@
+
 import { motion } from "framer-motion";
-import { Reveal, SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
-import { interests } from "@/lib/content";
+import { Reveal, SectionHeading, staggerContainer, staggerItem } from "../motion-helpers";
+import { interests } from "../../lib/content";
 
 export function InterestsSection() {
   return (
     <section
       id="interests"
-      className="relative scroll-mt-24 border-y border-border/40 bg-card/20 py-24 sm:py-28"
+      className="relative scroll-mt-24 border-y border-border/30 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
@@ -32,7 +33,6 @@ export function InterestsSection() {
               variants={staggerItem}
               className="card-premium group relative overflow-hidden rounded-3xl p-6 hover:-translate-y-1"
             >
-              {/* glow */}
               <div
                 className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${item.accent} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
               />

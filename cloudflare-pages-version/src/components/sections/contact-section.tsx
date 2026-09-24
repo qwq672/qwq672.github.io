@@ -1,13 +1,15 @@
+
 import * as React from "react";
 import { motion } from "framer-motion";
 import {
   FaGithub,
   FaEnvelope,
   FaBilibili,
+  type IconType,
 } from "react-icons/fa6";
 import { ExternalLink } from "lucide-react";
-import { Reveal, SectionHeading, staggerContainer, staggerItem } from "@/components/motion-helpers";
-import { TeamsIcon } from "@/components/icons/teams-icon";
+import { Reveal, SectionHeading, staggerContainer, staggerItem } from "../motion-helpers";
+import { TeamsIcon } from "../icons/teams-icon";
 
 interface ContactItem {
   label: string;
@@ -57,7 +59,7 @@ const contacts: ContactItem[] = [
 
 export function ContactSection() {
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="contact" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Contact"

@@ -1,7 +1,14 @@
+
 import * as React from "react";
 import { motion } from "framer-motion";
-import { SectionHeading } from "@/components/motion-helpers";
-import { getPhotos, type PhotoItem } from "@/lib/photos";
+import { SectionHeading } from "../motion-helpers";
+
+interface PhotoItem {
+  src: string;
+  w: number;
+  h: number;
+  ratio: number;
+}
 
 /**
  * Shuffle but avoid placing same-ratio items next to each other.
@@ -55,22 +62,32 @@ const ROW_HEIGHT = 8; // px — small fixed row for smooth tiling
 
 export function PhotoWallSection() {
   const [photos, setPhotos] = React.useState<PhotoItem[]>([]);
-  const [loaded, setLoaded] = React.useState<Set<number>>(new Set());
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [numCols, setNumCols] = React.useState(6);
   const [colWidth, setColWidth] = React.useState(200);
 
   React.useEffect(() => {
-    // Photos are baked into the JS bundle at build time (src/data/photos.json).
-    const list = getPhotos();
-    if (list.length === 0) return;
-    const shuffled = smartShuffle(list);
-    // Duplicate 2x to overfill — we clip the middle, repetition is OK.
-    const overfilled = [
-      ...shuffled,
-      ...smartShuffle(list),
-    ];
-    setPhotos(overfilled);
+    let cancelled = false;
+    fetch("/api/photos")
+      .then((r) => r.json())
+      .then((data: { photos: PhotoItem[] }) => {
+        if (cancelled) return;
+        const list = data.photos ?? [];
+        if (list.length === 0) return;
+        const shuffled = smartShuffle(list);
+        // Duplicate 2x to overfill — we clip the middle, repetition is OK.
+        const overfilled = [
+          ...shuffled,
+          ...smartShuffle(list),
+        ];
+        setPhotos(overfilled);
+      })
+      .catch(() => {
+        /* keep empty */
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Measure container width → compute column count + column width
@@ -89,6 +106,7 @@ export function PhotoWallSection() {
   }, [photos.length]);
 
   // Compute row span for each image based on its aspect ratio + column width.
+  // span = round(columnWidth / ratio / ROW_HEIGHT), clamped to [1, 30]
   const items = React.useMemo(() => {
     return photos.map((p, i) => {
       const span = Math.max(
@@ -104,7 +122,7 @@ export function PhotoWallSection() {
   };
 
   return (
-    <section id="gallery" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="gallery" className="relative scroll-mt-24 py-28 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Gallery"
@@ -117,7 +135,10 @@ export function PhotoWallSection() {
         />
       </div>
 
-      {/* Gapless photo wall using CSS Grid with dense packing. */}
+      {/* Gapless photo wall using CSS Grid with dense packing.
+          Fixed row height + integer row spans = zero gaps. The inner grid
+          is taller than the container (130%) and offset (-15%) so we see
+          the middle slice of an overfilled wall. */}
       <div className="mt-12 w-full">
         {photos.length === 0 ? (
           <div className="mx-auto flex max-w-5xl items-center justify-center px-6">
@@ -130,7 +151,7 @@ export function PhotoWallSection() {
           <div
             ref={containerRef}
             className="relative w-full overflow-hidden"
-            style={{ height: "calc(100dvh * 7 / 6)" }}
+            style={{ height: "calc(100svh * 7 / 6)" }}
           >
             <div
               className="absolute inset-x-0"
@@ -155,17 +176,13 @@ export function PhotoWallSection() {
                     lineHeight: 0,
                   }}
                 >
-                  <motion.img
+                  <img
                     src={p.src}
                     alt=""
                     loading="lazy"
-                    onLoad={() => onImgLoad(p.i)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: loaded.has(p.i) ? 1 : 0 }}
-                    transition={{
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: Math.min(p.i * 0.006, 0.3),
+                    className="wall-photo"
+                    onLoad={(e) => {
+                      (e.currentTarget as HTMLImageElement).classList.add("loaded");
                     }}
                     style={{
                       width: "100%",
@@ -173,26 +190,50 @@ export function PhotoWallSection() {
                       objectFit: "cover",
                       display: "block",
                       background: "transparent",
-                      filter: "saturate(0.85) contrast(1.02) brightness(0.96)",
+                      /* Stronger tone unification — desaturate + darken so
+                         diverse photos feel cohesive with the dark theme. */
+                      filter: "saturate(0.75) contrast(1.05) brightness(0.88)",
                     }}
                   />
                 </div>
               ))}
             </div>
 
-            {/* Cinematic vignette — subtle, only darkens far edges */}
+            {/* Cinematic vignette — stronger for cohesion with dark theme */}
             <div
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.28) 100%)",
+                  "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.4) 100%)",
               }}
             />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background/40 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background/50 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background/60 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 to-transparent" />
           </div>
         )}
       </div>
+
+      <style>{`
+        .wall-photo {
+          opacity: 0;
+          transform: scale(1.05);
+          transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                      filter 0.4s ease;
+        }
+        .wall-photo.loaded {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .wall-photo:hover {
+          filter: saturate(1) contrast(1.08) brightness(1) !important;
+          transform: scale(1.03);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .wall-photo { transition: none; transform: none; opacity: 1; }
+          .wall-photo:hover { transform: none; }
+        }
+      `}</style>
     </section>
   );
 }

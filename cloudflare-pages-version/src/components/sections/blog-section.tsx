@@ -1,20 +1,22 @@
+
 import * as React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   CalendarDays,
   Clock,
   ArrowUpRight,
   Inbox,
+  Loader2,
   Search,
   X,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Reveal, SectionHeading } from "@/components/motion-helpers";
-import { shortDate } from "@/lib/format";
-import { getAllPosts, type PostMeta } from "@/lib/posts";
-import { cn } from "@/lib/utils";
+import { Reveal, SectionHeading } from "../motion-helpers";
+import { shortDate } from "../../lib/format";
+import type { PostMeta } from "../../lib/posts";
+import { cn } from "../../lib/utils";
 
 export function BlogSection() {
   const [posts, setPosts] = React.useState<PostMeta[]>([]);
@@ -26,15 +28,21 @@ export function BlogSection() {
   const [activeCat, setActiveCat] = React.useState<string>("全部");
 
   React.useEffect(() => {
-    // Posts are baked into the JS bundle at build time (src/data/posts.json).
-    // No network fetch needed — this runs synchronously on mount.
-    try {
-      setPosts(getAllPosts());
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
+    let cancelled = false;
+    fetch("/api/posts")
+      .then((r) => r.json())
+      .then((data: { posts: PostMeta[] }) => {
+        if (!cancelled) setPosts(data.posts ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // derive categories from posts
@@ -97,7 +105,7 @@ export function BlogSection() {
   return (
     <section
       id="blog"
-      className="relative scroll-mt-24 border-y border-border/40 bg-card/20 py-24 sm:py-28"
+      className="relative scroll-mt-24 border-y border-border/30 py-28 sm:py-32"
     >
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
@@ -180,7 +188,7 @@ export function BlogSection() {
         ) : error ? (
           <Reveal>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-border/60 py-20 text-muted-foreground">
-              <Inbox className="h-7 w-7" />
+              <Loader2 className="h-7 w-7 animate-spin" />
               <p>加载失败，刷新试试</p>
             </div>
           </Reveal>
@@ -230,7 +238,7 @@ export function BlogSection() {
                 }}
               >
                 <Link
-                  to={`/posts/${post.slug}`}
+                  href={`/posts/${post.slug}`}
                   className="card-premium group flex w-full items-center gap-4 rounded-3xl px-5 py-4 text-left hover:-translate-y-0.5 sm:px-7 sm:py-5"
                 >
                   {/* Date column */}
