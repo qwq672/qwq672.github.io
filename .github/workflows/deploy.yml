@@ -1,0 +1,69 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install main project deps
+        run: bun install
+
+      - name: Build static version data
+        run: |
+          cd cloudflare-pages-version
+          bun install
+          npx tsx scripts/build-data.ts
+
+      - name: Copy latest assets to static version
+        run: |
+          cp -r public/bg cloudflare-pages-version/public/bg
+          cp -r public/photos cloudflare-pages-version/public/photos
+          cp public/avatar.webp cloudflare-pages-version/public/avatar.webp 2>/dev/null || true
+          cp -r public/logo cloudflare-pages-version/public/logo 2>/dev/null || true
+
+      - name: Build static version
+        run: |
+          cd cloudflare-pages-version
+          bun run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: cloudflare-pages-version/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
