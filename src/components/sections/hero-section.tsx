@@ -29,12 +29,9 @@ export function HeroSection() {
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* No background image here — FixedBackground provides it.
-          Only a readability gradient at the bottom for text contrast. */}
+      {/* Readability gradient — stronger at bottom for text contrast */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Extra darkening at bottom so hero text is readable over the
-            fixed background, fading to transparent at top. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/10 to-background/40" />
       </div>
 
       {/* Content */}
@@ -57,7 +54,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-6xl font-bold tracking-tight text-foreground sm:text-7xl md:text-8xl"
-          style={{ textShadow: "0 2px 20px rgba(0,0,0,0.4)" }}
+          style={{ textShadow: "0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)" }}
         >
           <span className="text-gradient-animate">qwq672</span>
         </motion.h1>
@@ -66,8 +63,8 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/90 sm:text-lg"
-          style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
+          className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/95 sm:text-lg"
+          style={{ textShadow: "0 2px 16px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}
         >
           嗯，你好呀。我是 qwq672，一名学生，平时会玩玩游戏、折腾折腾老设备，
           也写点 Minecraft 模组和 MIDI 重制。这个站就是我的小破站，

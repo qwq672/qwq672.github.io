@@ -227,8 +227,10 @@ export function PhotoWallSection() {
           transform: scale(1);
         }
         .wall-photo:hover {
-          filter: saturate(1) contrast(1.08) brightness(1) !important;
-          transform: scale(1.03);
+          filter: saturate(1) contrast(1.08) brightness(1.05) !important;
+          transform: scale(1.05);
+          z-index: 10;
+          position: relative;
         }
         @media (prefers-reduced-motion: reduce) {
           .wall-photo { transition: none; transform: none; opacity: 1; }

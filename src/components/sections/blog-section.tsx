@@ -121,25 +121,25 @@ export function BlogSection() {
 
         {/* Search + filter controls */}
         <Reveal className="mt-10">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             {/* search */}
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <div className="relative inline-flex items-center">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="搜标题、摘要、标签……"
+                placeholder="搜索…"
                 aria-label="搜索文章"
-                className="w-full rounded-2xl border border-border/60 bg-card/60 py-3 pl-11 pr-10 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur-sm transition-colors focus:border-accent/50 focus:bg-card/80 focus:outline-none"
+                className="w-48 rounded-full border border-border/60 bg-card/60 py-1.5 pl-9 pr-8 text-xs text-foreground placeholder:text-muted-foreground backdrop-blur-sm transition-all focus:border-accent/50 focus:bg-card/80 focus:outline-none focus:w-64"
               />
               {query && (
                 <button
                   onClick={() => setQuery("")}
                   aria-label="清除搜索"
-                  className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="absolute right-2.5 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3 w-3" />
                 </button>
               )}
             </div>
